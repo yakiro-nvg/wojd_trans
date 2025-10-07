@@ -50,18 +50,6 @@ jobs:
       - name: Build localization PAKs
         run: node ./dist/cli.js pack artifacts
 
-      - name: Prefix PAK filenames with tilde
-        shell: bash
-        run: |
-          shopt -s nullglob
-          for file in artifacts/*.pak; do
-            base="$(basename "$file")"
-            case "$base" in
-              ~*) ;;
-              *) mv "$file" "artifacts/~$base" ;;
-            esac
-          done
-
       - name: Generate checksums
         shell: bash
         run: |
