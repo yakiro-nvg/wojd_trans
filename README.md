@@ -3,12 +3,13 @@
 ## Tiếng Việt
 
 ### Cài đặt nhanh
-1. Tải gói `~VI_PATCH.pak` mới nhất từ trang [Releases](https://github.com/yakiro-nvg/wojd_trans/releases/latest).
-2. Sao chép vào thư mục trò chơi (ví dụ):
+1. Tải gói `VI_PATCH.zip` mới nhất từ trang [Releases](https://github.com/yakiro-nvg/wojd_trans/releases/latest).
+2. Giải nén để thu được `~VI_PATCH.pak`.
+3. Sao chép `~VI_PATCH.pak` vào thư mục trò chơi (ví dụ):
    ```
    C:\Program Files\ZXSJclient\ZXSJ\Game\ZhuxianClient\Content\Paks
    ```
-3. Xóa các bản Việt hóa cũ (nếu có) trước khi chép gói mới.
+4. Xóa các bản Việt hóa cũ (nếu có) trước khi chép gói mới.
 
 ### Thông tin thêm
 - [Phương pháp dịch thuật](docs/methodology.md)
@@ -19,12 +20,13 @@
 ## English
 
 ### Quick Install
-1. Download the latest `~EN_PATCH.pak` from the [Releases](https://github.com/yakiro-nvg/wojd_trans/releases/latest) page.
-2. Copy it into your game folder, e.g.:
+1. Download the latest `EN_PATCH.zip` from the [Releases](https://github.com/yakiro-nvg/wojd_trans/releases/latest) page.
+2. Extract it to obtain `~EN_PATCH.pak`.
+3. Copy `~EN_PATCH.pak` into your game folder, e.g.:
    ```
    C:\Program Files\ZXSJclient\ZXSJ\Game\ZhuxianClient\Content\Paks
    ```
-3. Remove any older translation PAK before dropping in the new one.
+4. Remove any older translation PAK before dropping in the new one.
 
 ### More Info
 - [Localization pipeline](docs/methodology.md)
