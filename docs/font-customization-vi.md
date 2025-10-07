@@ -23,7 +23,7 @@ Các bản vá mặc định đính kèm nhiều bộ chữ cái đã đóng gó
    - `FZXKK_GBK.ufont`
    - `FZZJ-DNXSJW.ufont`
    - `HYKaiTiJ.ufont`
-  - `HYZhongKaiJ.ufont`
+   - `HYZhongKaiJ.ufont`
    - `STXINGKA.ufont`
    - `ZKTQingKJW.ufont`
    - `ZKTQingKJW_Stream.ufont`
