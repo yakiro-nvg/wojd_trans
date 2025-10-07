@@ -27,7 +27,7 @@
 3. Remove any older translation PAK before dropping in the new one.
 
 ### More Info
-- Localization pipeline: [docs/methodology.md](docs/methodology.md)
-- Release workflow: [docs/release-process.md](docs/release-process.md)
-- Contribution guide: [docs/contributing-en.md](docs/contributing-en.md)
-- Credits: [docs/credits.md](docs/credits.md)
+- [Localization pipeline](docs/methodology.md)
+- [Release workflow](docs/release-process.md)
+- [Contribution guide](docs/contributing-en.md)
+- [Credits](docs/credits.md)
