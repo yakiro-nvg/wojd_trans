@@ -1,0 +1,1 @@
+1_CollisionTips = 熔岩危险！请勿靠近！

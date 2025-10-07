@@ -1,0 +1,2 @@
+7_CollisionTips = 前有魔教妖人，有伤在身，切勿鲁莽！
+6_CollisionTips = 前有魔教妖人，有伤在身，切勿鲁莽！

@@ -1,0 +1,2 @@
+pylocres
+opencc-python-reimplemented

@@ -1,0 +1,3 @@
+34_WarningText = 即将迷失
+33_WarningText = 即将迷失
+35_WarningText = 即将迷失

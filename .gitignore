@@ -1,0 +1,8 @@
+ZhuxianClient.log
+collected.json
+node_modules/
+dist/
+*.pak
+*.locres
+__pycache__
+lua_files/

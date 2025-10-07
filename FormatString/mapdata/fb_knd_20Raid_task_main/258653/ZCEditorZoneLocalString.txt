@@ -1,0 +1,4 @@
+15_WarningText = 决战在即，切务小心。
+16_WarningText = 决战在即，切务小心。
+17_WarningText = 决战在即，切务小心。
+18_WarningText = 即将迷失

@@ -1,0 +1,7 @@
+88_CollisionTips = 此处被年老大封印，先击败他！
+21_CollisionTips = 此处被窦二娘和石像力量封印，先击败他们！
+4_CollisionTips = 此处被圣像力量封印，先击败他们！
+5_CollisionTips = 此处被圣像力量封印，先击败他们！
+87_CollisionTips = 此处被血魔和窦二娘封印，先击败他们！
+86_CollisionTips = 此处被血魔和窦二娘封印，先击败他们！
+85_CollisionTips = 此处被野狗道人力量封印，先击败他！

@@ -1,0 +1,5 @@
+1_CollisionTips = 受到神秘力量的阻挡，无法通过
+12_CollisionTips = 受到神秘力量的阻挡，无法通过
+8_CollisionTips = 受到神秘力量的阻挡，无法通过
+20_CollisionTips = 请等待陈平安潜入孤院，再与搬山猿开始战斗
+30_CollisionTips = 剧情对话中

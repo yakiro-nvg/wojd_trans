@@ -1,0 +1,4 @@
+7_CollisionTips = 左右护法设下禁止，禁制通行！
+6_CollisionTips = 大殿入口已被封印，禁止通行！
+8_CollisionTips = 大殿入口已被封印，禁止通行！
+22_CollisionTips = 战斗禁制已开启

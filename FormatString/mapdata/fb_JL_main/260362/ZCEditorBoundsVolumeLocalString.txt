@@ -1,0 +1,2 @@
+5_CollisionTips = 别跑远了，小心迷路哦！
+8_CollisionTips = 一股奇异的力量阻止了你继续前进

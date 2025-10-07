@@ -1,0 +1,14 @@
+﻿
+41_WarningText = 您已进入禁飞区域
+99_WarningText = 当前为活动区域，为了保证游戏体验，已进行位面划分
+81_WarningText = 阵内有毒 无法久滞
+67_WarningText = 您已进入禁飞区域
+68_WarningText = 您已进入禁飞区域
+69_WarningText = 您已进入禁飞区域
+70_WarningText = 您已进入禁飞区域
+71_WarningText = 您已进入禁飞区域
+72_WarningText = 您已进入禁飞区域
+73_WarningText = 您已进入禁飞区域
+102_WarningText = 当前为活动区域，为了保证游戏体验，以进行位面划分
+101_WarningText = 当前为活动区域，为了保证游戏体验，以进行位面划分
+104_WarningText = 活动区域内无法切磋

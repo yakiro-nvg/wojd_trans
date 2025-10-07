@@ -1,0 +1,85 @@
+name: Release PAK Build
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npm run build
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install repak CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/trumank/repak/releases/download/v0.2.2/repak_cli-installer.sh | sh
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Build localization PAKs
+        run: node ./dist/cli.js pack artifacts
+
+      - name: Prefix PAK filenames with tilde
+        shell: bash
+        run: |
+          shopt -s nullglob
+          for file in artifacts/*.pak; do
+            base="$(basename "$file")"
+            case "$base" in
+              ~*) ;;
+              *) mv "$file" "artifacts/~$base" ;;
+            esac
+          done
+
+      - name: Generate checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd artifacts
+          shopt -s nullglob
+          files=(~*.pak)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No PAK files found in artifacts/" >&2
+            exit 1
+          fi
+          sha256sum "${files[@]}" > checksums.txt
+
+      - name: Generate release tag
+        id: release
+        shell: bash
+        run: echo "tag=$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.release.outputs.tag }}
+          name: Localization Build ${{ steps.release.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          files: |
+            artifacts/~*.pak
+            artifacts/checksums.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

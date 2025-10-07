@@ -1,0 +1,3 @@
+﻿
+78_WarningText = 您已进入禁飞区域
+77_WarningText = 您已进入禁飞区域

@@ -1,0 +1,44 @@
+{
+    "1": {
+        "text": "检测到战斗区域内没有存活玩家，首领已重置！",
+        "metadata": {
+            "flags": "SHOWTYPE_FLOAT | SHOWTYPE_CHATLOG",
+            "note": "版面因战斗区域内没有玩家而重置时的提示"
+        }
+    },
+    "2": {
+        "text": "检测到首领离开战斗区域，首领已重置！",
+        "metadata": {
+            "flags": "SHOWTYPE_FLOAT | SHOWTYPE_CHATLOG",
+            "note": "版面因BOSS离开战斗区域时的提示"
+        }
+    },
+    "3": {
+        "text": "{0}票同意，{1}票拒绝",
+        "metadata": {
+            "flags": "SHOWTYPE_FLOAT | SHOWTYPE_CHATLOG",
+            "note": "大秘境投票结果提示"
+        }
+    },
+    "4": {
+        "text": "投票放弃成功，不会扣除仙誉分",
+        "metadata": {
+            "flags": "SHOWTYPE_CHATLOG",
+            "note": "大秘境放弃成功提示"
+        }
+    },
+    "5": {
+        "text": "请先选择前置的减益效果！",
+        "metadata": {
+            "flags": "SHOWTYPE_FLOAT",
+            "note": "VisionRaid减益效果前置条件错误提示"
+        }
+    },
+    "6": {
+        "text": "最多选择三个自选增益",
+        "metadata": {
+            "flags": "SHOWTYPE_FLOAT",
+            "note": "VisionRaid自选增益选择数量限制提示"
+        }
+    }
+}

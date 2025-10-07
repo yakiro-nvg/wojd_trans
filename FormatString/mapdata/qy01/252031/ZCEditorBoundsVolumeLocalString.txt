@@ -1,0 +1,8 @@
+﻿
+111_CollisionTips = 奉命守卫，不得近前！
+112_CollisionTips = 灵力封锁，无法靠近。
+115_CollisionTips = 奉命守卫，不得远离！
+114_CollisionTips = 同门阻拦，无法妄动。
+113_CollisionTips = 玉清殿重地，不可冲撞造次！
+110_CollisionTips = 守卫阻拦，需冲破封锁后前进！
+118_CollisionTips = 奉命守卫，不得远离！
