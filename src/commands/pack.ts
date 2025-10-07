@@ -80,7 +80,8 @@ export async function buildPak(options: PackOptions): Promise<void> {
 
     const finalDir = path.resolve(outputDir);
     await mkdir(finalDir, { recursive: true });
-    const finalPakPath = path.join(finalDir, `${pakBase}.pak`);
+    const finalBaseName = pakBase.startsWith('~') ? pakBase : `~${pakBase}`;
+    const finalPakPath = path.join(finalDir, `${finalBaseName}.pak`);
     await rename(pakTempPath, finalPakPath);
 
     console.log(`[${language ?? 'default'}] Locres written to ${locresPath}`);
