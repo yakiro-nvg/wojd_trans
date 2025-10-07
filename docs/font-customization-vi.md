@@ -34,7 +34,7 @@ Các bản vá mặc định đính kèm nhiều bộ chữ cái đã đóng gó
 
 3. Giữ nguyên thư mục gốc: `ZhuxianClient/Content/UI/UI_Texture/UI_ziti/`. Ví dụ cấu trúc dự án tạm:  
    ```
-   VH_QFONT/ 
+   VI_QFONT/ 
    └── ZhuxianClient/
        └── Content/
            └── UI/
@@ -48,12 +48,12 @@ Các bản vá mặc định đính kèm nhiều bộ chữ cái đã đóng gó
    - Trên Windows: tải file `.zip` đi kèm và giải nén `repak.exe`.
 2. Mở Command Prompt/PowerShell tại thư mục chứa `repak` và chạy:
    ```powershell
-   repak pack VH_QFONT
+   repak pack VI_QFONT
    ```
-   - `~VH_QFONT.pak` nên bắt đầu bằng dấu `~` và có chữ cái **Q** (đứng sau `~VH_PATCH.pak` trong bảng chữ cái) để đảm bảo được nạp sau bản dịch chính.
+   - `~VI_QFONT.pak` nên bắt đầu bằng dấu `~` và có chữ cái **Q** (đứng sau `~VI_PATCH.pak` trong bảng chữ cái) để đảm bảo được nạp sau bản dịch chính.
 
 ## 3. Cài đặt
-1. Sao chép `~VH_QFONT.pak` vào thư mục game, ví dụ:  
+1. Sao chép `~VI_QFONT.pak` vào thư mục game, ví dụ:  
    `C:\Program Files\ZXSJclient\ZXSJ\Game\ZhuxianClient\Content\Paks`
 2. Đảm bảo các bản vá cũ đã được xóa hoặc đổi tên (giữ lại `~VI_PATCH.pak` của bản dịch).
 3. Khởi động game để kiểm tra font mới.
