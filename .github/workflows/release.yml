@@ -70,7 +70,7 @@ jobs:
           set -euo pipefail
           cd artifacts
           shopt -s nullglob
-          files=(~*.pak.zip)
+          files=(*.zip)
           if [ ${#files[@]} -eq 0 ]; then
             echo "No PAK files found in artifacts/" >&2
             exit 1
@@ -89,7 +89,7 @@ jobs:
           name: Localization Build ${{ steps.release.outputs.tag }}
           target_commitish: ${{ github.sha }}
           files: |
-            artifacts/~*.pak.zip
+            artifacts/*.zip
             artifacts/checksums.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
