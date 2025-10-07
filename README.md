@@ -16,6 +16,8 @@
 - [Quy trình phát hành](docs/release-process.md)
 - [Hướng dẫn đóng góp dịch thuật](docs/contributing-vi.md)
 - [Ghi công](docs/credits.md)
+- [Tùy biến font hiển thị](docs/font-customization-vi.md)
+- [Font convert (Mê Việt Hoá)](misc/README-fonts.md)
 
 ## English
 
