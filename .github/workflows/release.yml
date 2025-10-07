@@ -50,13 +50,27 @@ jobs:
       - name: Build localization PAKs
         run: node ./dist/cli.js pack artifacts
 
+      - name: Zip PAKs for release
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for file in artifacts/~*.pak; do
+            base="$(basename "$file")"
+            zip_basename="${base#~}"
+            zip_basename="${zip_basename%.pak}"
+            zip_path="artifacts/${zip_basename}.zip"
+            zip -j "$zip_path" "$file"
+            rm "$file"
+          done
+
       - name: Generate checksums
         shell: bash
         run: |
           set -euo pipefail
           cd artifacts
           shopt -s nullglob
-          files=(~*.pak)
+          files=(~*.pak.zip)
           if [ ${#files[@]} -eq 0 ]; then
             echo "No PAK files found in artifacts/" >&2
             exit 1
@@ -75,7 +89,7 @@ jobs:
           name: Localization Build ${{ steps.release.outputs.tag }}
           target_commitish: ${{ github.sha }}
           files: |
-            artifacts/~*.pak
+            artifacts/~*.pak.zip
             artifacts/checksums.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
