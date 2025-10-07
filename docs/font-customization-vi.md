@@ -48,7 +48,7 @@ Các bản vá mặc định đính kèm nhiều bộ chữ cái đã đóng gó
    - Trên Windows: tải file `.zip` đi kèm và giải nén `repak.exe`.
 2. Mở Command Prompt/PowerShell tại thư mục chứa `repak` và chạy:
    ```powershell
-   repak pack custom_font VH_QFONT.pak
+   repak pack VH_QFONT
    ```
    - `~VH_QFONT.pak` nên bắt đầu bằng dấu `~` và có chữ cái **Q** (đứng sau `~VH_PATCH.pak` trong bảng chữ cái) để đảm bảo được nạp sau bản dịch chính.
 
