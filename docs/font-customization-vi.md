@@ -12,13 +12,14 @@ Các bản vá mặc định đính kèm nhiều bộ chữ cái đã đóng gó
    - `FZHCJW.ufont`
    - `FZKTK.ufont`
    - `FZL2JW.ufont`
-   - `FZLBK.ufont`
    - `FZLanTYJW.ufont`
    - `FZLanTYJW_Xian.ufont`
+   - `FZLBK.ufont`
+   - `FZLTHK.ufont`
    - `FZQTJW.ufont`
-   - `FZSJSJW.ufont`
    - `FZShengSKSJW_0.ufont`
    - `FZShengSKSJW_Zhong.ufont`
+   - `FZSJSJW.ufont`
    - `FZXKJW.ufont`
    - `FZXKK_GBK.ufont`
    - `FZZJ-DNXSJW.ufont`
@@ -27,6 +28,7 @@ Các bản vá mặc định đính kèm nhiều bộ chữ cái đã đóng gó
    - `STXINGKA.ufont`
    - `ZKTQingKJW.ufont`
    - `ZKTQingKJW_Stream.ufont`
+   - `方正兰亭黑.ufont`
    
    > Mẹo: sao lưu font gốc trước khi ghi đè và ghi chú lại font nào ảnh hưởng khu vực nào để dễ hoàn tác.
 
