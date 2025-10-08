@@ -15,7 +15,6 @@
 - [Phương pháp dịch thuật](docs/methodology.md)
 - [Quy trình phát hành](docs/release-process.md)
 - [Hướng dẫn đóng góp dịch thuật](docs/contributing-vi.md)
-- [Ghi công](docs/credits.md)
 - [Tùy biến font hiển thị](docs/font-customization-vi.md)
 - [Font convert (Mê Việt Hoá)](misc/README-fonts.md)
 
@@ -34,4 +33,3 @@
 - [Localization pipeline](docs/methodology.md)
 - [Release workflow](docs/release-process.md)
 - [Contribution guide](docs/contributing-en.md)
-- [Credits](docs/credits.md)

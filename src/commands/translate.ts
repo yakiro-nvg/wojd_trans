@@ -13,6 +13,7 @@ import {
   countPendingTranslations,
   type TranslationItem,
 } from '../lib/translationFile.js';
+import { shouldSkipTranslation } from '../lib/skipList.js';
 
 const LANGUAGE_LABELS: Record<string, string> = {
   vi: 'Vietnamese',
@@ -23,6 +24,8 @@ const DEFAULT_BATCH_SIZE = 5;
 const DEFAULT_CONCURRENCY = 4;
 const DEFAULT_CHECKPOINT = 20;
 const MAX_ATTEMPTS = 5;
+const SKIP_NAMESPACES = new Set(['RankDetail']);
+const SKIP_ROWOBJECT_KEYS = ['110731', '110735', '110761', '110769', '110770', '110772'];
 
 export interface TranslateOptions {
   translationPath: string;
@@ -496,6 +499,9 @@ function buildTranslationQueue(items: TranslationItem[], options: TranslateOptio
   const orderedGroups: TranslationGroup[] = [];
 
   items.forEach((item, index) => {
+    if (shouldSkipTranslation(item.namespace, item.key)) {
+      return;
+    }
     const hasManual = item.translated && item.translated.trim().length > 0;
     if (hasManual) {
       return;

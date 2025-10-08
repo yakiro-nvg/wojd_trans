@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
-from typing import Dict, Iterable
+from typing import Dict, Iterable, List, Optional, Tuple
 from zlib import crc32
 
 try:
@@ -23,6 +24,48 @@ except Exception as exc:  # pragma: no cover
         "Missing dependency 'opencc-python-reimplemented'. Install with:\n"
         "  pip install opencc-python-reimplemented"
     ) from exc
+
+
+SkipRule = Tuple[str, Optional[re.Pattern[str]]]
+_cached_rules: Optional[List[SkipRule]] = None
+
+
+def load_skip_rules() -> List[SkipRule]:
+    global _cached_rules  # noqa: PLW0603 -- cache is module-level by design
+    if _cached_rules is not None:
+        return _cached_rules
+
+    config_path = Path(__file__).resolve().parent.parent / "config" / "translation-skip.json"
+    try:
+        raw = json.loads(config_path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        _cached_rules = []
+        return _cached_rules
+
+    rules: List[SkipRule] = []
+    for entry in raw.get("rules", []):
+        namespace = entry.get("namespace")
+        if not namespace:
+            continue
+        regex_value = entry.get("keyRegex")
+        pattern = re.compile(regex_value) if isinstance(regex_value, str) else None
+        rules.append((namespace, pattern))
+
+    _cached_rules = rules
+    return rules
+
+
+def should_skip_translation(namespace: str, key: str) -> bool:
+    if not namespace:
+        return False
+    for rule_namespace, pattern in load_skip_rules():
+        if rule_namespace != namespace:
+            continue
+        if pattern is None:
+            return True
+        if key is not None and pattern.search(key):
+            return True
+    return False
 
 
 def normalize_crlf(text: str) -> str:
@@ -59,6 +102,9 @@ def build_locres(entries: Iterable[dict], output_path: Path) -> int:
 
         if not key:
             continue
+
+        if should_skip_translation(str(namespace), str(key)):
+            translated = None
 
         if not isinstance(translated, str) or not translated.strip():
             continue

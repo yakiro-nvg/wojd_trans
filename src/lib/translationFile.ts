@@ -1,6 +1,121 @@
-import { access, mkdir, readFile, writeFile, rename } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile, rename, lstat } from 'node:fs/promises';
 import path from 'node:path';
 import type { LocalizationEntry } from '../types.js';
+import { sanitizeTranslationItem, sanitizeTranslationItems } from './skipList.js';
+
+const GIT_LFS_POINTER_PREFIX = 'version https://git-lfs.github.com/spec/';
+
+export function detectLfsPointer(raw: string): boolean {
+  const trimmed = raw.trim();
+  if (!trimmed) {
+    return false;
+  }
+
+  const [line1 = '', line2 = '', line3 = ''] = trimmed.split(/\r?\n/, 4);
+  return (
+    line1.startsWith(GIT_LFS_POINTER_PREFIX) &&
+    line2.startsWith('oid sha256:') &&
+    line3.startsWith('size ')
+  );
+}
+
+export interface GitLfsPointerInfo {
+  oid: string;
+  size?: number;
+}
+
+export class GitLfsObjectMissingError extends Error {
+  constructor(public readonly label: string, public readonly oid: string) {
+    super(`Git LFS object ${oid} missing for ${label}`);
+    this.name = 'GitLfsObjectMissingError';
+  }
+}
+
+export function parseLfsPointer(raw: string): GitLfsPointerInfo | null {
+  if (!detectLfsPointer(raw)) {
+    return null;
+  }
+
+  const lines = raw.trim().split(/\r?\n/);
+  let oid: string | undefined;
+  let size: number | undefined;
+
+  for (const line of lines) {
+    if (line.startsWith('oid sha256:')) {
+      oid = line.slice('oid sha256:'.length).trim();
+    } else if (line.startsWith('size ')) {
+      const rawSize = line.slice('size '.length).trim();
+      const parsed = Number.parseInt(rawSize, 10);
+      if (!Number.isNaN(parsed)) {
+        size = parsed;
+      }
+    }
+  }
+
+  if (!oid) {
+    return null;
+  }
+
+  return { oid, size };
+}
+
+let cachedGitDir: string | null = null;
+
+async function resolveGitDir(): Promise<string> {
+  if (cachedGitDir) {
+    return cachedGitDir;
+  }
+
+  const gitMarkerPath = path.resolve('.git');
+
+  try {
+    const stats = await lstat(gitMarkerPath);
+    if (stats.isDirectory()) {
+      cachedGitDir = gitMarkerPath;
+      return cachedGitDir;
+    }
+
+    const marker = await readFile(gitMarkerPath, 'utf8');
+    const match = marker.trim().match(/^gitdir:\s*(.+)$/i);
+    if (match) {
+      cachedGitDir = path.resolve(path.dirname(gitMarkerPath), match[1]);
+      return cachedGitDir;
+    }
+  } catch (error) {
+    // ignore and fall through to error below
+  }
+
+  throw new Error('Unable to resolve .git directory required for Git LFS objects.');
+}
+
+async function readLfsObject(pointer: GitLfsPointerInfo, label: string): Promise<string> {
+  const gitDir = await resolveGitDir();
+  const objectPath = path.join(
+    gitDir,
+    'lfs',
+    'objects',
+    pointer.oid.slice(0, 2),
+    pointer.oid.slice(2, 4),
+    pointer.oid,
+  );
+
+  try {
+    return await readFile(objectPath, 'utf8');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      throw new GitLfsObjectMissingError(label, pointer.oid);
+    }
+    throw error;
+  }
+}
+
+export async function materializeLfsContent(raw: string, label: string): Promise<string> {
+  const pointer = parseLfsPointer(raw);
+  if (!pointer) {
+    return raw;
+  }
+  return readLfsObject(pointer, label);
+}
 
 export interface TranslationItem {
   namespace: string;
@@ -23,58 +138,63 @@ export interface MergeResult {
   changedIndices: number[];
 }
 
+export function parseTranslationContent(raw: string, label = '<string>'): TranslationItem[] {
+  const lines = raw.split(/\r?\n/).filter((line) => line.trim().length > 0);
+
+  const items: TranslationItem[] = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    try {
+      const parsed = JSON.parse(line);
+      if (!parsed || typeof parsed !== 'object') {
+        continue;
+      }
+
+      const namespace = typeof parsed.namespace === 'string' ? parsed.namespace : '';
+      const key = typeof parsed.key === 'string' ? parsed.key : '';
+      const source = typeof parsed.source === 'string' ? parsed.source : null;
+      const translated = typeof parsed.translated === 'string' ? parsed.translated : null;
+      const locresImport = typeof parsed.locresImport === 'string' ? parsed.locresImport : null;
+      let importedHash: number | null = null;
+      const rawHash = (parsed as Record<string, unknown>).importedHash;
+      if (typeof rawHash === 'number' && Number.isFinite(rawHash)) {
+        importedHash = rawHash;
+      } else if (typeof rawHash === 'string') {
+        const parsedValue = Number.parseInt(rawHash, 10);
+        if (!Number.isNaN(parsedValue)) {
+          importedHash = parsedValue;
+        }
+      }
+
+      if (!key) {
+        continue;
+      }
+
+      const normalizedNamespace = namespace ?? '';
+      items.push({
+        namespace: normalizedNamespace,
+        key,
+        source,
+        translated,
+        locresImport,
+        importedHash,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(
+        `Skipping invalid translation line ${index + 1} (${label}): ${message}. Content: ${line.slice(0, 200)}`,
+      );
+    }
+  }
+
+  return sortItems(sanitizeTranslationItems(items));
+}
+
 export async function loadTranslationFile(filePath: string): Promise<TranslationItem[]> {
   try {
     const raw = await readFile(filePath, 'utf8');
-    const lines = raw.split(/\r?\n/).filter((line) => line.trim().length > 0);
-
-    const items: TranslationItem[] = [];
-    for (let index = 0; index < lines.length; index += 1) {
-      const line = lines[index];
-      try {
-        const parsed = JSON.parse(line);
-        if (!parsed || typeof parsed !== 'object') {
-          continue;
-        }
-
-        const namespace = typeof parsed.namespace === 'string' ? parsed.namespace : '';
-        const key = typeof parsed.key === 'string' ? parsed.key : '';
-        const source = typeof parsed.source === 'string' ? parsed.source : null;
-        const translated = typeof parsed.translated === 'string' ? parsed.translated : null;
-        const locresImport = typeof parsed.locresImport === 'string' ? parsed.locresImport : null;
-        let importedHash: number | null = null;
-        const rawHash = (parsed as Record<string, unknown>).importedHash;
-        if (typeof rawHash === 'number' && Number.isFinite(rawHash)) {
-          importedHash = rawHash;
-        } else if (typeof rawHash === 'string') {
-          const parsedValue = Number.parseInt(rawHash, 10);
-          if (!Number.isNaN(parsedValue)) {
-            importedHash = parsedValue;
-          }
-        }
-
-        if (!key) {
-          continue;
-        }
-
-        const normalizedNamespace = namespace ?? '';
-        items.push({
-          namespace: normalizedNamespace,
-          key,
-          source,
-          translated,
-          locresImport,
-          importedHash,
-        });
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        console.warn(
-          `Skipping invalid translation line ${index + 1} (${filePath}): ${message}. Content: ${line.slice(0, 200)}`,
-        );
-      }
-    }
-
-    return sortItems(items);
+    const resolvedContent = await materializeLfsContent(raw, filePath);
+    return parseTranslationContent(resolvedContent, filePath);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
       return [];
@@ -201,8 +321,10 @@ export function mergeCollectedWithTranslations(
     }
   });
 
+  const sanitizedItems = items.map(sanitizeTranslationItem);
+
   return {
-    items,
+    items: sanitizedItems,
     stats: { added, updated, removed: 0 },
     changedIndices,
   };

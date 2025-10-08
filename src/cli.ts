@@ -9,6 +9,8 @@ import { buildPak } from './commands/pack.js';
 import { importLocres } from './commands/importLocres.js';
 import { getSupportedLanguages } from './lib/languages.js';
 import { syncFmtStrings } from './commands/fmtstring.js';
+import { diffTranslations, printDiff, writeDiffReport } from './commands/diff.js';
+import { GitLfsObjectMissingError } from './lib/translationFile.js';
 
 const DEFAULT_TEST_LIMIT = 5;
 
@@ -96,6 +98,67 @@ async function main(): Promise<void> {
       const rootDir = positional[0] ?? 'FormatString';
       const force = Boolean(flags.force);
       await syncFmtStrings({ rootDir, force });
+      return;
+    }
+
+    if (command === 'diff') {
+      const { positional, flags } = parseArgs(rest);
+      const ref = typeof flags.ref === 'string' ? String(flags.ref) : undefined;
+      const languages = await getSupportedLanguages();
+
+      let targetPath = positional[0];
+      let language = typeof flags.language === 'string' ? String(flags.language).toLowerCase() : undefined;
+
+      if (language && !languages.includes(language)) {
+        throw new Error(`Unsupported language: ${language}`);
+      }
+
+      if (!targetPath) {
+        if (language) {
+          targetPath = path.join('translations', `${language}.ndjson`);
+        } else if (languages.length === 1) {
+          targetPath = path.join('translations', `${languages[0]}.ndjson`);
+          language = languages[0];
+        } else {
+          throw new Error('diff command requires a file path or --language <code>.');
+        }
+      }
+
+      if (!targetPath.endsWith('.ndjson')) {
+        targetPath = `${targetPath}.ndjson`;
+      }
+
+      if (!path.isAbsolute(targetPath)) {
+        targetPath = path.join(process.cwd(), targetPath);
+      }
+
+      const outputPath = typeof flags.output === 'string' ? String(flags.output) : undefined;
+      const rawLimit = getNumericOption(flags.limit);
+      const maxDisplay =
+        rawLimit === undefined ? undefined : rawLimit <= 0 ? Number.POSITIVE_INFINITY : rawLimit;
+
+      let summary: Awaited<ReturnType<typeof diffTranslations>>;
+      try {
+        summary = await diffTranslations({ filePath: targetPath, ref });
+      } catch (error) {
+        if (error instanceof GitLfsObjectMissingError) {
+          console.error(`Missing Git LFS object ${error.oid} for ${error.label}.`);
+          console.error('Run `git lfs pull` followed by `git lfs checkout` to materialise the file.');
+          process.exitCode = 1;
+          return;
+        }
+        throw error;
+      }
+
+      if (outputPath) {
+        const resolved = await writeDiffReport(summary, { outputPath, filePath: targetPath, ref });
+        console.log(`Full diff written to ${resolved}`);
+      }
+
+      const diffCount = printDiff(summary, { filePath: targetPath, ref, maxDisplay });
+      if (diffCount > 0) {
+        process.exitCode = 1;
+      }
       return;
     }
 
@@ -226,6 +289,13 @@ function parseArgs(args: string[]): ParsedArgs {
       continue;
     }
 
+    if (arg.startsWith('--ref')) {
+      const value = extractOptionValue(arg, args[index + 1]);
+      flags.ref = value.value;
+      index += value.skip ? 1 : 2;
+      continue;
+    }
+
     if (arg.startsWith('--python')) {
       const value = extractOptionValue(arg, args[index + 1]);
       flags.python = value.value;
@@ -299,6 +369,10 @@ function printHelp(): void {
   console.log('      Merge collected entries into every language catalog (reset with --force).');
   console.log('  fmtstring [FormatStringDir] [--force|-f]');
   console.log('      Sync FormatString .txt files into per-language fmtstring catalogs.');
+  console.log('  diff [file|--language <code>] [--ref <gitRef>]');
+  console.log('      Compare working NDJSON against a Git ref (default HEAD).');
+  console.log('      --limit <n>             Show up to <n> entries per section (default 10, use 0 for all).');
+  console.log('      --output <path>        Write the full diff report as JSON to <path>.');
   console.log('  translate [--language <code>] [options]');
   console.log('      Translate pending entries for the chosen language using Bedrock Claude.');
   console.log('  import <Game.locres> [--python <path>]');
@@ -319,6 +393,9 @@ function printHelp(): void {
   console.log('  --keep-temp              Preserve the temporary working folder.');
   console.log('Options for import:');
   console.log('  --python <path>          Use a specific Python interpreter.');
+  console.log('Options for diff:');
+  console.log('  --language <code>        Shorthand for translations/<code>.ndjson.');
+  console.log('  --ref <gitRef>           Baseline Git reference (default HEAD).');
 }
 
 main();

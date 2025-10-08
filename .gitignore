@@ -6,3 +6,4 @@ dist/
 *.locres
 __pycache__
 lua_files/
+bugs/
