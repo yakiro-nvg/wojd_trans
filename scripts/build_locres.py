@@ -17,15 +17,6 @@ except Exception as exc:  # pragma: no cover
         "Missing dependency 'pylocres'. Install with: pip install pylocres"
     ) from exc
 
-try:
-    from opencc import OpenCC
-except Exception as exc:  # pragma: no cover
-    raise RuntimeError(
-        "Missing dependency 'opencc-python-reimplemented'. Install with:\n"
-        "  pip install opencc-python-reimplemented"
-    ) from exc
-
-
 SkipRule = Tuple[str, Optional[re.Pattern[str]]]
 _cached_rules: Optional[List[SkipRule]] = None
 
@@ -79,14 +70,12 @@ def hash_utf32le(text: str) -> int:
     return crc32(text.encode("utf-32-le")) & 0xFFFFFFFF
 
 
-def compute_source_hash(source: str, converter: OpenCC) -> int:
+def compute_source_hash(source: str) -> int:
     normalized = normalize_crlf(source)
-    simplified = converter.convert(normalized)
-    return hash_utf32le(simplified)
+    return hash_utf32le(normalized)
 
 
 def build_locres(entries: Iterable[dict], output_path: Path) -> int:
-    converter = OpenCC("t2s")
     loc = LocresFile()
 
     namespace_map: Dict[str, Namespace] = {}
@@ -122,7 +111,7 @@ def build_locres(entries: Iterable[dict], output_path: Path) -> int:
         else:
             if not source:
                 continue
-            src_hash = compute_source_hash(str(source), converter)
+            src_hash = compute_source_hash(str(source))
 
         namespace_map[namespace].add(Entry(key, target, src_hash))
         total_entries += 1

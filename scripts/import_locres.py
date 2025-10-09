@@ -15,27 +15,9 @@ except Exception as exc:  # pragma: no cover
         "Missing dependency 'pylocres'. Install with: pip install pylocres"
     ) from exc
 
-try:
-    from opencc import OpenCC
-except Exception as exc:  # pragma: no cover
-    raise RuntimeError(
-        "Missing dependency 'opencc-python-reimplemented'. Install with:\n"
-        "  pip install opencc-python-reimplemented"
-    ) from exc
-
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
-_converter: OpenCC | None = None
-
-
-def _get_converter() -> OpenCC:
-    global _converter
-    if _converter is None:
-        _converter = OpenCC("t2s")
-    return _converter
 
 
 def _normalize_crlf(text: str) -> str:
@@ -51,8 +33,7 @@ def _hash_utf32le(text: str) -> int:
 
 def compute_catalog_hash(source: str) -> int:
     normalized = _normalize_crlf(source)
-    simplified = _get_converter().convert(normalized)
-    return _hash_utf32le(simplified)
+    return _hash_utf32le(normalized)
 
 
 def _entry_text(entry) -> str:
