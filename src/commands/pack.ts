@@ -28,7 +28,9 @@ export async function buildPak(options: PackOptions): Promise<void> {
   const pakBase = pakName ?? 'translation';
 
   const translations = await loadTranslationFile(translationsPath);
-  const translatedEntries = translations.filter((entry) => entry.translated && entry.translated.trim().length > 0);
+  const translatedEntries = translations.filter(
+    (entry) => entry.translated !== null && entry.translated !== undefined,
+  );
 
   const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'wojd-pak-'));
   try {
@@ -47,7 +49,9 @@ export async function buildPak(options: PackOptions): Promise<void> {
 
     const fmtCatalogPath = path.join('translations', `${language}.fmtstring.ndjson`);
     const fmtItems = await loadTranslationFile(fmtCatalogPath);
-    const fmtTranslatedCount = fmtItems.filter((item) => item.translated && item.translated.trim().length > 0).length;
+    const fmtTranslatedCount = fmtItems.filter(
+      (item) => item.translated !== null && item.translated !== undefined,
+    ).length;
     if (translatedEntries.length === 0 && fmtTranslatedCount === 0) {
       console.warn(`[${language ?? 'default'}] No translated entries in locres or FormatString catalogs; skipping.`);
       return;
@@ -123,7 +127,7 @@ async function writeFormatStringFiles(patchRoot: string, items: TranslationItem[
       continue;
     }
     const lines = sortedRecords.map((entry) => {
-      const translated = entry.translated && entry.translated.trim().length > 0 ? entry.translated : null;
+      const translated = entry.translated !== null && entry.translated !== undefined ? entry.translated : null;
       const fallback = translated ?? entry.source ?? '';
       return `${entry.key} = ${fallback}`;
     });

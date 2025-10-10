@@ -502,7 +502,7 @@ function buildTranslationQueue(items: TranslationItem[], options: TranslateOptio
     if (shouldSkipTranslation(item.namespace, item.key)) {
       return;
     }
-    const hasManual = item.translated && item.translated.trim().length > 0;
+    const hasManual = item.translated !== null && item.translated !== undefined;
     if (hasManual) {
       return;
     }
