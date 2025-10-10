@@ -95,10 +95,13 @@ def build_locres(entries: Iterable[dict], output_path: Path) -> int:
         if should_skip_translation(str(namespace), str(key)):
             translated = None
 
-        if not isinstance(translated, str) or not translated.strip():
+        if translated is None:
             continue
 
-        target = normalize_crlf(str(translated))
+        if not isinstance(translated, str):
+            continue
+
+        target = normalize_crlf(translated)
 
         if namespace not in namespace_map:
             namespace_map[namespace] = Namespace(namespace)
