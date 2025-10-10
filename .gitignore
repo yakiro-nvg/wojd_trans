@@ -10,4 +10,6 @@ gamedata/
 bugs/
 ZhuxianClient-Win64-Shipping.exe
 find_content.py
+Game.json
 pak/
+LuaScriptsBinary/
