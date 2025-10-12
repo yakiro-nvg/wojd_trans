@@ -1,8 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { generateObject } from 'ai';
+import { generateObject, type LanguageModel } from 'ai';
 import { createAmazonBedrock } from '@ai-sdk/amazon-bedrock';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { select } from '@inquirer/prompts';
 import { z } from 'zod';
 import { promptInput } from '../lib/prompt.js';
 import {
@@ -23,6 +25,8 @@ const LANGUAGE_LABELS: Record<string, string> = {
 const DEFAULT_BATCH_SIZE = 5;
 const DEFAULT_CONCURRENCY = 4;
 const DEFAULT_CHECKPOINT = 20;
+const GEMINI_DEFAULT_BATCH_SIZE = 20;
+const GEMINI_DEFAULT_CONCURRENCY = 4;
 const MAX_ATTEMPTS = 5;
 const SKIP_NAMESPACES = new Set(['RankDetail']);
 const SKIP_ROWOBJECT_KEYS = ['110731', '110735', '110761', '110769', '110770', '110772'];
@@ -39,24 +43,35 @@ export interface TranslateOptions {
   concurrency?: number;
 }
 
-interface BedrockCredentials {
+type ModelProvider = 'bedrock' | 'gemini';
+
+interface BaseTranslationConfig {
+  provider: ModelProvider;
+  targetLanguage: string;
+  systemPrompt: string;
+}
+
+interface BedrockTranslationConfig extends BaseTranslationConfig {
+  provider: 'bedrock';
   accessKeyId: string;
   secretAccessKey: string;
   region: string;
   modelId: string;
 }
 
-interface TranslationConfig extends BedrockCredentials {
-  targetLanguage: string;
-  systemPrompt: string;
+interface GeminiTranslationConfig extends BaseTranslationConfig {
+  provider: 'gemini';
+  apiKey: string;
+  modelId: string;
 }
+
+type TranslationConfig = BedrockTranslationConfig | GeminiTranslationConfig;
 
 interface TranslationResult {
   id: number;
   translated: string;
 }
 
-type BedrockModel = ReturnType<ReturnType<typeof createAmazonBedrock>>;
 type TranslationSchema = z.ZodSchema<{ translations: TranslationResult[] }>;
 
 type TranslationGroup = {
@@ -113,33 +128,36 @@ async function translateCatalog(options: CatalogOptions): Promise<CatalogResult>
     return { count: 0, config: options.existingConfig ?? null, cancelled: false };
   }
 
-  const effectiveBatchSize = validateBatchSize(options.batchSize ?? DEFAULT_BATCH_SIZE);
-  const concurrency = validateConcurrency(options.concurrency ?? DEFAULT_CONCURRENCY);
-
-  const queueBase = buildTranslationQueue(items, options);
-  if (queueBase.length === 0) {
-    console.log(`[${label}:${language}] No entries matched the translation criteria (limit/test).`);
-    return { count: 0, config: options.existingConfig ?? null, cancelled: false };
-  }
-
-  const totalGroups = queueBase.length;
-  const totalEntriesScheduled = queueBase.reduce((sum, group) => sum + group.entryCount, 0);
-
-  console.log(
-    `[${label}:${language}] Pending entries overall: ${pendingOverallBefore}. Processing up to ${totalGroups} unique sources (${totalEntriesScheduled} entries).`,
-  );
-
   let translationConfig = options.existingConfig ?? null;
   if (!translationConfig) {
     translationConfig = await promptForTranslationConfig(language, options.systemPromptPath);
   }
 
-  const bedrock = createAmazonBedrock({
-    accessKeyId: translationConfig.accessKeyId,
-    secretAccessKey: translationConfig.secretAccessKey,
-    region: translationConfig.region,
-  });
-  const model = bedrock(translationConfig.modelId);
+  const queueBase = buildTranslationQueue(items, options);
+  if (queueBase.length === 0) {
+    console.log(`[${label}:${language}] No entries matched the translation criteria (limit/test).`);
+    return { count: 0, config: translationConfig, cancelled: false };
+  }
+
+  const totalGroups = queueBase.length;
+  const totalEntriesScheduled = queueBase.reduce((sum, group) => sum + group.entryCount, 0);
+
+  const defaultBatchSize = translationConfig.provider === 'gemini' ? GEMINI_DEFAULT_BATCH_SIZE : DEFAULT_BATCH_SIZE;
+  const defaultConcurrency = translationConfig.provider === 'gemini' ? GEMINI_DEFAULT_CONCURRENCY : DEFAULT_CONCURRENCY;
+
+  const effectiveBatchSize = validateBatchSize(options.batchSize ?? defaultBatchSize);
+  const concurrency = validateConcurrency(options.concurrency ?? defaultConcurrency);
+
+  console.log(
+    `[${label}:${language}] Pending entries overall: ${pendingOverallBefore}. Processing up to ${totalGroups} unique sources (${totalEntriesScheduled} entries).`,
+  );
+  if (translationConfig.provider === 'gemini' && options.batchSize == null) {
+    console.log(
+      `[${label}:${language}] Gemini defaults applied (Level 1): batch size ${effectiveBatchSize}, concurrency ${concurrency}. RPM=1,000, TPM=1,000,000.`,
+    );
+  }
+
+  const model = createModelFromConfig(translationConfig);
   const translationSchema: TranslationSchema = z.object({
     translations: z
       .array(
@@ -398,21 +416,44 @@ export async function translate(options: TranslateOptions): Promise<number> {
 
 async function promptForTranslationConfig(language: string, explicitPromptPath?: string): Promise<TranslationConfig> {
   console.log('--- Translation Setup ---');
-  console.log('Model provider: Amazon Bedrock (Claude family)');
-
-  const accessKeyId = await promptInput('Enter AWS Access Key ID');
-  const secretAccessKey = await promptInput('Enter AWS Secret Access Key');
-  const region = await promptInput('Enter AWS Region');
-  const modelId = await promptInput('Enter Claude model ID');
+  const providerRaw = await select<ModelProvider>({
+    message: 'Select model provider',
+    choices: [
+      { name: 'Amazon Bedrock (Claude)', value: 'bedrock' },
+      { name: 'Google Gemini', value: 'gemini' },
+    ],
+    default: 'bedrock',
+  });
 
   const normalizedLanguage = language.trim().toLowerCase();
   console.log(`Target language: ${describeLanguage(normalizedLanguage)}`);
   const systemPrompt = await loadSystemPrompt(normalizedLanguage, explicitPromptPath);
 
+  if (providerRaw === 'bedrock') {
+    console.log('Model provider: Amazon Bedrock (Claude family)');
+    const accessKeyId = await promptInput('Enter AWS Access Key ID');
+    const secretAccessKey = await promptInput('Enter AWS Secret Access Key');
+    const region = await promptInput('Enter AWS Region');
+    const modelId = await promptInput('Enter Claude model ID');
+
+    return {
+      provider: 'bedrock',
+      accessKeyId,
+      secretAccessKey,
+      region,
+      modelId,
+      targetLanguage: normalizedLanguage,
+      systemPrompt,
+    };
+  }
+
+  console.log('Model provider: Google Gemini');
+  const apiKey = await promptInput('Enter Google Generative AI API Key');
+  const modelId = await promptInput('Enter Gemini model ID', { defaultValue: 'gemini-2.5-flash' });
+
   return {
-    accessKeyId,
-    secretAccessKey,
-    region,
+    provider: 'gemini',
+    apiKey,
     modelId,
     targetLanguage: normalizedLanguage,
     systemPrompt,
@@ -447,10 +488,28 @@ function describeLanguage(language: string): string {
   return LANGUAGE_LABELS[normalized] ?? normalized;
 }
 
+function isBedrockConfig(config: TranslationConfig): config is BedrockTranslationConfig {
+  return config.provider === 'bedrock';
+}
+
+function createModelFromConfig(config: TranslationConfig): LanguageModel {
+  if (isBedrockConfig(config)) {
+    const bedrock = createAmazonBedrock({
+      accessKeyId: config.accessKeyId,
+      secretAccessKey: config.secretAccessKey,
+      region: config.region,
+    });
+    return bedrock(config.modelId);
+  }
+
+  const google = createGoogleGenerativeAI({ apiKey: config.apiKey });
+  return google(config.modelId);
+}
+
 async function translateChunk(params: {
   entries: TranslationGroup[];
   config: TranslationConfig;
-  model: BedrockModel;
+  model: LanguageModel;
   schema: TranslationSchema;
 }): Promise<TranslationResult[]> {
   const { entries, config, model, schema } = params;

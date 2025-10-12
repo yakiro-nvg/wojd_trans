@@ -30,11 +30,32 @@ async function main(): Promise<void> {
   try {
     if (command === 'collect') {
       const { positional, flags } = parseArgs(rest);
-      const [logPath, outputPath] = positional;
+      let logPath: string | undefined;
+      let outputPath: string | undefined;
+
+      if (positional.length >= 2) {
+        [logPath, outputPath] = positional;
+      } else if (positional.length === 1) {
+        [outputPath] = positional;
+      }
+
       const force = Boolean(flags.force);
 
-      const count = await collect({ logPath, outputPath, force });
-      console.log(`Collected ${count} entries.`);
+      if (!outputPath) {
+        throw new Error('collect command requires <output> path (optionally preceded by <logPath>).');
+      }
+
+      const { entryCount, logFiles } = await collect({ logPath, outputPath, force });
+      const logSummary = logFiles.length === 1
+        ? logFiles[0]
+        : `${logFiles.length} logs`;
+      console.log(`Collected ${entryCount} entries from ${logSummary}.`);
+      if (logFiles.length > 1) {
+        console.log('Processed logs:');
+        for (const file of logFiles) {
+          console.log(`  - ${file}`);
+        }
+      }
       console.log(`Output written to ${outputPath}`);
       return;
     }

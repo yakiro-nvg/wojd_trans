@@ -1,4 +1,4 @@
-ZhuxianClient.log
+*.log
 collected.json
 node_modules/
 dist/
