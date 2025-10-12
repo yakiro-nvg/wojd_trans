@@ -72,7 +72,31 @@ function extractSource(segment: string): string | null {
   if (sourceFieldIdx !== -1) {
     const valueStart = sourceFieldIdx + 'source:'.length;
     const rawAfter = segment.slice(valueStart);
-    const trimmedAfter = rawAfter.replace(/^\s+/, '');
+
+    const hardTerminators = [
+      ') will be used',
+      ') will be used.',
+      ') will be used\n',
+      ') but it did not exist',
+      ') but it does not exist',
+      ') but the source string',
+      ') but the source text',
+      ') but it was not found',
+      ') and',
+    ];
+
+    let earliestTerminatorIndex = -1;
+    for (const terminator of hardTerminators) {
+      const idx = rawAfter.indexOf(terminator);
+      if (idx !== -1 && (earliestTerminatorIndex === -1 || idx < earliestTerminatorIndex)) {
+        earliestTerminatorIndex = idx;
+      }
+    }
+
+    if (earliestTerminatorIndex !== -1) {
+      const raw = rawAfter.slice(0, earliestTerminatorIndex + 1);
+      return cleanupSource(raw);
+    }
 
     const primaryTerminators = [
       /\)\s*,?\s*but\b/i,
@@ -81,9 +105,9 @@ function extractSource(segment: string): string | null {
     ];
 
     for (const terminator of primaryTerminators) {
-      const match = terminator.exec(trimmedAfter);
+      const match = terminator.exec(rawAfter);
       if (match) {
-        const raw = trimmedAfter.slice(0, match.index + 1);
+        const raw = rawAfter.slice(0, match.index + 1);
         return cleanupSource(raw);
       }
     }
@@ -95,15 +119,15 @@ function extractSource(segment: string): string | null {
     ];
 
     for (const terminator of secondaryTerminators) {
-      const match = terminator.exec(trimmedAfter);
+      const match = terminator.exec(rawAfter);
       if (match) {
-        const raw = trimmedAfter.slice(0, match.index);
+        const raw = rawAfter.slice(0, match.index);
         return cleanupSource(raw);
       }
     }
 
-    const newlineIndex = trimmedAfter.search(/[\r\n]/);
-    const fallback = newlineIndex !== -1 ? trimmedAfter.slice(0, newlineIndex) : trimmedAfter;
+    const newlineIndex = rawAfter.search(/[\r\n]/);
+    const fallback = newlineIndex !== -1 ? rawAfter.slice(0, newlineIndex) : rawAfter;
     return cleanupSource(fallback);
   }
 
