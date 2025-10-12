@@ -56,112 +56,102 @@ function parseSegment(segment: string): LocalizationEntry | null {
 
 function extractSource(segment: string): string | null {
   const lowerSegment = segment.toLowerCase();
-  const sourceStringIdx = lowerSegment.indexOf('source string (');
+  const sourceStringMarker = 'source string (';
+  const sourceStringIdx = lowerSegment.indexOf(sourceStringMarker);
 
   if (sourceStringIdx !== -1) {
-    const openParenIndex = segment.indexOf('(', sourceStringIdx);
-    if (openParenIndex !== -1) {
-      const rawSource = extractBalancedParenthetical(segment, openParenIndex);
-      if (rawSource != null) {
-        return cleanupSource(rawSource);
-      }
+    const valueStart = sourceStringIdx + sourceStringMarker.length;
+    const rawAfter = segment.slice(valueStart);
+    const sliced = sliceAtTerminator(rawAfter);
+    if (sliced != null) {
+      return sliced;
     }
+    return rawAfter.trimEnd();
   }
 
   const sourceFieldIdx = lowerSegment.indexOf('source:');
   if (sourceFieldIdx !== -1) {
     const valueStart = sourceFieldIdx + 'source:'.length;
     const rawAfter = segment.slice(valueStart);
-    const trimmedAfter = rawAfter.replace(/^\s+/, '');
-
-    const primaryTerminators = [
-      /\)\s*,?\s*but\b/i,
-      /\)\s*,?\s*will\b/i,
-      /\)\s*,?\s*and\b/i,
-    ];
-
-    for (const terminator of primaryTerminators) {
-      const match = terminator.exec(trimmedAfter);
-      if (match) {
-        const raw = trimmedAfter.slice(0, match.index + 1);
-        return cleanupSource(raw);
-      }
+    const sliced = sliceAtTerminator(rawAfter);
+    if (sliced != null) {
+      return sliced;
     }
-
-    const secondaryTerminators = [
-      /,\s*but\b/i,
-      /,\s*will\b/i,
-      /,\s*and\b/i,
-    ];
-
-    for (const terminator of secondaryTerminators) {
-      const match = terminator.exec(trimmedAfter);
-      if (match) {
-        const raw = trimmedAfter.slice(0, match.index);
-        return cleanupSource(raw);
-      }
-    }
-
-    const newlineIndex = trimmedAfter.search(/[\r\n]/);
-    const fallback = newlineIndex !== -1 ? trimmedAfter.slice(0, newlineIndex) : trimmedAfter;
-    return cleanupSource(fallback);
+    return rawAfter.trimEnd();
   }
 
   return null;
 }
 
-function extractBalancedParenthetical(text: string, openParenIndex: number): string | null {
-  if (text[openParenIndex] !== '(') {
-    return null;
+function sliceAtTerminator(rawAfter: string): string | null {
+  const terminatorIndex = findTerminatorIndex(rawAfter);
+  if (terminatorIndex != null) {
+    return rawAfter.slice(0, terminatorIndex);
   }
 
-  let depth = 0;
-  for (let i = openParenIndex; i < text.length; i += 1) {
-    const char = text[i];
-    if (char === '(') {
-      depth += 1;
-    } else if (char === ')') {
-      depth -= 1;
-      if (depth === 0) {
-        return text.slice(openParenIndex + 1, i);
-      }
-      if (depth < 0) {
-        break;
+  const newlineIndex = rawAfter.search(/[\r\n]/);
+  if (newlineIndex !== -1) {
+    return rawAfter.slice(0, newlineIndex);
+  }
+
+  return rawAfter.length > 0 ? rawAfter : null;
+}
+
+function findTerminatorIndex(rawAfter: string): number | null {
+  const lowerAfter = rawAfter.toLowerCase();
+  const hardTerminators = [
+    ') will be used',
+    ') will be used.',
+    ') will be used\r',
+    ') will be used\n',
+    ') but it did not exist',
+    ') but it does not exist',
+    ') but the source string',
+    ') but the source text',
+    ') but it was not found',
+    ') and',
+  ];
+
+  let candidate: number | null = null;
+
+  for (const terminator of hardTerminators) {
+    const idx = lowerAfter.indexOf(terminator);
+    if (idx !== -1 && (candidate == null || idx < candidate)) {
+      candidate = idx;
+    }
+  }
+
+  const primaryTerminators = [
+    /\)\s*,?\s*but\b/i,
+    /\)\s*,?\s*will\b/i,
+    /\)\s*,?\s*and\b/i,
+  ];
+
+  for (const terminator of primaryTerminators) {
+    const match = terminator.exec(rawAfter);
+    if (match) {
+      const idx = match.index;
+      if (candidate == null || idx < candidate) {
+        candidate = idx;
       }
     }
   }
 
-  return null;
-}
+  const secondaryTerminators = [
+    /,\s*but\b/i,
+    /,\s*will\b/i,
+    /,\s*and\b/i,
+  ];
 
-function cleanupSource(source: string | null | undefined): string | null {
-  if (source == null) {
-    return null;
-  }
-
-  const normalized = source.replace(/\r/g, '');
-  return stripDanglingParentheses(normalized);
-}
-
-function stripDanglingParentheses(value: string): string {
-  if (!value.includes(')')) {
-    return value;
-  }
-
-  let balance = 0;
-  for (const char of value) {
-    if (char === '(') {
-      balance += 1;
-    } else if (char === ')') {
-      balance -= 1;
+  for (const terminator of secondaryTerminators) {
+    const match = terminator.exec(rawAfter);
+    if (match) {
+      const idx = match.index;
+      if (candidate == null || idx < candidate) {
+        candidate = idx;
+      }
     }
   }
 
-  let result = value;
-  while (balance < 0 && result.endsWith(')')) {
-    result = result.slice(0, -1).trimEnd();
-    balance += 1;
-  }
-
-  return result;
+  return candidate;
 }

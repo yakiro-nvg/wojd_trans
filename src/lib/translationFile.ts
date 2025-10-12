@@ -27,10 +27,6 @@ function computeCrc32(buffer: Buffer): number {
   return (crc ^ -1) >>> 0;
 }
 
-function normalizeLineEndings(text: string): string {
-  return text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n/g, '\r\n');
-}
-
 function encodeUtf32Le(text: string): Buffer {
   const codePoints: number[] = [];
   for (let i = 0; i < text.length; i += 1) {
@@ -52,7 +48,7 @@ function encodeUtf32Le(text: string): Buffer {
 }
 
 function computeSourceHash(source: string): number {
-  const normalized = normalizeLineEndings(source ?? '');
+  const normalized = source ?? '';
   const encoded = encodeUtf32Le(normalized);
   return computeCrc32(encoded);
 }

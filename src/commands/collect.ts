@@ -1,7 +1,6 @@
 import path from 'node:path';
 import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { parseLocalizationLog } from '../lib/logParser.js';
-import { normalizeLineEndings } from '../lib/text.js';
 import { ensureWritable } from '../lib/file.js';
 import type { LocalizationEntry } from '../types.js';
 
@@ -33,8 +32,7 @@ export async function collect({ logPath, outputPath, force = false }: CollectOpt
 
   for (const filePath of logFiles) {
     const rawLog = await readFile(filePath, 'utf8');
-    const logContent = normalizeLineEndings(rawLog);
-    const entries = parseLocalizationLog(logContent);
+    const entries = parseLocalizationLog(rawLog);
     aggregatedEntries.push(...entries);
   }
 
