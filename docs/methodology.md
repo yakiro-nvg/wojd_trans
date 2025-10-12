@@ -37,7 +37,7 @@ Each language now uses two NDJSON catalogs under `translations/`: `<lang>.ndjson
 1. Run the client with verbose logging enabled until the desired content is exercised.
 2. Copy `ZhuxianClient.log` beside the CLI and run:
    ```
-   wojd-trans collect ZhuxianClient.log collected.json --force
+   wojd-trans collect collected.json --force
    ```
    `--force` rewrites the snapshot. The resulting array contains every (namespace, key, source) observed in the log.
 

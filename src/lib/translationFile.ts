@@ -1,9 +1,61 @@
 import { access, mkdir, readFile, writeFile, rename, lstat } from 'node:fs/promises';
 import path from 'node:path';
 import type { LocalizationEntry } from '../types.js';
-import { sanitizeTranslationItem, sanitizeTranslationItems } from './skipList.js';
+import { sanitizeTranslationItem, sanitizeTranslationItems, shouldSkipTranslation } from './skipList.js';
+
+const CRC32_TABLE = (() => {
+  const table = new Uint32Array(256);
+  for (let i = 0; i < 256; i += 1) {
+    let crc = i;
+    for (let bit = 0; bit < 8; bit += 1) {
+      const mask = -(crc & 1);
+      crc = (crc >>> 1) ^ (0xedb88320 & mask);
+    }
+    table[i] = crc >>> 0;
+  }
+  return table;
+})();
 
 const GIT_LFS_POINTER_PREFIX = 'version https://git-lfs.github.com/spec/';
+
+function computeCrc32(buffer: Buffer): number {
+  let crc = 0 ^ -1;
+  for (let i = 0; i < buffer.length; i += 1) {
+    const byte = buffer[i];
+    crc = (CRC32_TABLE[(crc ^ byte) & 0xff] ^ (crc >>> 8)) >>> 0;
+  }
+  return (crc ^ -1) >>> 0;
+}
+
+function normalizeLineEndings(text: string): string {
+  return text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n/g, '\r\n');
+}
+
+function encodeUtf32Le(text: string): Buffer {
+  const codePoints: number[] = [];
+  for (let i = 0; i < text.length; i += 1) {
+    const codePoint = text.codePointAt(i);
+    if (codePoint == null) {
+      continue;
+    }
+    codePoints.push(codePoint);
+    if (codePoint > 0xffff) {
+      i += 1;
+    }
+  }
+
+  const buffer = Buffer.alloc(codePoints.length * 4);
+  for (let i = 0; i < codePoints.length; i += 1) {
+    buffer.writeUInt32LE(codePoints[i], i * 4);
+  }
+  return buffer;
+}
+
+function computeSourceHash(source: string): number {
+  const normalized = normalizeLineEndings(source ?? '');
+  const encoded = encodeUtf32Le(normalized);
+  return computeCrc32(encoded);
+}
 
 export function detectLfsPointer(raw: string): boolean {
   const trimmed = raw.trim();
@@ -280,14 +332,27 @@ export function mergeCollectedWithTranslations(
     existingMap.delete(mapKey);
 
     if (existing.source !== source) {
+      let locresImport: string | null = null;
+      let importedHash: number | null = null;
+
+      if (existing.locresImport != null) {
+        if (existing.importedHash != null && source != null && source.length > 0) {
+          const expectedHash = computeSourceHash(source);
+          if (expectedHash === existing.importedHash) {
+            locresImport = existing.locresImport;
+            importedHash = existing.importedHash;
+          }
+        }
+      }
+
       merged.push({
         item: {
           namespace,
           key,
           source,
           translated: null,
-          locresImport: existing.locresImport ?? null,
-          importedHash: null,
+          locresImport,
+          importedHash,
         },
         changed: true,
       });
@@ -322,12 +387,50 @@ export function mergeCollectedWithTranslations(
   });
 
   const sanitizedItems = items.map(sanitizeTranslationItem);
+  const reconciliation = reconcileLocresConsistency(sanitizedItems);
+  const finalItems = reconciliation.items;
+  const combinedIndices = new Set<number>([...changedIndices, ...reconciliation.changedIndices]);
 
   return {
-    items: sanitizedItems,
+    items: finalItems,
     stats: { added, updated, removed: 0 },
-    changedIndices,
+    changedIndices: Array.from(combinedIndices).sort((a, b) => a - b),
   };
+}
+
+function reconcileLocresConsistency(items: TranslationItem[]): { items: TranslationItem[]; changedIndices: number[] } {
+  const reconciled: TranslationItem[] = [...items];
+  const changedIndices: number[] = [];
+
+  for (let index = 0; index < items.length; index += 1) {
+    const current = items[index];
+    if (!current) {
+      continue;
+    }
+
+    const source = current.source ?? null;
+    const hasLocres = current.locresImport != null;
+    const hash = current.importedHash ?? null;
+
+    if (!source) {
+      continue;
+    }
+
+    if (hasLocres && hash != null) {
+      const expected = computeSourceHash(source);
+      if (expected !== hash) {
+        reconciled[index] = {
+          ...current,
+          locresImport: null,
+          importedHash: null,
+          translated: null,
+        };
+        changedIndices.push(index);
+      }
+    }
+  }
+
+  return { items: reconciled, changedIndices };
 }
 
 export function resetTranslations(items: TranslationItem[]): TranslationItem[] {
@@ -337,9 +440,18 @@ export function resetTranslations(items: TranslationItem[]): TranslationItem[] {
 export function countPendingTranslations(items: TranslationItem[]): number {
   let count = 0;
   for (const item of items) {
-    if (!item.translated || item.translated.trim().length === 0) {
-      count += 1;
+    if (shouldSkipTranslation(item.namespace, item.key)) {
+      continue;
     }
+    if (item.translated && item.translated.trim().length > 0) {
+      continue;
+    }
+    const locres = item.locresImport && item.locresImport.trim().length > 0 ? item.locresImport.trim() : null;
+    const source = item.source && item.source.trim().length > 0 ? item.source.trim() : null;
+    if (!locres && !source) {
+      continue;
+    }
+    count += 1;
   }
   return count;
 }

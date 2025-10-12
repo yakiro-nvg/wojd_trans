@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ai-sdk/amazon-bedrock": "^3.0.30",
+    "@ai-sdk/google": "^2.0.19",
     "@inquirer/prompts": "^7.8.6",
     "ai": "^5.0.60",
     "zod": "^4.1.11"
