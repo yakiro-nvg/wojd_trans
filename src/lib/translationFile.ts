@@ -294,9 +294,23 @@ export function mergeCollectedWithTranslations(
   existingItems: TranslationItem[],
 ): MergeResult {
   const existingMap = new Map<string, TranslationItem>();
+  const translationBySource = new Map<string, string>();
   existingItems.forEach((item) => {
     existingMap.set(createKey(item.namespace, item.key), item);
+    if (typeof item.source === 'string' && item.source.length > 0) {
+      const translated = item.translated;
+      if (typeof translated === 'string' && translated.length > 0 && !translationBySource.has(item.source)) {
+        translationBySource.set(item.source, translated);
+      }
+    }
   });
+
+  const reuseTranslationForSource = (source: string | null | undefined): string | null => {
+    if (typeof source !== 'string' || source.length === 0) {
+      return null;
+    }
+    return translationBySource.get(source) ?? null;
+  };
 
   const merged: Array<{ item: TranslationItem; changed: boolean }> = [];
   let added = 0;
@@ -310,12 +324,13 @@ export function mergeCollectedWithTranslations(
     const existing = existingMap.get(mapKey);
 
     if (!existing) {
+      const reusedTranslation = reuseTranslationForSource(source);
       merged.push({
         item: {
           namespace,
           key,
           source,
-          translated: null,
+          translated: reusedTranslation,
           locresImport: null,
           importedHash: null,
         },
@@ -346,7 +361,7 @@ export function mergeCollectedWithTranslations(
           namespace,
           key,
           source,
-          translated: null,
+          translated: reuseTranslationForSource(source),
           locresImport,
           importedHash,
         },
