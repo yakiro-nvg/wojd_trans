@@ -14574,7 +14574,7 @@
 		}
 	},
 	"21502": {
-		"text": "该法域人数过多或即将关闭，仙友请看看其他法域",
+		"text": "该法域暂时无法进入",
 		"metaData": {
 			"flags": "SHOWTYPE_FLOAT | SHOWTYPE_CHATLOG",
 			"note": "境界突破"
@@ -14631,13 +14631,6 @@
 	},
 	"21510": {
 		"text": "已开启的幻劫法域数量达到上限",
-		"metaData": {
-			"flags": "SHOWTYPE_FLOAT | SHOWTYPE_CHATLOG",
-			"note": "境界突破"
-		}
-	},
-	"21511": {
-		"text": "副本/跨服中，无法参与渡劫助战",
 		"metaData": {
 			"flags": "SHOWTYPE_FLOAT | SHOWTYPE_CHATLOG",
 			"note": "境界突破"
