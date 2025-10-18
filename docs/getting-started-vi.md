@@ -1,7 +1,5 @@
 # Hướng dẫn thiết lập và sử dụng wojd-trans (Tiếng Việt)
 
-> **Đối tượng:** người dùng Windows 10/11 (64-bit) ít kinh nghiệm CNTT, muốn tự xây dựng bản Việt hóa cho World of Jade Dynasty bằng bộ công cụ `wojd-trans`.
-
 ## 0. Tổng quan
 
 - Bộ công cụ hoạt động trên Ubuntu trong Windows Subsystem for Linux 2 (WSL2).
