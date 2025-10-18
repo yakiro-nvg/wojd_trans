@@ -30,7 +30,7 @@
    - `New password`: nhập hai lần (mật khẩu không hiện chữ khi gõ, cứ nhập rồi Enter).
 3. Khi dòng lệnh xuất hiện dạng `vietuser@DESKTOP-xxxx:~$` là hoàn tất.
 
-### 1.3 Những lưu ý quan trọng khi cài WSL2
+### 1.3 Những lưu ý quan trọng khi cài WSL2 (nếu bước trên không chạy)
 
 - **Kiểm tra phiên bản Windows:** mở hộp thoại Run (`Win + R`), gõ `winver`. WSL2 cần Windows 10 từ bản 19041 hoặc Windows 11. Nếu quá cũ, hãy cài Windows Update trước.
 - **Bật ảo hóa trong BIOS:** khởi động lại máy, vào BIOS/UEFI và bật tính năng `Intel VT-x`, `Intel Virtualization Technology` hoặc `SVM` (tùy hãng). Nếu không bật, WSL2 sẽ báo lỗi “Virtualization support is disabled”.
