@@ -12,7 +12,7 @@
 4. Xóa các bản Việt hóa cũ (nếu có) trước khi chép gói mới.
 
 ### Thông tin thêm
-- [Hướng dẫn thiết lập & sử dụng (Tiếng Việt)](docs/getting-started-vi.md)
+- [Hướng dẫn phát triển](docs/getting-started-vi.md)
 - [Phương pháp dịch thuật](docs/methodology.md)
 - [Quy trình phát hành](docs/release-process.md)
 - [Hướng dẫn đóng góp dịch thuật](docs/contributing-vi.md)
