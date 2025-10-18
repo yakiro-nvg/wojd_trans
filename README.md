@@ -12,6 +12,7 @@
 4. Xóa các bản Việt hóa cũ (nếu có) trước khi chép gói mới.
 
 ### Thông tin thêm
+- [Hướng dẫn thiết lập & sử dụng (Tiếng Việt)](docs/getting-started-vi.md)
 - [Phương pháp dịch thuật](docs/methodology.md)
 - [Quy trình phát hành](docs/release-process.md)
 - [Hướng dẫn đóng góp dịch thuật](docs/contributing-vi.md)
@@ -30,6 +31,7 @@
 4. Remove any older translation PAK before dropping in the new one.
 
 ### More Info
+- [Getting started (Vietnamese)](docs/getting-started-vi.md)
 - [Localization pipeline](docs/methodology.md)
 - [Release workflow](docs/release-process.md)
 - [Contribution guide](docs/contributing-en.md)
