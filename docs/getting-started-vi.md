@@ -30,8 +30,6 @@
    - `New password`: nhập hai lần (mật khẩu không hiện chữ khi gõ, cứ nhập rồi Enter).
 3. Khi dòng lệnh xuất hiện dạng `vietuser@DESKTOP-xxxx:~$` là hoàn tất.
 
-> Mẹo: cài Visual Studio Code trên Windows (https://code.visualstudio.com/) và tiện ích **Remote - WSL** để chỉnh sửa file trong Ubuntu dễ hơn.
-
 ### 1.3 Những lưu ý quan trọng khi cài WSL2
 
 - **Kiểm tra phiên bản Windows:** mở hộp thoại Run (`Win + R`), gõ `winver`. WSL2 cần Windows 10 từ bản 19041 hoặc Windows 11. Nếu quá cũ, hãy cài Windows Update trước.
