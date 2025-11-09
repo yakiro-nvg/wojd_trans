@@ -21,14 +21,7 @@
 
 ## English
 
-### Quick Install
-1. Download the latest `EN_PATCH.zip` from the [Releases](https://github.com/yakiro-nvg/wojd_trans/releases/latest) page.
-2. Extract it to obtain `~EN_PATCH.pak`.
-3. Copy `~EN_PATCH.pak` into your game folder, e.g.:
-   ```
-   C:\Program Files\ZXSJclient\ZXSJ\Game\ZhuxianClient\Content\Paks
-   ```
-4. Remove any older translation PAK before dropping in the new one.
+Not support, you can try TW version in this discord: https://discord.com/invite/Nk5gEq9gZ9
 
 ### More Info
 - [Getting started (Vietnamese)](docs/getting-started-vi.md)
