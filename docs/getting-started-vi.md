@@ -139,9 +139,8 @@ Nếu thấy danh sách lệnh (`collect`, `sync`, `pack`, ...) là môi trườ
 
 ## 5. Bật ghi log chi tiết trong game (thực hiện một lần)
 
-1. Mở thư mục cài đặt game trên Windows (ví dụ: `C:\Program Files\ZXSJclient\ZXSJ\Game\ZhuxianClient`).
-2. Đi theo đường dẫn `Saved\Config\Windows`.
-3. Mở `Engine.ini` (hoặc tạo mới nếu chưa có) bằng Notepad.
+1. Mở thư mục config game trên Windows (ví dụ: `%LOCALAPPDATA%\ZhuxianClient\Saved\Config\Windows`).
+2. Mở `Engine.ini` bằng Notepad.
 4. Thêm đoạn sau vào cuối file:
    ```
    [Core.Log]
