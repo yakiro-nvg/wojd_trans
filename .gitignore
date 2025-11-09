@@ -1,3 +1,4 @@
+.venv
 *.log
 collected.json
 node_modules/
