@@ -1,3 +1,0 @@
-3_WarningText = 决战在即，切务小心。
-4_WarningText = 决战在即，切务小心。
-5_WarningText = 决战在即，切务小心。

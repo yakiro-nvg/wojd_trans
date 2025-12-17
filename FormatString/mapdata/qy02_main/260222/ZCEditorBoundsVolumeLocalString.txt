@@ -1,3 +1,0 @@
-﻿
-35_CollisionTips = 前路漫漫，不可贸然前行！
-80_CollisionTips = 虎妖来势汹汹，还是小心应付为上！

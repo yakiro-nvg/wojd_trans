@@ -1,6 +1,0 @@
-﻿00dd50c6e40e07cd57aa5c8002ef75d8 = 前路漫漫，不可贸然前行！
-3dc04911c5fcca976bdcb20119332b13 = 前方气机流转异常，无法通行
-3_CollisionTips = 前路漫漫，不可贸然前行！
-25_CollisionTips = 前方气机流转异常，无法通行
-1_CollisionTips = 前路漫漫，不可贸然前行！
-6_CollisionTips = 前路漫漫，不可贸然前行！

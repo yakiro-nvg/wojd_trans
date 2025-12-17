@@ -1,4 +1,0 @@
-3_CollisionTips = 前路漫漫，不可贸然前行！
-25_CollisionTips = 前方气机流转异常，无法通行
-10_CollisionTips = 宗门重地！禁止进入！
-14_CollisionTips = 此时情势，不宜靠近张小凡！

@@ -1,4 +1,0 @@
-﻿
-1_CollisionTips = 前方巨浪滔天，极易被吞没，请勿靠近！
-2_CollisionTips = 需尽快前往死灵渊深处面见蛇祖，莫要在此逗留！
-3_CollisionTips = 需尽快前往死灵渊深处面见蛇祖，莫要在此逗留！

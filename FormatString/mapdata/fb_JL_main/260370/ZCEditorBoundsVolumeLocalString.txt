@@ -1,2 +1,0 @@
-8_CollisionTips = 一股奇异的力量阻止了你继续前进
-13_CollisionTips = 幻境未破，无法进入小院

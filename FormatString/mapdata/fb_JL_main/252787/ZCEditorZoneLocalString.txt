@@ -1,4 +1,0 @@
-34_WarningText = 即将迷失
-33_WarningText = 即将迷失
-35_WarningText = 即将迷失
-91_WarningText = 团圆佳节，踏云祈福；还请各位仙友莫在此地切磋。
