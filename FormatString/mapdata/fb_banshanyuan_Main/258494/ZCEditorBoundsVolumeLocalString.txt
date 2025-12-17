@@ -1,2 +1,0 @@
-1_CollisionTips = 周围灵气狂乱危险，暂时无法前行
-2_CollisionTips = 周围灵气狂乱危险，暂时无法前行

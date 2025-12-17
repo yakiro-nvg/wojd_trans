@@ -1,2 +1,0 @@
-79_WarningText = 下方异常危险，请速速离开！
-82_WarningText = 下方异常危险，请速速离开！

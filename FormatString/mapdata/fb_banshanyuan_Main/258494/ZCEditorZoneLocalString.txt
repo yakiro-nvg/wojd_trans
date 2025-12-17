@@ -1,2 +1,0 @@
-5_WarningText = 即将迷失
-2_WarningText = 即将迷失

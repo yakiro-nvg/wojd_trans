@@ -1,3 +1,0 @@
-8_ZoneName = 璇玑命星
-9_ZoneName = 璇玑命星
-7_ZoneName = 璇玑命星
