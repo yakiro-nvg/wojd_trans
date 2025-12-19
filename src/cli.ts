@@ -202,11 +202,15 @@ async function main(): Promise<void> {
       const pythonPath = typeof flags.python === 'string' ? flags.python : undefined;
       const keepTemp = Boolean(flags.keepTemp);
       const outputDir = outputDirPos ?? (typeof flags.output === 'string' ? String(flags.output) : 'artifacts');
+      const variant = typeof flags.variant === 'string' ? String(flags.variant) : undefined;
+      const excludeAssetsRaw = typeof flags.excludeAssets === 'string' ? String(flags.excludeAssets) : undefined;
+      const excludeAssets = excludeAssetsRaw ? excludeAssetsRaw.split(',').map(s => s.trim()) : undefined;
 
       const languages = await getSupportedLanguages();
       for (const language of languages) {
         const translationsPath = path.join('translations', `${language}.ndjson`);
-        const pakName = `${language.toUpperCase()}_PATCH`;
+        const variantSuffix = variant ? `_${variant.toUpperCase().replace(/-/g, '_')}` : '';
+        const pakName = `${language.toUpperCase()}_PATCH${variantSuffix}`;
         await buildPak({
           translationsPath,
           outputDir,
@@ -214,6 +218,7 @@ async function main(): Promise<void> {
           keepTemp,
           pakName,
           language,
+          excludeAssets,
         });
       }
       return;
@@ -337,6 +342,20 @@ function parseArgs(args: string[]): ParsedArgs {
       continue;
     }
 
+    if (arg.startsWith('--variant')) {
+      const value = extractOptionValue(arg, args[index + 1]);
+      flags.variant = value.value;
+      index += value.skip ? 1 : 2;
+      continue;
+    }
+
+    if (arg.startsWith('--exclude-assets')) {
+      const value = extractOptionValue(arg, args[index + 1]);
+      flags.excludeAssets = value.value;
+      index += value.skip ? 1 : 2;
+      continue;
+    }
+
     console.warn(`Ignoring unknown option: ${arg}`);
     index += 1;
   }
@@ -412,6 +431,8 @@ function printHelp(): void {
   console.log('Options for pack:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('  --keep-temp              Preserve the temporary working folder.');
+  console.log('  --variant <name>         Build variant suffix (e.g., no-convert -> VI_PATCH_NO_CONVERT).');
+  console.log('  --exclude-assets <list>  Comma-separated patterns to exclude from assets.');
   console.log('Options for import:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('Options for diff:');
