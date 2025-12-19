@@ -449,7 +449,7 @@ async function promptForTranslationConfig(language: string, explicitPromptPath?:
 
   console.log('Model provider: Google Gemini');
   const apiKey = await promptInput('Enter Google Generative AI API Key');
-  const modelId = await promptInput('Enter Gemini model ID', { defaultValue: 'gemini-2.5-flash' });
+  const modelId = await promptInput('Enter Gemini model ID', { defaultValue: 'gemini-3-flash-preview' });
 
   return {
     provider: 'gemini',
