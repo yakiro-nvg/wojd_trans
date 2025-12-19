@@ -12,10 +12,11 @@ export interface PackOptions {
   keepTemp?: boolean;
   pakName?: string;
   language?: string;
+  excludeAssets?: string[];
 }
 
 export async function buildPak(options: PackOptions): Promise<void> {
-  const { translationsPath, outputDir, pythonPath, keepTemp, pakName, language } = options;
+  const { translationsPath, outputDir, pythonPath, keepTemp, pakName, language, excludeAssets } = options;
 
   if (!translationsPath) {
     throw new Error('Missing translations NDJSON path.');
@@ -76,7 +77,7 @@ export async function buildPak(options: PackOptions): Promise<void> {
     }
 
     if (language) {
-      await copyAssetOverrides(patchRoot, language);
+      await copyAssetOverrides(patchRoot, language, excludeAssets);
     }
 
     const pakTempPath = path.join(tempRoot, `${pakBase}.pak`);
@@ -137,13 +138,28 @@ async function writeFormatStringFiles(patchRoot: string, items: TranslationItem[
   }
 }
 
-async function copyAssetOverrides(patchRoot: string, language: string): Promise<void> {
+async function copyAssetOverrides(patchRoot: string, language: string, excludePatterns?: string[]): Promise<void> {
   const sourceDir = path.resolve('assets', language.toLowerCase());
   const targetDir = path.join(patchRoot);
 
   try {
-    await cp(sourceDir, targetDir, { recursive: true, force: false });
+    const filterFn = excludePatterns && excludePatterns.length > 0
+      ? (src: string) => {
+          const relativePath = path.relative(sourceDir, src);
+          for (const pattern of excludePatterns) {
+            if (relativePath.includes(pattern) || src.includes(pattern)) {
+              return false;
+            }
+          }
+          return true;
+        }
+      : undefined;
+
+    await cp(sourceDir, targetDir, { recursive: true, force: false, filter: filterFn });
     console.log(`[${language}] Asset overrides copied from ${sourceDir}`);
+    if (excludePatterns && excludePatterns.length > 0) {
+      console.log(`[${language}] Excluded patterns: ${excludePatterns.join(', ')}`);
+    }
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
       throw error;
