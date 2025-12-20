@@ -5,18 +5,18 @@
 | Phiên bản | Mô tả |
 |-----------|-------|
 | `VI_PATCH.zip` | Bản dịch cơ bản - chỉ thay thế text đã dịch |
-| `VI_PATCH_LIM_XF.zip` | Boss/3D luôn convert (XiaoFan) |
-| `VI_PATCH_LIM_MVH.zip` | Boss/3D luôn convert (MeVietHoa) |
+| `VI_PATCH_LIM_XF.zip` | Boss/3D convert (XiaoFan) |
+| `VI_PATCH_LIM_MVH.zip` | Boss/3D convert (MeVietHoa) |
 
 ## Sự khác biệt giữa các phiên bản
 
 - **Base (VI_PATCH)**: Chỉ bao gồm bản dịch. Những đoạn chữ Hán chưa dịch sẽ hiển thị nguyên bản.
 
-- **LIM (Limited Convert)**: Kỹ năng boss, tên nhân vật 3D luôn được chuyển đổi Hán-Việt.
+- **LIM (Limited Convert)**: Chuyển đổi Hán-Việt cho kỹ năng boss, tên nhân vật 3D. Dung lượng nhỏ (~15MB thêm so với Base), phù hợp khi chỉ cần đọc nhanh tên skill boss mà không muốn tải thêm font overlay lớn.
 
-## Font overlay (tùy chọn)
+## Font overlay (dùng với Base)
 
-Thêm font chuyển đổi Hán-Việt cho các vị trí khác trong game. Dùng kèm với bản dịch chính.
+Chuyển đổi Hán-Việt cho toàn bộ game. **Chỉ dùng với VI_PATCH.zip**, không cần dùng với LIM vì overlay đã bao gồm tất cả.
 
 | File | Kích thước | Mô tả |
 |------|-----------|-------|
@@ -25,16 +25,20 @@ Thêm font chuyển đổi Hán-Việt cho các vị trí khác trong game. Dùn
 
 ### Cách sử dụng font overlay
 
-1. Tải bản dịch chính (VI_PATCH hoặc VI_PATCH_LIM)
-2. Tải thêm file `~VI_QFONT_*.pak` từ thư mục này
-3. Sao chép cả hai file `.pak` vào thư mục game
+1. Tải `VI_PATCH.zip` từ [Releases](https://github.com/yakiro-nvg/wojd_trans/releases)
+2. Tải thêm `VI_QFONT_XF.zip` hoặc `VI_QFONT_MVH.zip` từ thư mục này
+3. Giải nén cả hai file
+4. Sao chép cả hai file `.pak` vào thư mục game
 
-## Font chuyển đổi
+## Tóm tắt lựa chọn
 
-- **XiaoFan (XF)**: Font phiên âm Hán-Việt kiểu nhỏ gọn.
-- **MeVietHoa (MVH)**: Font phiên âm Hán-Việt kiểu khác.
+| Nhu cầu | Phiên bản |
+|---------|-----------|
+| Chỉ cần bản dịch, không convert | VI_PATCH |
+| Convert skill boss/tên 3D (nhẹ) | VI_PATCH_LIM |
+| Convert toàn bộ game | VI_PATCH + VI_QFONT |
 
 ## Credits
 
 - **XiaoFan**: Font phiên âm Hán-Việt
-- **MeVietHoa**: Font phiên âm Hán-Việt đầy đủ
+- **MeVietHoa**: Font phiên âm Hán-Việt
