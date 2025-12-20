@@ -5,35 +5,34 @@
 | Phiên bản | Mô tả |
 |-----------|-------|
 | `VI_PATCH.zip` | Bản dịch cơ bản - chỉ thay thế text đã dịch |
-| `VI_PATCH_LIM_XF.zip` | Boss/3D luôn convert + chat bật/tắt (XiaoFan) |
-| `VI_PATCH_LIM_MVH.zip` | Boss/3D luôn convert + chat bật/tắt (MeVietHoa) |
-| `VI_PATCH_FULL_XF.zip` | Chuyển đổi Hán-Việt toàn bộ (XiaoFan) |
-| `VI_PATCH_FULL_MVH.zip` | Chuyển đổi Hán-Việt toàn bộ (MeVietHoa) |
+| `VI_PATCH_LIM_XF.zip` | Boss/3D luôn convert (XiaoFan) |
+| `VI_PATCH_LIM_MVH.zip` | Boss/3D luôn convert (MeVietHoa) |
 
 ## Sự khác biệt giữa các phiên bản
 
 - **Base (VI_PATCH)**: Chỉ bao gồm bản dịch. Những đoạn chữ Hán chưa dịch sẽ hiển thị nguyên bản.
 
-- **LIM (Limited Convert)**: Kỹ năng boss, tên nhân vật 3D luôn được chuyển đổi Hán-Việt. Chat có thể bật/tắt qua cài đặt font:
-  - Chọn **"Thể khải"** để bật chuyển đổi Hán-Việt cho chat
-  - Chọn **"Tổng Thể"** để hiển thị chữ Hán nguyên bản
+- **LIM (Limited Convert)**: Kỹ năng boss, tên nhân vật 3D luôn được chuyển đổi Hán-Việt.
 
-- **FULL (Full Convert)**: Chuyển đổi Hán-Việt cho tất cả vị trí, bao gồm cả chatbox. Mọi chữ Hán chưa dịch đều được chuyển sang phiên âm Việt.
+## Font overlay (tùy chọn)
+
+Thêm font chuyển đổi Hán-Việt cho các vị trí khác trong game. Dùng kèm với bản dịch chính.
+
+| File | Kích thước | Mô tả |
+|------|-----------|-------|
+| `~VI_QFONT_XF.pak` | 62MB | Font XiaoFan |
+| `~VI_QFONT_MVH.pak` | 117MB | Font MeVietHoa |
+
+### Cách sử dụng font overlay
+
+1. Tải bản dịch chính (VI_PATCH hoặc VI_PATCH_LIM)
+2. Tải thêm file `~VI_QFONT_*.pak` từ thư mục này
+3. Sao chép cả hai file `.pak` vào thư mục game
 
 ## Font chuyển đổi
 
-- **XiaoFan (XF)**: Font nhỏ gọn (~7MB), phù hợp khi cần tiết kiệm dung lượng.
-- **MeVietHoa (MVH)**: Font đầy đủ (~17MB), hỗ trợ nhiều ký tự hơn.
-
-## Cách sử dụng
-
-1. Tải xuống phiên bản phù hợp từ trang [Releases](https://github.com/yakiro-nvg/wojd_trans/releases).
-2. Giải nén file `.zip`.
-3. Sao chép file `.pak` vào thư mục game:
-   `C:\Program Files\ZXSJclient\ZXSJ\Game\ZhuxianClient\Content\Paks`
-4. Khởi động lại game.
-
-> **Lưu ý:** Chỉ cần cài một phiên bản. Nếu muốn đổi sang phiên bản khác, xóa file `.pak` cũ trước khi cài mới.
+- **XiaoFan (XF)**: Font nhỏ gọn, phù hợp khi cần tiết kiệm dung lượng.
+- **MeVietHoa (MVH)**: Font đầy đủ, hỗ trợ nhiều ký tự hơn.
 
 ## Credits
 

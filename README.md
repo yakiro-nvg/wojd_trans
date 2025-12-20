@@ -16,14 +16,16 @@
 | Phiên bản | Mô tả |
 |-----------|-------|
 | `VI_PATCH.zip` | Bản dịch cơ bản |
-| `VI_PATCH_LIM_XF.zip` | Boss/3D luôn convert + chat bật/tắt qua cài đặt font (XiaoFan) |
-| `VI_PATCH_LIM_MVH.zip` | Boss/3D luôn convert + chat bật/tắt qua cài đặt font (MeVietHoa) |
-| `VI_PATCH_FULL_XF.zip` | Chuyển đổi Hán-Việt toàn bộ (XiaoFan) |
-| `VI_PATCH_FULL_MVH.zip` | Chuyển đổi Hán-Việt toàn bộ (MeVietHoa) |
+| `VI_PATCH_LIM_XF.zip` | Boss/3D luôn convert (XiaoFan) |
+| `VI_PATCH_LIM_MVH.zip` | Boss/3D luôn convert (MeVietHoa) |
 
 - **Base**: Chỉ thay thế text đã dịch, chữ Hán chưa dịch giữ nguyên.
-- **LIM**: Kỹ năng boss, tên 3D luôn convert. Chat có thể bật/tắt: chọn "Thể khải" để convert, "Tổng Thể" để tắt.
-- **FULL**: Chuyển đổi Hán-Việt toàn bộ, bao gồm cả chatbox.
+- **LIM**: Kỹ năng boss, tên 3D luôn được chuyển đổi Hán-Việt.
+
+### Font overlay (tùy chọn)
+Thêm font chuyển đổi Hán-Việt cho các vị trí khác. Tải thêm từ [misc/](misc/):
+- `~VI_QFONT_XF.pak` (62MB) - XiaoFan
+- `~VI_QFONT_MVH.pak` (117MB) - MeVietHoa
 
 > Chi tiết xem [Font convert](misc/README-fonts.md)
 
