@@ -12,11 +12,11 @@ export interface PackOptions {
   keepTemp?: boolean;
   pakName?: string;
   language?: string;
-  excludeAssets?: string[];
+  assetLayers?: string[];
 }
 
 export async function buildPak(options: PackOptions): Promise<void> {
-  const { translationsPath, outputDir, pythonPath, keepTemp, pakName, language, excludeAssets } = options;
+  const { translationsPath, outputDir, pythonPath, keepTemp, pakName, language, assetLayers } = options;
 
   if (!translationsPath) {
     throw new Error('Missing translations NDJSON path.');
@@ -76,8 +76,10 @@ export async function buildPak(options: PackOptions): Promise<void> {
       console.log(`[${language ?? 'default'}] FormatString files written under ${formatRoot}`);
     }
 
-    if (language) {
-      await copyAssetOverrides(patchRoot, language, excludeAssets);
+    if (assetLayers && assetLayers.length > 0) {
+      for (const layer of assetLayers) {
+        await copyAssetLayer(patchRoot, layer, language);
+      }
     }
 
     const pakTempPath = path.join(tempRoot, `${pakBase}.pak`);
@@ -138,28 +140,13 @@ async function writeFormatStringFiles(patchRoot: string, items: TranslationItem[
   }
 }
 
-async function copyAssetOverrides(patchRoot: string, language: string, excludePatterns?: string[]): Promise<void> {
-  const sourceDir = path.resolve('assets', language.toLowerCase());
+async function copyAssetLayer(patchRoot: string, layer: string, language?: string): Promise<void> {
+  const sourceDir = path.resolve('assets', layer);
   const targetDir = path.join(patchRoot);
 
   try {
-    const filterFn = excludePatterns && excludePatterns.length > 0
-      ? (src: string) => {
-          const relativePath = path.relative(sourceDir, src);
-          for (const pattern of excludePatterns) {
-            if (relativePath.includes(pattern) || src.includes(pattern)) {
-              return false;
-            }
-          }
-          return true;
-        }
-      : undefined;
-
-    await cp(sourceDir, targetDir, { recursive: true, force: false, filter: filterFn });
-    console.log(`[${language}] Asset overrides copied from ${sourceDir}`);
-    if (excludePatterns && excludePatterns.length > 0) {
-      console.log(`[${language}] Excluded patterns: ${excludePatterns.join(', ')}`);
-    }
+    await cp(sourceDir, targetDir, { recursive: true, force: true });
+    console.log(`[${language ?? 'default'}] Asset layer copied from ${sourceDir}`);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
       throw error;
