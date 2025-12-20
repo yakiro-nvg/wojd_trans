@@ -24,8 +24,8 @@
 
 ### Font overlay (tùy chọn)
 Thêm font chuyển đổi Hán-Việt cho các vị trí khác. Tải thêm từ [misc/](misc/):
-- `~VI_QFONT_XF.pak` (62MB) - XiaoFan
-- `~VI_QFONT_MVH.pak` (117MB) - MeVietHoa
+- `VI_QFONT_XF.zip` (33MB) - XiaoFan
+- `VI_QFONT_MVH.zip` (51MB) - MeVietHoa
 
 > Chi tiết xem [Font convert](misc/README-fonts.md)
 

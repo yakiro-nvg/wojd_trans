@@ -20,8 +20,8 @@ Thêm font chuyển đổi Hán-Việt cho các vị trí khác trong game. Dùn
 
 | File | Kích thước | Mô tả |
 |------|-----------|-------|
-| `~VI_QFONT_XF.pak` | 62MB | Font XiaoFan |
-| `~VI_QFONT_MVH.pak` | 117MB | Font MeVietHoa |
+| `VI_QFONT_XF.zip` | 33MB | Font XiaoFan |
+| `VI_QFONT_MVH.zip` | 51MB | Font MeVietHoa |
 
 ### Cách sử dụng font overlay
 
@@ -31,8 +31,8 @@ Thêm font chuyển đổi Hán-Việt cho các vị trí khác trong game. Dùn
 
 ## Font chuyển đổi
 
-- **XiaoFan (XF)**: Font nhỏ gọn, phù hợp khi cần tiết kiệm dung lượng.
-- **MeVietHoa (MVH)**: Font đầy đủ, hỗ trợ nhiều ký tự hơn.
+- **XiaoFan (XF)**: Font phiên âm Hán-Việt kiểu nhỏ gọn.
+- **MeVietHoa (MVH)**: Font phiên âm Hán-Việt kiểu khác.
 
 ## Credits
 
