@@ -203,23 +203,52 @@ async function main(): Promise<void> {
       const keepTemp = Boolean(flags.keepTemp);
       const outputDir = outputDirPos ?? (typeof flags.output === 'string' ? String(flags.output) : 'artifacts');
       const variant = typeof flags.variant === 'string' ? String(flags.variant) : undefined;
-      const excludeAssetsRaw = typeof flags.excludeAssets === 'string' ? String(flags.excludeAssets) : undefined;
-      const excludeAssets = excludeAssetsRaw ? excludeAssetsRaw.split(',').map(s => s.trim()) : undefined;
+
+      interface VariantConfig {
+        suffix: string;
+        layers: (lang: string) => string[];
+      }
+
+      const variantConfigs: Record<string, VariantConfig> = {
+        base: {
+          suffix: '',
+          layers: (lang) => [`${lang}-base`],
+        },
+        'lim-xf': {
+          suffix: '_LIM_XF',
+          layers: (lang) => [`${lang}-base`, `${lang}-lim`, `${lang}-lim-xf`],
+        },
+        'lim-mvh': {
+          suffix: '_LIM_MVH',
+          layers: (lang) => [`${lang}-base`, `${lang}-lim`, `${lang}-lim-mvh`],
+        },
+      };
 
       const languages = await getSupportedLanguages();
-      for (const language of languages) {
-        const translationsPath = path.join('translations', `${language}.ndjson`);
-        const variantSuffix = variant ? `_${variant.toUpperCase().replace(/-/g, '_')}` : '';
-        const pakName = `${language.toUpperCase()}_PATCH${variantSuffix}`;
-        await buildPak({
-          translationsPath,
-          outputDir,
-          pythonPath,
-          keepTemp,
-          pakName,
-          language,
-          excludeAssets,
-        });
+      const variantsToBuild = variant === 'all'
+        ? Object.keys(variantConfigs)
+        : [variant ?? 'base'];
+
+      for (const variantKey of variantsToBuild) {
+        const config = variantConfigs[variantKey];
+        if (!config) {
+          throw new Error(`Unknown variant: ${variantKey}. Valid variants: ${Object.keys(variantConfigs).join(', ')}, all`);
+        }
+
+        for (const language of languages) {
+          const translationsPath = path.join('translations', `${language}.ndjson`);
+          const pakName = `${language.toUpperCase()}_PATCH${config.suffix}`;
+          const assetLayers = config.layers(language);
+          await buildPak({
+            translationsPath,
+            outputDir,
+            pythonPath,
+            keepTemp,
+            pakName,
+            language,
+            assetLayers,
+          });
+        }
       }
       return;
     }
@@ -349,12 +378,6 @@ function parseArgs(args: string[]): ParsedArgs {
       continue;
     }
 
-    if (arg.startsWith('--exclude-assets')) {
-      const value = extractOptionValue(arg, args[index + 1]);
-      flags.excludeAssets = value.value;
-      index += value.skip ? 1 : 2;
-      continue;
-    }
 
     console.warn(`Ignoring unknown option: ${arg}`);
     index += 1;
@@ -431,8 +454,7 @@ function printHelp(): void {
   console.log('Options for pack:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('  --keep-temp              Preserve the temporary working folder.');
-  console.log('  --variant <name>         Build variant suffix (e.g., no-convert -> VI_PATCH_NO_CONVERT).');
-  console.log('  --exclude-assets <list>  Comma-separated patterns to exclude from assets.');
+  console.log('  --variant <name>         Build variant: base, lim-xf, lim-mvh, or all.');
   console.log('Options for import:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('Options for diff:');

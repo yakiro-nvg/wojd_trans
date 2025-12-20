@@ -47,11 +47,8 @@ jobs:
       - name: Ensure artifacts directory exists
         run: mkdir -p artifacts
 
-      - name: Build localization PAKs
-        run: node ./dist/cli.js pack artifacts
-
-      - name: Build LIM_CONVERT variants (limited Han-Viet conversion, no chatbox fallback)
-        run: node ./dist/cli.js pack artifacts --variant lim-convert --exclude-assets "simsun_0.ufont"
+      - name: Build all PAK variants
+        run: node ./dist/cli.js pack artifacts --variant all
 
       - name: Zip PAKs for release
         shell: bash
