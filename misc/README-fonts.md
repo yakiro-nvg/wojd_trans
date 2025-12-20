@@ -12,11 +12,15 @@
 
 - **Base (VI_PATCH)**: Chỉ bao gồm bản dịch. Những đoạn chữ Hán chưa dịch sẽ hiển thị nguyên bản.
 
-- **LIM (Limited Convert)**: Chuyển đổi Hán-Việt cho kỹ năng boss, tên nhân vật 3D. Dung lượng nhỏ (~15MB thêm so với Base), phù hợp khi chỉ cần đọc nhanh tên skill boss mà không muốn tải thêm font overlay lớn.
+- **LIM (Limited Convert)**: Chuyển đổi Hán-Việt cho kỹ năng boss, tên nhân vật 3D. Các vị trí khác giữ nguyên chữ Hán. Phù hợp khi chỉ muốn đọc nhanh skill boss mà không convert toàn bộ game.
 
 ## Font overlay (dùng với Base)
 
-Chuyển đổi Hán-Việt cho toàn bộ game. **Chỉ dùng với VI_PATCH.zip**, không cần dùng với LIM vì overlay đã bao gồm tất cả.
+Chuyển đổi Hán-Việt cho toàn bộ game. Có thể bật/tắt convert qua cài đặt font trong game:
+- Chọn **"Thể khải"** → bật convert
+- Chọn **"Tổng Thể"** → tắt convert
+
+**Chỉ dùng với VI_PATCH.zip**, không cần dùng với LIM vì overlay đã bao gồm tất cả.
 
 | File | Kích thước | Mô tả |
 |------|-----------|-------|

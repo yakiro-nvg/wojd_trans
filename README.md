@@ -20,10 +20,12 @@
 | `VI_PATCH_LIM_MVH.zip` | Boss/3D convert (MeVietHoa) |
 
 - **Base**: Chỉ thay thế text đã dịch, chữ Hán chưa dịch giữ nguyên.
-- **LIM**: Chuyển đổi Hán-Việt cho kỹ năng boss, tên 3D. Dung lượng nhỏ (~15MB), phù hợp khi chỉ cần đọc nhanh tên skill boss.
+- **LIM**: Chuyển đổi Hán-Việt cho kỹ năng boss, tên 3D. Các vị trí khác giữ nguyên chữ Hán. Phù hợp khi chỉ muốn đọc nhanh skill boss mà không convert toàn bộ game.
 
 ### Font overlay (dùng với Base)
-Chuyển đổi Hán-Việt toàn bộ game. Dùng kèm với `VI_PATCH.zip` (không dùng với LIM). Tải từ [misc/](misc/):
+Chuyển đổi Hán-Việt toàn bộ game. Có thể bật/tắt convert qua cài đặt font: **"Thể khải"** = bật, **"Tổng Thể"** = tắt.
+
+Dùng kèm với `VI_PATCH.zip` (không dùng với LIM). Tải từ [misc/](misc/):
 - `VI_QFONT_XF.zip` (33MB) - XiaoFan
 - `VI_QFONT_MVH.zip` (51MB) - MeVietHoa
 
