@@ -46,3 +46,4 @@ Chuyển đổi Hán-Việt cho toàn bộ game. Có thể bật/tắt convert q
 
 - **XiaoFan**: Font phiên âm Hán-Việt
 - **MeVietHoa**: Font phiên âm Hán-Việt
+- **Nagasaki**: Phát hiện trick bật/tắt convert qua cài đặt font
