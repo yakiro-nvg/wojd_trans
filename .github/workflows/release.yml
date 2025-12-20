@@ -50,8 +50,8 @@ jobs:
       - name: Build localization PAKs
         run: node ./dist/cli.js pack artifacts
 
-      - name: Build NO_CONVERT variants (without Han-Viet fallback font)
-        run: node ./dist/cli.js pack artifacts --variant no-convert --exclude-assets "simsun_0.ufont"
+      - name: Build LIM_CONVERT variants (limited Han-Viet conversion, no chatbox fallback)
+        run: node ./dist/cli.js pack artifacts --variant lim-convert --exclude-assets "simsun_0.ufont"
 
       - name: Zip PAKs for release
         shell: bash
