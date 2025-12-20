@@ -216,11 +216,11 @@ async function main(): Promise<void> {
         },
         'lim-xf': {
           suffix: '_LIM_XF',
-          layers: (lang) => [`${lang}-base`, `${lang}-lim`, `${lang}-lim-xf`],
+          layers: (lang) => [`${lang}-base`, `${lang}-lim`, `${lang}-lim-xf`, `${lang}-dyn-xf`],
         },
         'lim-mvh': {
           suffix: '_LIM_MVH',
-          layers: (lang) => [`${lang}-base`, `${lang}-lim`, `${lang}-lim-mvh`],
+          layers: (lang) => [`${lang}-base`, `${lang}-lim`, `${lang}-lim-mvh`, `${lang}-dyn-mvh`],
         },
         'full-xf': {
           suffix: '_FULL_XF',
@@ -229,14 +229,6 @@ async function main(): Promise<void> {
         'full-mvh': {
           suffix: '_FULL_MVH',
           layers: (lang) => [`${lang}-base`, `${lang}-full-mvh`],
-        },
-        'dyn-xf': {
-          suffix: '_DYN_XF',
-          layers: (lang) => [`${lang}-base`, `${lang}-dyn-xf`],
-        },
-        'dyn-mvh': {
-          suffix: '_DYN_MVH',
-          layers: (lang) => [`${lang}-base`, `${lang}-dyn-mvh`],
         },
       };
 
@@ -470,7 +462,7 @@ function printHelp(): void {
   console.log('Options for pack:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('  --keep-temp              Preserve the temporary working folder.');
-  console.log('  --variant <name>         Build variant: base, lim-xf, lim-mvh, full-xf, full-mvh, dyn-xf, dyn-mvh, or all.');
+  console.log('  --variant <name>         Build variant: base, lim-xf, lim-mvh, full-xf, full-mvh, or all.');
   console.log('Options for import:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('Options for diff:');

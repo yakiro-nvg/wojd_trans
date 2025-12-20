@@ -5,24 +5,20 @@
 | Phiên bản | Mô tả |
 |-----------|-------|
 | `VI_PATCH.zip` | Bản dịch cơ bản - chỉ thay thế text đã dịch |
-| `VI_PATCH_LIM_XF.zip` | Bản dịch + Font chuyển đổi giới hạn (XiaoFan) - chuyển kỹ năng boss, tên 3D |
-| `VI_PATCH_LIM_MVH.zip` | Bản dịch + Font chuyển đổi giới hạn (MeVietHoa) - chuyển kỹ năng boss, tên 3D |
-| `VI_PATCH_FULL_XF.zip` | Bản dịch + Font chuyển đổi đầy đủ (XiaoFan) - bao gồm chatbox |
-| `VI_PATCH_FULL_MVH.zip` | Bản dịch + Font chuyển đổi đầy đủ (MeVietHoa) - bao gồm chatbox |
-| `VI_PATCH_DYN_XF.zip` | Bản dịch + Chuyển đổi động (XiaoFan) - bật/tắt qua cài đặt font |
-| `VI_PATCH_DYN_MVH.zip` | Bản dịch + Chuyển đổi động (MeVietHoa) - bật/tắt qua cài đặt font |
+| `VI_PATCH_LIM_XF.zip` | Boss/3D luôn convert + chat bật/tắt (XiaoFan) |
+| `VI_PATCH_LIM_MVH.zip` | Boss/3D luôn convert + chat bật/tắt (MeVietHoa) |
+| `VI_PATCH_FULL_XF.zip` | Chuyển đổi Hán-Việt toàn bộ (XiaoFan) |
+| `VI_PATCH_FULL_MVH.zip` | Chuyển đổi Hán-Việt toàn bộ (MeVietHoa) |
 
 ## Sự khác biệt giữa các phiên bản
 
 - **Base (VI_PATCH)**: Chỉ bao gồm bản dịch. Những đoạn chữ Hán chưa dịch sẽ hiển thị nguyên bản.
 
-- **LIM (Limited Convert)**: Chuyển đổi Hán-Việt cho các vị trí đặc biệt như thanh kỹ năng boss, tên nhân vật 3D. Chatbox vẫn hiển thị chữ Hán nguyên bản.
+- **LIM (Limited Convert)**: Kỹ năng boss, tên nhân vật 3D luôn được chuyển đổi Hán-Việt. Chat có thể bật/tắt qua cài đặt font:
+  - Chọn **"Thể khải"** để bật chuyển đổi Hán-Việt cho chat
+  - Chọn **"Tổng Thể"** để hiển thị chữ Hán nguyên bản
 
 - **FULL (Full Convert)**: Chuyển đổi Hán-Việt cho tất cả vị trí, bao gồm cả chatbox. Mọi chữ Hán chưa dịch đều được chuyển sang phiên âm Việt.
-
-- **DYN (Dynamic)**: Cho phép bật/tắt chuyển đổi Hán-Việt trong game. Vào Cài đặt > Cài đặt phông chữ:
-  - Chọn **"Thể khải"** để bật chuyển đổi Hán-Việt
-  - Chọn **"Tổng Thể"** để hiển thị chữ Hán nguyên bản
 
 ## Font chuyển đổi
 
