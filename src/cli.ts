@@ -230,6 +230,14 @@ async function main(): Promise<void> {
           suffix: '_FULL_MVH',
           layers: (lang) => [`${lang}-base`, `${lang}-full-mvh`],
         },
+        'dyn-xf': {
+          suffix: '_DYN_XF',
+          layers: (lang) => [`${lang}-base`, `${lang}-dyn-xf`],
+        },
+        'dyn-mvh': {
+          suffix: '_DYN_MVH',
+          layers: (lang) => [`${lang}-base`, `${lang}-dyn-mvh`],
+        },
       };
 
       const languages = await getSupportedLanguages();
@@ -462,7 +470,7 @@ function printHelp(): void {
   console.log('Options for pack:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('  --keep-temp              Preserve the temporary working folder.');
-  console.log('  --variant <name>         Build variant: base, lim-xf, lim-mvh, full-xf, full-mvh, or all.');
+  console.log('  --variant <name>         Build variant: base, lim-xf, lim-mvh, full-xf, full-mvh, dyn-xf, dyn-mvh, or all.');
   console.log('Options for import:');
   console.log('  --python <path>          Use a specific Python interpreter.');
   console.log('Options for diff:');

@@ -20,10 +20,13 @@
 | `VI_PATCH_LIM_MVH.zip` | Bản dịch + chuyển đổi Hán-Việt giới hạn (MeVietHoa) |
 | `VI_PATCH_FULL_XF.zip` | Bản dịch + chuyển đổi Hán-Việt đầy đủ (XiaoFan) |
 | `VI_PATCH_FULL_MVH.zip` | Bản dịch + chuyển đổi Hán-Việt đầy đủ (MeVietHoa) |
+| `VI_PATCH_DYN_XF.zip` | Bản dịch + chuyển đổi động qua cài đặt font (XiaoFan) |
+| `VI_PATCH_DYN_MVH.zip` | Bản dịch + chuyển đổi động qua cài đặt font (MeVietHoa) |
 
 - **Base**: Chỉ thay thế text đã dịch, chữ Hán chưa dịch giữ nguyên.
 - **LIM (Limited)**: Chuyển đổi Hán-Việt cho kỹ năng boss, tên 3D. Chatbox giữ nguyên.
 - **FULL**: Chuyển đổi Hán-Việt toàn bộ, bao gồm cả chatbox.
+- **DYN (Dynamic)**: Chọn "Thể khải" trong cài đặt font để bật chuyển đổi, "Tổng Thể" để tắt.
 
 > Chi tiết xem [Font convert](misc/README-fonts.md)
 
