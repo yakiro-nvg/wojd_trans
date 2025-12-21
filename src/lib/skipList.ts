@@ -5,11 +5,13 @@ import type { TranslationItem } from './translationFile.js';
 type RawRule = {
   namespace: string;
   keyRegex?: string;
+  sourcePattern?: string;
 };
 
 type SkipRule = {
   namespace: string;
-  regex?: RegExp;
+  keyRegex?: RegExp;
+  sourcePattern?: RegExp;
 };
 
 let cachedRules: SkipRule[] | null = null;
@@ -23,26 +25,36 @@ function loadRules(): SkipRule[] {
   const parsed = JSON.parse(raw) as { rules?: RawRule[] };
   const rules = (parsed.rules ?? []).map<SkipRule>((rule) => ({
     namespace: rule.namespace,
-    regex: rule.keyRegex ? new RegExp(rule.keyRegex) : undefined,
+    keyRegex: rule.keyRegex ? new RegExp(rule.keyRegex) : undefined,
+    sourcePattern: rule.sourcePattern ? new RegExp(rule.sourcePattern) : undefined,
   }));
   cachedRules = rules;
   return rules;
 }
 
-export function shouldSkipTranslation(namespace: string, key: string): boolean {
+export function shouldSkipTranslation(namespace: string, key: string, source?: string | null): boolean {
   return loadRules().some((rule) => {
     if (rule.namespace !== namespace) {
       return false;
     }
-    if (rule.regex) {
-      return rule.regex.test(key);
+    // Check key pattern
+    if (rule.keyRegex) {
+      if (!rule.keyRegex.test(key)) {
+        return false;
+      }
+    }
+    // Check source pattern (if specified, source must match to skip)
+    if (rule.sourcePattern) {
+      if (source == null || !rule.sourcePattern.test(source)) {
+        return false;
+      }
     }
     return true;
   });
 }
 
 export function sanitizeTranslationItem(item: TranslationItem): TranslationItem {
-  if (shouldSkipTranslation(item.namespace, item.key)) {
+  if (shouldSkipTranslation(item.namespace, item.key, item.source)) {
     if (item.translated != null) {
       return { ...item, translated: null };
     }

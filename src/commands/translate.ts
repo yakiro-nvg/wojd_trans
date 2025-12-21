@@ -27,6 +27,8 @@ const DEFAULT_CONCURRENCY = 4;
 const DEFAULT_CHECKPOINT = 20;
 const GEMINI_DEFAULT_BATCH_SIZE = 20;
 const GEMINI_DEFAULT_CONCURRENCY = 4;
+const GEMINI_DEFAULT_MODEL_ID = 'gemini-3-pro-preview';
+const GEMINI_DEFAULT_THINKING_LEVEL = 'low';
 const MAX_ATTEMPTS = 5;
 const SKIP_NAMESPACES = new Set(['RankDetail']);
 const SKIP_ROWOBJECT_KEYS = ['110731', '110735', '110761', '110769', '110770', '110772'];
@@ -63,6 +65,8 @@ interface GeminiTranslationConfig extends BaseTranslationConfig {
   provider: 'gemini';
   apiKey: string;
   modelId: string;
+  thinkingLevel?: 'minimal' | 'low' | 'medium' | 'high';
+  includeThoughts?: boolean;
 }
 
 type TranslationConfig = BedrockTranslationConfig | GeminiTranslationConfig;
@@ -153,7 +157,7 @@ async function translateCatalog(options: CatalogOptions): Promise<CatalogResult>
   );
   if (translationConfig.provider === 'gemini' && options.batchSize == null) {
     console.log(
-      `[${label}:${language}] Gemini defaults applied (Level 1): batch size ${effectiveBatchSize}, concurrency ${concurrency}. RPM=1,000, TPM=1,000,000.`,
+      `[${label}:${language}] Gemini defaults applied (Level 1): batch size ${effectiveBatchSize}, concurrency ${concurrency}.`,
     );
   }
 
@@ -449,12 +453,15 @@ async function promptForTranslationConfig(language: string, explicitPromptPath?:
 
   console.log('Model provider: Google Gemini');
   const apiKey = await promptInput('Enter Google Generative AI API Key');
-  const modelId = await promptInput('Enter Gemini model ID', { defaultValue: 'gemini-3-flash-preview' });
+  const modelId = (await promptInput('Enter Gemini model ID', { defaultValue: GEMINI_DEFAULT_MODEL_ID })).trim();
+  const thinkingLevel = supportsGeminiThinkingConfig(modelId) ? GEMINI_DEFAULT_THINKING_LEVEL : undefined;
 
   return {
     provider: 'gemini',
     apiKey,
     modelId,
+    thinkingLevel,
+    includeThoughts: false,
     targetLanguage: normalizedLanguage,
     systemPrompt,
   };
@@ -488,6 +495,11 @@ function describeLanguage(language: string): string {
   return LANGUAGE_LABELS[normalized] ?? normalized;
 }
 
+function supportsGeminiThinkingConfig(modelId: string): boolean {
+  const normalized = modelId.trim().toLowerCase();
+  return normalized.startsWith('gemini-2.') || normalized.startsWith('gemini-3.') || normalized.includes('thinking');
+}
+
 function isBedrockConfig(config: TranslationConfig): config is BedrockTranslationConfig {
   return config.provider === 'bedrock';
 }
@@ -515,11 +527,23 @@ async function translateChunk(params: {
   const { entries, config, model, schema } = params;
 
   const prompt = buildPrompt(entries, config.targetLanguage);
+  const providerOptions =
+    config.provider === 'gemini' && config.thinkingLevel != null
+      ? {
+          google: {
+            thinkingConfig: {
+              thinkingLevel: config.thinkingLevel,
+              ...(config.includeThoughts === true ? { includeThoughts: true } : {}),
+            },
+          },
+        }
+      : undefined;
   const result = await generateObject({
     model,
     system: config.systemPrompt,
     prompt,
     schema,
+    ...(providerOptions ? { providerOptions } : {}),
   });
 
   if (!result || !result.object) {
@@ -558,7 +582,7 @@ function buildTranslationQueue(items: TranslationItem[], options: TranslateOptio
   const orderedGroups: TranslationGroup[] = [];
 
   items.forEach((item, index) => {
-    if (shouldSkipTranslation(item.namespace, item.key)) {
+    if (shouldSkipTranslation(item.namespace, item.key, item.source)) {
       return;
     }
     const hasManual = item.translated !== null && item.translated !== undefined;

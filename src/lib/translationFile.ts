@@ -451,7 +451,7 @@ export function resetTranslations(items: TranslationItem[]): TranslationItem[] {
 export function countPendingTranslations(items: TranslationItem[]): number {
   let count = 0;
   for (const item of items) {
-    if (shouldSkipTranslation(item.namespace, item.key)) {
+    if (shouldSkipTranslation(item.namespace, item.key, item.source)) {
       continue;
     }
     if (item.translated && item.translated.trim().length > 0) {
