@@ -437,7 +437,7 @@ function printHelp(): void {
   console.log('      --limit <n>             Show up to <n> entries per section (default 10, use 0 for all).');
   console.log('      --output <path>        Write the full diff report as JSON to <path>.');
   console.log('  translate [--language <code>] [options]');
-  console.log('      Translate pending entries for the chosen language using Bedrock Claude.');
+  console.log('      Translate pending entries for the chosen language using Bedrock Claude or Google Gemini.');
   console.log('  import <Game.locres> [--python <path>]');
   console.log('      Import an existing locres into all language catalogs.');
   console.log('  pack [outputDir] [--python <path>] [--keep-temp]');
@@ -447,7 +447,7 @@ function printHelp(): void {
   console.log('  --force, -f              Reset existing translations before translating.');
   console.log('  --limit <n>              Limit unique sources processed this run.');
   console.log('  --test[=<n>]             Enable smoke mode (defaults to 5 unique sources).');
-  console.log('  --batch-size <n>         Translation batch size per request (default 5).');
+  console.log('  --batch-size <n>         Translation batch size per request (default 5; Gemini default 20).');
   console.log('  --system-prompt <path>   Override the system prompt file.');
   console.log('  --checkpoint <n>         Persist progress after every n translations (default 20).');
   console.log('  --concurrency <n>        Parallel translation requests (default 4).');
