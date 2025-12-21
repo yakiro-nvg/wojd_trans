@@ -2,7 +2,9 @@
   "rules": [
     {
       "namespace": "RowObjectBase",
-      "keyRegex": ".*-Title$"
+      "keyRegex": ".*-Title$",
+      "sourcePattern": "^[A-Za-z0-9_]+$",
+      "comment": "Skip Pinyin lookup keys like Paiming, Bangpai - but allow Chinese titles"
     },
     {
       "namespace": "Battle",

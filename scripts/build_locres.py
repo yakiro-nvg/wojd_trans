@@ -17,7 +17,7 @@ except Exception as exc:  # pragma: no cover
         "Missing dependency 'pylocres'. Install with: pip install pylocres"
     ) from exc
 
-SkipRule = Tuple[str, Optional[re.Pattern[str]]]
+SkipRule = Tuple[str, Optional[re.Pattern[str]], Optional[re.Pattern[str]]]
 _cached_rules: Optional[List[SkipRule]] = None
 
 
@@ -39,23 +39,30 @@ def load_skip_rules() -> List[SkipRule]:
         if not namespace:
             continue
         regex_value = entry.get("keyRegex")
-        pattern = re.compile(regex_value) if isinstance(regex_value, str) else None
-        rules.append((namespace, pattern))
+        key_pattern = re.compile(regex_value) if isinstance(regex_value, str) else None
+        source_regex = entry.get("sourcePattern")
+        source_pattern = re.compile(source_regex) if isinstance(source_regex, str) else None
+        rules.append((namespace, key_pattern, source_pattern))
 
     _cached_rules = rules
     return rules
 
 
-def should_skip_translation(namespace: str, key: str) -> bool:
+def should_skip_translation(namespace: str, key: str, source: Optional[str] = None) -> bool:
     if not namespace:
         return False
-    for rule_namespace, pattern in load_skip_rules():
+    for rule_namespace, key_pattern, source_pattern in load_skip_rules():
         if rule_namespace != namespace:
             continue
-        if pattern is None:
-            return True
-        if key is not None and pattern.search(key):
-            return True
+        # Check key pattern
+        if key_pattern is not None:
+            if key is None or not key_pattern.search(key):
+                continue
+        # Check source pattern (if specified, source must match to skip)
+        if source_pattern is not None:
+            if source is None or not source_pattern.match(source):
+                continue
+        return True
     return False
 
 
@@ -71,8 +78,8 @@ def hash_utf32le(text: str) -> int:
 
 
 def compute_source_hash(source: str) -> int:
-    normalized = normalize_crlf(source)
-    return hash_utf32le(normalized)
+    # Hash the source as-is without normalization - game expects exact source hash
+    return hash_utf32le(source)
 
 
 def build_locres(entries: Iterable[dict], output_path: Path) -> int:
@@ -92,7 +99,7 @@ def build_locres(entries: Iterable[dict], output_path: Path) -> int:
         if not key:
             continue
 
-        if should_skip_translation(str(namespace), str(key)):
+        if should_skip_translation(str(namespace), str(key), str(source) if source else None):
             translated = None
 
         if translated is None:
