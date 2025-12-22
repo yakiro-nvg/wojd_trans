@@ -2,11 +2,10 @@ import path from 'node:path';
 import { collectFmtStringEntries } from '../lib/fmtStrings.js';
 import {
   loadTranslationFile,
-  mergeCollectedWithTranslations,
   resetTranslations,
   saveTranslationFile,
-  saveTranslationUpdates,
   countPendingTranslations,
+  type TranslationItem,
 } from '../lib/translationFile.js';
 import { getSupportedLanguages } from '../lib/languages.js';
 
@@ -31,43 +30,91 @@ export async function syncFmtStrings(options: FmtStringSyncOptions): Promise<voi
     const catalogPath = path.join('translations', `${language}.fmtstring.ndjson`);
     const existing = await loadTranslationFile(catalogPath);
 
-    const mergeResult = mergeCollectedWithTranslations(collected, existing);
-    let items = mergeResult.items;
-
-    const { stats, changedIndices } = mergeResult;
-
-    if (force === true) {
-      items = resetTranslations(items);
-      console.log(`[fmt:${language}] All fmtstring translations have been reset.`);
-      await saveTranslationFile(catalogPath, items, { prune: true });
-    } else if (changedIndices.length > 0) {
-      await saveTranslationUpdates(catalogPath, items, changedIndices);
+    // Build translation lookup table keyed by source string
+    const translationBySource = new Map<string, string>();
+    for (const item of existing) {
+      if (item.source && item.translated) {
+        // Only store first translation for each source (don't overwrite)
+        if (!translationBySource.has(item.source)) {
+          translationBySource.set(item.source, item.translated);
+        }
+      }
     }
 
-    const pending = countPendingTranslations(items);
-    reportSummary(language, stats, items.length, pending, changedIndices.length);
+    // Create fresh structure from collected entries
+    const freshItems: TranslationItem[] = collected.map((entry) => {
+      const source = entry.source;
+      // Auto-fill translation if we have one for this source
+      const translated = source ? (translationBySource.get(source) ?? null) : null;
+
+      return {
+        namespace: entry.namespace ?? '',
+        key: entry.key,
+        source,
+        translated: force ? null : translated,
+        locresImport: null,
+        importedHash: null,
+      };
+    });
+
+    // Sort by namespace then key
+    freshItems.sort((a, b) => {
+      if (a.namespace !== b.namespace) {
+        return a.namespace.localeCompare(b.namespace);
+      }
+      return a.key.localeCompare(b.key);
+    });
+
+    // Calculate stats
+    const existingKeys = new Set(existing.map((e) => `${e.namespace}\0${e.key}`));
+    const freshKeys = new Set(freshItems.map((e) => `${e.namespace}\0${e.key}`));
+
+    let added = 0;
+    let removed = 0;
+    let autoTranslated = 0;
+
+    for (const key of freshKeys) {
+      if (!existingKeys.has(key)) {
+        added += 1;
+      }
+    }
+    for (const key of existingKeys) {
+      if (!freshKeys.has(key)) {
+        removed += 1;
+      }
+    }
+    for (const item of freshItems) {
+      if (item.translated && item.source) {
+        autoTranslated += 1;
+      }
+    }
+
+    // Always save fresh structure
+    await saveTranslationFile(catalogPath, freshItems, { prune: true });
+
+    if (force) {
+      console.log(`[fmt:${language}] All fmtstring translations have been reset.`);
+    }
+
+    const pending = countPendingTranslations(freshItems);
+    reportSummary(language, { added, removed, autoTranslated }, freshItems.length, pending);
   }
 }
 
 function reportSummary(
   language: string,
-  stats: { added: number; updated: number; removed: number },
+  stats: { added: number; removed: number; autoTranslated: number },
   total: number,
   pending: number,
-  changed: number,
 ): void {
   const parts: string[] = [];
   if (stats.added > 0) {
     parts.push(`added ${stats.added}`);
-  }
-  if (stats.updated > 0) {
-    parts.push(`updated ${stats.updated}`);
   }
   if (stats.removed > 0) {
     parts.push(`removed ${stats.removed}`);
   }
 
   console.log(parts.length > 0 ? `[fmt:${language}] Catalog changes: ${parts.join(', ')}.` : `[fmt:${language}] Catalog is already in sync.`);
-  console.log(`[fmt:${language}] Lines written this run: ${changed}.`);
-  console.log(`[fmt:${language}] Total entries: ${total}. Pending translations: ${pending}.`);
+  console.log(`[fmt:${language}] Total entries: ${total}. Auto-translated: ${stats.autoTranslated}. Pending: ${pending}.`);
 }
