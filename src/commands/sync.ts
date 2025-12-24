@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { loadLocalizationEntries } from '../lib/entries.js';
+import type { LocalizationEntry } from '../types.js';
 import {
   loadTranslationFile,
   mergeCollectedWithTranslations,
@@ -10,6 +11,26 @@ import {
   createKey,
 } from '../lib/translationFile.js';
 import { getSupportedLanguages } from '../lib/languages.js';
+
+// Vietnamese diacritics pattern - used to detect already-translated text
+const VIETNAMESE_PATTERN = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
+
+function hasVietnameseText(text: string | null | undefined): boolean {
+  return typeof text === 'string' && VIETNAMESE_PATTERN.test(text);
+}
+
+function filterVietnameseSources(entries: LocalizationEntry[]): { filtered: LocalizationEntry[]; skipped: number } {
+  const filtered: LocalizationEntry[] = [];
+  let skipped = 0;
+  for (const entry of entries) {
+    if (hasVietnameseText(entry.source)) {
+      skipped++;
+    } else {
+      filtered.push(entry);
+    }
+  }
+  return { filtered, skipped };
+}
 
 export interface SyncOptions {
   collectedPath: string;
@@ -23,9 +44,15 @@ export async function syncTranslations(options: SyncOptions): Promise<void> {
     throw new Error('Missing collected localization JSON path.');
   }
 
-  const collected = await loadLocalizationEntries(collectedPath);
-  if (collected.length === 0) {
+  const rawCollected = await loadLocalizationEntries(collectedPath);
+  if (rawCollected.length === 0) {
     throw new Error('Collected JSON contains no localization entries.');
+  }
+
+  // Filter out entries with Vietnamese source (already translated via FormatString)
+  const { filtered: collected, skipped: vietnameseSkipped } = filterVietnameseSources(rawCollected);
+  if (vietnameseSkipped > 0) {
+    console.log(`Skipped ${vietnameseSkipped} entries with Vietnamese source text.`);
   }
 
   const languages = await getSupportedLanguages();
