@@ -17,7 +17,7 @@ except Exception as exc:  # pragma: no cover
         "Missing dependency 'pylocres'. Install with: pip install pylocres"
     ) from exc
 
-SkipRule = Tuple[str, Optional[re.Pattern[str]], Optional[re.Pattern[str]]]
+SkipRule = Tuple[Optional[str], Optional[re.Pattern[str]], Optional[re.Pattern[str]]]
 _cached_rules: Optional[List[SkipRule]] = None
 
 
@@ -35,9 +35,7 @@ def load_skip_rules() -> List[SkipRule]:
 
     rules: List[SkipRule] = []
     for entry in raw.get("rules", []):
-        namespace = entry.get("namespace")
-        if not namespace:
-            continue
+        namespace = entry.get("namespace")  # None means "all namespaces"
         regex_value = entry.get("keyRegex")
         key_pattern = re.compile(regex_value) if isinstance(regex_value, str) else None
         source_regex = entry.get("sourcePattern")
@@ -52,7 +50,8 @@ def should_skip_translation(namespace: str, key: str, source: Optional[str] = No
     if not namespace:
         return False
     for rule_namespace, key_pattern, source_pattern in load_skip_rules():
-        if rule_namespace != namespace:
+        # None namespace means "all namespaces"
+        if rule_namespace is not None and rule_namespace != namespace:
             continue
         # Check key pattern
         if key_pattern is not None:

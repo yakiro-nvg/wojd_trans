@@ -3,13 +3,13 @@ import path from 'node:path';
 import type { TranslationItem } from './translationFile.js';
 
 type RawRule = {
-  namespace: string;
+  namespace?: string; // Optional: undefined means "all namespaces"
   keyRegex?: string;
   sourcePattern?: string;
 };
 
 type SkipRule = {
-  namespace: string;
+  namespace?: string; // Optional: undefined means "all namespaces"
   keyRegex?: RegExp;
   sourcePattern?: RegExp;
 };
@@ -34,7 +34,8 @@ function loadRules(): SkipRule[] {
 
 export function shouldSkipTranslation(namespace: string, key: string, source?: string | null): boolean {
   return loadRules().some((rule) => {
-    if (rule.namespace !== namespace) {
+    // undefined namespace means "all namespaces"
+    if (rule.namespace !== undefined && rule.namespace !== namespace) {
       return false;
     }
     // Check key pattern
