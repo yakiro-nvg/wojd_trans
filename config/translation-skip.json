@@ -13,6 +13,26 @@
     {
       "namespace": "Battle.txt",
       "keyRegex": "^(1[3-5][0-9]|152)$"
+    },
+    {
+      "sourcePattern": ".*\\.data$",
+      "comment": "Skip .data asset file references - these are technical identifiers"
+    },
+    {
+      "sourcePattern": "^Play_",
+      "comment": "Skip Play_* asset/audio names"
+    },
+    {
+      "sourcePattern": "^/Script/|^/Game/",
+      "comment": "Skip Unreal Engine asset paths"
+    },
+    {
+      "sourcePattern": "^(WhiteTemp|BloomThreshold|BloomIntensity)$",
+      "comment": "Skip post-processing technical settings"
+    },
+    {
+      "sourcePattern": "@@FactionIf|/FactionIf",
+      "comment": "Skip FactionIf markup - these are conditionals not visible text"
     }
   ]
 }
