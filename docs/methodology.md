@@ -6,6 +6,29 @@ The shipped locres is not a complete source catalog. Local data can feed Unreal'
 
 Direct .data replacement is unsuitable: the client validates signed resources using asymmetric cryptography, and these files also contain non-localization/gameplay parameters. Replacing an entire file risks retaining obsolete parameters across client updates. The project does not re-sign resources or disable integrity checks.
 
+The solution used in this release is **runtime string substitution**. The signed .data files stay unchanged: the game reads and decodes its own data, then a native DLL intercepts the validated string-reading/deserialization paths. It compares the complete decoded source with a translation dictionary and, on a match, replaces the string returned to the game. This operates on string values rather than replacing whole data records or their numeric/gameplay parameters. Locres and FormatString overlays continue to handle text that follows those separate routes.
+
+These constraints explain why the native hook is needed. The legacy language-file approach cannot reach strings that bypass Unreal's localization path, so it cannot provide equivalent coverage for the observed data-reader and Skill/Buff paths. Loading and hooking native client code is a deeper intervention: it can break after updates or conflict with anti-cheat, and publisher acceptance or account safety cannot be guaranteed. The following section describes how substitution is constrained; it does not make the intervention risk-free.
+
+```mermaid
+flowchart TD
+    Data["Original signed .data resources<br/>Unchanged on disk"] --> Reader["Game's own data decoding<br/>and string deserialization"]
+    Reader --> Hook["Validated native string-reading paths<br/>Runtime DLL intercepts decoded string"]
+    Catalog["Exact-source translation dictionary<br/>catalog.bin"] --> Hook
+    Hook --> Match{"Complete source matches<br/>a dictionary entry?"}
+    Match -->|Yes| VI["Return translated string"]
+    Match -->|No| Original["Return original string"]
+    VI --> UI["Game UI"]
+    Original --> UI
+    Locres["Two independent locres routes"] --> Overlay["Translation PAK overlays<br/>locres, FormatString, fonts and UI"]
+    Format["Current FormatString files"] --> Overlay
+    Overlay --> UI
+    classDef intervention fill:#fff0d9,stroke:#bc6400,stroke-width:3px,color:#452300;
+    class Hook intervention;
+```
+
+The highlighted component runs inside the client. The resource overlays complement it; they do not make the native intervention unnecessary. This is a logical architecture diagram, not a claim that every producer or UI path has been covered.
+
 ## Runtime dictionary
 
 The component observes the native route returning decoded .data strings and substitutes a translation only when the complete source matches the dictionary. Unmatched or ignored strings stay unchanged. It does not hook generic Lua string manipulation. This document intentionally omits low-level interception/reverse-engineering recipes.

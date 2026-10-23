@@ -1,14 +1,20 @@
-# Cài bản dịch
+# Cài bản Việt hóa
 
-1. Tải **VI_PATCH.zip** từ [Releases](https://github.com/yakiro-nvg/wojd_trans/releases/latest). Đây là một gói production đầy đủ, gồm hook, bản dịch, font Việt và sửa UI; không phải bản dump/debug.
-2. Giải nén vào thư mục riêng. Thoát game bình thường. Nếu còn PAK dịch legacy `~VI_PATCH*`/`~VI_QFONT*`, chuyển chúng ra ngoài `Content/Paks`.
-3. Chạy `install.bat`, nhập thư mục Game, ZhuxianClient hoặc Binaries\Win64. Không cần Python, compiler hoặc quyền quản trị.
-4. Mở qua launcher như thường lệ. Nếu hộp thoại yêu cầu mở lại sau khi cập nhật địa chỉ, thoát rồi mở lại game.
+**[Tải VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)**. Chỉ cần chọn gói này; không cài kèm LIM/QFONT cũ.
 
-Cập nhật bằng `install.bat` của gói mới khi game đã đóng. `verify.bat` kiểm tra file; `uninstall.bat` gỡ và phục hồi DLL có sẵn trước đó. `rollback.bat` nhận mã giao dịch được in lúc cài/gỡ để phục hồi chính giao dịch ấy. Cache, thiết lập, log và backup giữ lại trong thư mục `wojd`.
+> **Rủi ro:** bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Có thể gặp lỗi mở game, văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn. Chưa có xác nhận chấp thuận từ nhà phát hành; không thể cam kết an toàn tài khoản. Đọc [lý do phải dùng phương pháp này](../README.md#vì-sao-phải-dùng-cách-này) trước khi quyết định cài.
 
-BAT gọi PowerShell có sẵn trong Windows; execution policy chỉ áp dụng cho tiến trình ấy. Có thể đọc source bộ cài trước khi chạy. Bộ cài không tải thêm code, không tự mở/đóng game và giữ nguyên file đã bị mod khác thay đổi. Đường dẫn cài không phụ thuộc máy người phát triển.
+1. Thoát game bình thường, rồi giải nén toàn bộ ZIP vào một thư mục riêng.
+2. Nếu từng dùng bản cũ, chuyển các file bắt đầu bằng `~VI_PATCH` hoặc `~VI_QFONT` ra ngoài thư mục `Content\Paks`.
+3. Chạy **install.bat**. Khi được hỏi đường dẫn, mở thư mục game trong File Explorer, sao chép đường dẫn trên thanh địa chỉ rồi dán vào cửa sổ bộ cài.
+4. Mở game qua launcher. Nếu bản dịch yêu cầu mở lại, thoát game rồi mở lại.
 
-Kiểm tra checksum, source revision và workflow của release. Bộ cài không dùng hash/timestamp/kích thước EXE để chặn phiên bản; code hook vẫn được xác minh khi chạy. [Các lỗi còn lại](known-issues.txt) gồm câu cũ chưa review, nội dung còn CN và bố cục chưa thử trên mọi tỉ lệ UI. LIM/QFONT cũ không cần cài kèm.
+Bộ cài nhận thư mục **Game**, **ZhuxianClient** hoặc **Binaries\Win64**. Ví dụ: `D:\ZXSJclient\ZXSJ\Game`. Dùng đường dẫn thực tế trên máy bạn; không cần giống ví dụ.
 
-Native DLL có rủi ro tương thích và nhà phát hành/anti-cheat; không bảo đảm ổn định hay an toàn tài khoản. Khi báo lỗi, ghi revision, thông báo và cách tái hiện; kiểm tra thông tin riêng tư trước khi chia sẻ log.
+**Quyền quản trị phụ thuộc thư mục cài game.** Nếu game nằm trong Program Files hoặc Windows báo không có quyền ghi, nhấp chuột phải file BAT và chọn **Run as administrator**. Các thao tác cài, cập nhật, kiểm tra, gỡ và khôi phục đều cần quyền truy cập phù hợp.
+
+Để cập nhật, thoát game và chạy `install.bat` của gói mới. `verify.bat` kiểm tra bản đã cài; `uninstall.bat` gỡ bản dịch. Muốn khôi phục một lần cài/gỡ, chạy `rollback.bat` và nhập mã giao dịch được bộ cài in ra. Giữ lại backup cho đến khi chắc chắn không cần khôi phục.
+
+Bộ cài không tự mở hay đóng game. Nếu file đã bị mod khác thay đổi, nó dừng và giữ nguyên để tránh ghi đè. Các tệp dữ liệu gốc có chữ ký không bị thay thế.
+
+Một số câu còn CN hoặc chưa được soát hết; vài màn hình có thể còn tràn/cắt chữ. Khi báo lỗi, gửi tên bản phát hành, ảnh và cách tái hiện; kiểm tra thông tin riêng tư trước khi chia sẻ log.

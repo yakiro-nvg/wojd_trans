@@ -34,8 +34,30 @@ class ArchiveTests(unittest.TestCase):
         (self.session/'session.json').write_text(json.dumps(self.metadata))
     def run_archive(self):
         self.archive=subprocess.Popen(['powershell','-NoProfile','-ExecutionPolicy','Bypass','-File',str(ROOT/'distribution/Archive-Session.ps1'),'-Session',str(self.session)],stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=subprocess.CREATE_NO_WINDOW)
+    def wait_archive_ready(self,seconds=60):
+        """Observe copied/flushed fixture bytes; a pathname alone is too early."""
+        until=time.monotonic()+seconds
+        archived=self.session/'ZhuxianClient.log'
+        last_read_error=None
+        while time.monotonic()<until:
+            if self.archive.poll() is not None:
+                out,err=self.archive.communicate(timeout=5)
+                result=self.session/'archive-result.json'
+                report=result.read_text(encoding='utf-8-sig') if result.exists() else '<no result>'
+                self.fail(f'Archive observer exited before readiness: exit={self.archive.returncode}; stdout={out!r}; stderr={err!r}; report={report}')
+            try:
+                if archived.read_bytes()==b'first\n':return
+            except OSError as error:
+                last_read_error=repr(error)
+            time.sleep(.05)
+        # The child intentionally stays alive until readiness. Do not call
+        # communicate here: a healthy observer is still waiting for that child.
+        result=self.session/'archive-result.json'
+        report=result.read_text(encoding='utf-8-sig') if result.exists() else '<no result>'
+        source_stat=self.log.stat() if self.log.exists() else None
+        self.fail(f'Archive readiness deadline: observer_exit={self.archive.poll()}; child_exit={self.child.poll()}; claim={(self.session/"archive.claim").exists()}; build={(self.session/"build.json").exists()}; source_stat={source_stat}; process_birth={self.metadata["process_creation_filetime"]}; last_read_error={last_read_error}; report={report}')
     def finish(self,success=True):
-        out,err=self.archive.communicate(timeout=15)
+        out,err=self.archive.communicate(timeout=45)
         report=json.loads((self.session/'archive-result.json').read_text(encoding='utf-8-sig'))
         self.assertEqual(report['complete'],success,(out,err,report))
         self.assertEqual(self.archive.returncode,0 if success else 1,(out,err))
@@ -45,7 +67,7 @@ class ArchiveTests(unittest.TestCase):
             if process and process.poll() is None:process.kill();process.wait(timeout=5)
         self.temp.cleanup()
     def test_exit_and_rotation_archive_retained_handle_not_replacement(self):
-        self.run_archive();wait_for(lambda:(self.session/'ZhuxianClient.log').exists())
+        self.run_archive();self.wait_archive_ready()
         rotated=self.root/'Game-previous.log';self.log.rename(rotated)
         self.log.write_bytes(b'different new log')
         with rotated.open('ab') as dst:dst.write(b'kept on old handle\n')
@@ -56,7 +78,7 @@ class ArchiveTests(unittest.TestCase):
         self.archive.communicate(timeout=10);self.assertNotEqual(self.archive.returncode,0)
         self.assertEqual((self.session/'archive-result.json').read_bytes(),before)
     def test_normal_exit_includes_tail(self):
-        self.run_archive();wait_for(lambda:(self.session/'ZhuxianClient.log').exists())
+        self.run_archive();self.wait_archive_ready()
         self.stop.touch();self.child.wait(timeout=5);self.finish()
         self.assertEqual((self.session/'ZhuxianClient.log').read_bytes(),b'first\nlast\n')
     def test_pid_generation_mismatch_never_archives_another_run(self):
