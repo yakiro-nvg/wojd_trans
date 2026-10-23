@@ -9,7 +9,13 @@ int main(void) {
     BYTE *image,*trampoline,before[sizeof(data_assign_bytes)];IMAGE_DOS_HEADER *dos;IMAGE_NT_HEADERS64 *nt;void *blocked_trampoline=NULL;
     IMAGE_SECTION_HEADER *section;RUNTIME_FUNCTION functions[9];ImageView view;DWORD error,g,j;
     static const DWORD anchors[3]={0x2050,0x3050,0x4050},owners[3]={0x2000,0x3000,0x4000};
-    image=(BYTE *)VirtualAlloc(NULL,0xc000,MEM_RESERVE|MEM_COMMIT,PAGE_EXECUTE_READWRITE);if(!image)return 2;
+    /* Unconstrained allocation often lands beside another private allocation.
+       That did not exercise the absolute entry used by the real EXE. Reserve
+       a low synthetic image, then assert the actual 14-byte layout below. */
+    image=NULL;
+    for(j=0;j<16 && !image;j++)image=(BYTE *)VirtualAlloc((void *)(uintptr_t)(0x180000000ull+j*0x100000000ull),
+        0xc000,MEM_RESERVE|MEM_COMMIT,PAGE_EXECUTE_READWRITE);
+    if(!image)return 2;
     dos=(IMAGE_DOS_HEADER *)image;dos->e_magic=IMAGE_DOS_SIGNATURE;dos->e_lfanew=0x80;
     nt=(IMAGE_NT_HEADERS64 *)(image+0x80);nt->Signature=IMAGE_NT_SIGNATURE;nt->FileHeader.Machine=IMAGE_FILE_MACHINE_AMD64;
     nt->FileHeader.SizeOfOptionalHeader=sizeof(IMAGE_OPTIONAL_HEADER64);nt->FileHeader.NumberOfSections=1;
@@ -52,14 +58,33 @@ int main(void) {
     memcpy(before,image+0x600,sizeof(before));g_game_host=TRUE;g_image_base=image;g_prefer_far=TRUE;
     g_wide_ready=TRUE;g_wide_count=1;QueryPerformanceFrequency(&g_diag_frequency);QueryPerformanceCounter(&g_diag_attach);
     CHECK(image_view(image,&view),"synthetic PE and registered unwind metadata ready");
-    CHECK(tooltip_prepare_for_serializer(image+0x800)==ERROR_SUCCESS && g_target==image+0x600 &&
+    error=tooltip_prepare_for_serializer(image+0x800);
+    CHECK(error==ERROR_SUCCESS && g_target==image+0x600 &&
         g_tooltip_translation_ready && g_original_assign && g_active && g_assignment_signature.ready && !g_executing_return,
         "validated allocator detour enables before generic decoder is discovered");
+    if(error){printf("FAILED_EARLY_ENABLE status=%lu distant_target=%p trampoline=%p\n",error,image+0x600,(void *)(uintptr_t)g_original_assign);
+        restore_data();MH_Uninitialize();RtlDeleteFunctionTable(functions);VirtualFree(image,0,MEM_RELEASE);return 1;}
     {
         ReaderCache cache={0};DataResult result;MemoryProbe probe;DWORD stage;BYTE saved;
         cache.reader=0x8000;cache.assign=0x600;cache.raw=0xa000;
         CHECK(memcmp(before,image+0x600,sizeof(before)) && assignment_signature_at_report(&view,image+0x600,&probe),
             "actual MinHook patch is recognized as owned rather than pristine code");
+        {
+            BYTE entry[14];DWORD patch_size=0;
+            CHECK(read_exact(image+0x600,entry,sizeof(entry)) &&
+                assignment_jump_owned(image+0x600,entry,(void *)(uintptr_t)assignment_hook,&patch_size) && patch_size==14,
+                "distant synthetic EXE exercises an actual absolute entry through MinHook relay");
+            {
+                uintptr_t destination=(uintptr_t)(image+0xb000),wrong=(uintptr_t)assignment_hook+16;
+                memcpy(entry+6,&destination,8);memcpy(image+0xb000,entry,6);memcpy(image+0xb006,&wrong,8);
+                CHECK(!assignment_jump_owned(image+0x600,entry,(void *)(uintptr_t)assignment_hook,&patch_size),
+                    "absolute entry through relay to a different detour is rejected");
+                destination=(uintptr_t)(image+0xb100);memcpy(image+0xb006,&destination,8);
+                memcpy(image+0xb100,entry,6);destination=(uintptr_t)assignment_hook;memcpy(image+0xb106,&destination,8);
+                CHECK(!assignment_jump_owned(image+0x600,entry,(void *)(uintptr_t)assignment_hook,&patch_size),
+                    "relay validation follows exactly one hop instead of an arbitrary jump chain");
+            }
+        }
         CHECK(check_executing_origin(image+0x8223)==ERROR_SUCCESS,"full executing decoder and raw-reader chain validate");
         CHECK(!executing_origin(image+0x8224) && !g_executing_return,"unrelated caller cannot publish decoder origin");
         image[0x815e]^=1;

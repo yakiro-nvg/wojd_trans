@@ -4,16 +4,20 @@
 typedef struct AssignmentSignature {
     const BYTE *target;
     BYTE original[sizeof(data_assign_bytes)],patched[sizeof(data_assign_bytes)],mask[sizeof(data_assign_bytes)];
+    const char *reject_reason;
     volatile LONG ready;
 } AssignmentSignature;
 static AssignmentSignature g_assignment_signature;
 static BOOL assignment_jump_owned(const BYTE *target,const BYTE *bytes,const void *detour,DWORD *size) {
     uintptr_t destination;LONG offset;BYTE relay[14];
     if(bytes[0]==0xff && bytes[1]==0x25 && !memcmp(bytes+2,"\0\0\0\0",4)) {
-        memcpy(&destination,bytes+6,sizeof(destination));*size=14;return destination==(uintptr_t)detour;
+        memcpy(&destination,bytes+6,sizeof(destination));*size=14;
+    }else {
+        if(bytes[0]!=0xe9)return FALSE;
+        memcpy(&offset,bytes+1,4);destination=(uintptr_t)(target+5)+offset;*size=5;
     }
-    if(bytes[0]!=0xe9)return FALSE;
-    memcpy(&offset,bytes+1,4);destination=(uintptr_t)(target+5)+offset;*size=5;
+    /* Both x64 entry layouts can point to MinHook's absolute relay. The
+       real low EXE and high trampoline use FF25 -> relay -> detour. */
     if(destination==(uintptr_t)detour)return TRUE;
     if(!read_exact((const void *)destination,relay,sizeof(relay)) || relay[0]!=0xff || relay[1]!=0x25 ||
        memcmp(relay+2,"\0\0\0\0",4))return FALSE;
@@ -21,12 +25,16 @@ static BOOL assignment_jump_owned(const BYTE *target,const BYTE *bytes,const voi
 }
 static DWORD assignment_signature_record(const BYTE *target,const void *detour) {
     BYTE bytes[sizeof(data_assign_bytes)];DWORD size;
+    g_assignment_signature.reject_reason="PRISTINE_SIGNATURE";
     if(!masked_match(g_assignment_signature.original,data_assign_bytes,data_assign_mask,sizeof(data_assign_bytes)))return ERROR_INVALID_DATA;
+    g_assignment_signature.reject_reason="READ_PATCH";
     if(!read_exact(target,bytes,sizeof(bytes)))return ERROR_NOT_READY;
-    if(!assignment_jump_owned(target,bytes,detour,&size) ||
-       memcmp(bytes+size,g_assignment_signature.original+size,sizeof(bytes)-size))return ERROR_INVALID_DATA;
+    g_assignment_signature.reject_reason="OWNED_JUMP";
+    if(!assignment_jump_owned(target,bytes,detour,&size))return ERROR_INVALID_DATA;
+    g_assignment_signature.reject_reason="UNCHANGED_BODY";
+    if(memcmp(bytes+size,g_assignment_signature.original+size,sizeof(bytes)-size))return ERROR_INVALID_DATA;
     g_assignment_signature.target=target;memcpy(g_assignment_signature.patched,bytes,sizeof(bytes));
-    memset(g_assignment_signature.mask,0xff,sizeof(bytes));InterlockedExchange(&g_assignment_signature.ready,1);
+    memset(g_assignment_signature.mask,0xff,sizeof(bytes));g_assignment_signature.reject_reason=NULL;InterlockedExchange(&g_assignment_signature.ready,1);
     return ERROR_SUCCESS;
 }
 static BOOL assignment_signature_at_report(const ImageView *view,const BYTE *target,MemoryProbe *probe) {

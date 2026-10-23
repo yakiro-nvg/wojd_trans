@@ -273,7 +273,9 @@ static DWORD enable_assignment(void) {
     if(status!=MH_OK){InterlockedExchange(&g_active,0);return (DWORD)status+0x10000;}
     if(g_game_host) {
         error=assignment_signature_record((const BYTE *)g_target,(const void *)(uintptr_t)assignment_hook);
-        if(error){InterlockedExchange(&g_active,0);MH_DisableHook(g_target);return error;}
+        if(error){logf_n4("ASSIGNMENT_PATCH_REJECTED","status=%lu check=%s",error,
+            g_assignment_signature.reject_reason?g_assignment_signature.reject_reason:"UNKNOWN");
+            InterlockedExchange(&g_active,0);MH_DisableHook(g_target);return error;}
     }
     logf_n4("ASSIGNMENT_ENABLED","attach_us=%llu decoder_entry_patched=0 executing_origin_validation=1",
         diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart));

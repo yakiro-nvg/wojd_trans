@@ -104,5 +104,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
+          if faulty_sha=$(gh release view v20261023-192952 --json isPrerelease,targetCommitish --jq 'select(.isPrerelease == false) | .targetCommitish'); then
+            if [ "$faulty_sha" = "b608d29b158d569b0a23b1bea5c94a6e4582b40a" ]; then
+              gh release edit v20261023-192952 --prerelease --latest=false --notes-file docs/withdrawn-v20261023-192952.md
+            fi
+          fi
           tag="v$(date -u +%Y%m%d-%H%M%S)"
           gh release create "$tag" artifacts/*.zip artifacts/checksums.txt artifacts/*-build.json --target "$GITHUB_SHA" --title "WOJD Việt hóa — production $tag" --notes-file docs/release-notes.md

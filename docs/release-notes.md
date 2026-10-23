@@ -1,4 +1,6 @@
-Bản này sửa lỗi thoại nhiệm vụ vẫn hiện tiếng Trung do hook bật muộn, bỏ lỡ dữ liệu lúc game khởi động. Đã kiểm tra trực tiếp: câu thoại của Phổ Hoằng được thay thành tiếng Việt ngay khi đọc dữ liệu và hiển thị đúng trong game.
+Bản này thay thế **v20261023-192952**, bản có lỗi chỉ dịch được một phần. **Không nên dùng bản đó:** kiểm tra hook đã từ chối nhầm một kiểu nhảy qua trạm trung gian, trả mã 13 và tắt nhánh đọc dữ liệu gốc.
+
+Đã sửa kiểm tra đường nhảy và thêm ca tái hiện lỗi trên cả hai kiểu hook thực tế. Hook đọc dữ liệu vẫn được bật sớm để không bỏ lỡ thoại nhiệm vụ lúc game khởi động.
 
 Giữ các bản dịch kỹ năng/boss, font tiếng Việt và sửa giao diện của bản trước. Chat translator và cách dàn chữ trong thư vẫn đang được phát triển, chưa có trong bản này; phần soát nghĩa còn lại tiếp tục sau.
 
