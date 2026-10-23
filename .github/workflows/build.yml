@@ -93,7 +93,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           WOJD_RUN: ${{ github.run_id }}
-        run: gh run download "$WOJD_RUN" --name localization-packages --dir artifacts
+        run: gh run download "$WOJD_RUN" --name localization-packages --dir work/downloaded
+      - name: Stage and authenticate the downloaded release files
+        run: python3 scripts/stage_release_artifacts.py --input work/downloaded --output artifacts --revision "$GITHUB_SHA"
       - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
         with:
           subject-path: artifacts/*.zip
