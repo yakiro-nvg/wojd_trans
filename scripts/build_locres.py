@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -94,6 +95,10 @@ def build_locres(entries: Iterable[dict], output_path: Path) -> int:
         translated = entry.get("translated")
         locres_override = entry.get("locresImport")
         hash_override = entry.get("importedHash")
+        if entry.get("status", "translated") != "translated":
+            continue
+        if isinstance(source, str) and entry.get("translation_source_sha256", hashlib.sha256(source.encode("utf-8")).hexdigest()) != hashlib.sha256(source.encode("utf-8")).hexdigest():
+            continue
 
         if not key:
             continue

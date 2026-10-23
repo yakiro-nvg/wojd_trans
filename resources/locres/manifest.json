@@ -1,0 +1,20 @@
+{
+  "format_version": 1,
+  "origin": "Approved translated RC1 runtime bindings; exact namespace/key/CRC/target per resource route. Editorial catalogs remain separate.",
+  "routes": {
+    "content": {
+      "input": "content.ndjson",
+      "entries": 349372,
+      "source_sha256": "1e0131274796734af4ecbdc044a68589617f3fd6fa335c72436e8f8cefacaaf3",
+      "output": "ZhuxianClient/Content/Localization/Game/zh-Hans/Game.locres",
+      "output_sha256": "e1d925c7c6a7d6e1f12608d3d454ea5208f764a4bb37d0418fea81416b438b8d"
+    },
+    "gamedata": {
+      "input": "gamedata.ndjson",
+      "entries": 353235,
+      "source_sha256": "6a8f0926cd5aaf105a31522b2da59e06bb1bae9c81ee01bb433184d6772cde80",
+      "output": "ZhuxianClient/gamedata/client/ZCTranslateData/Game/zh-Hans/Game.locres",
+      "output_sha256": "c15b31eea69b212a6714df4bd8346556ebdb3e51d8a5342bcd0e1cab3b9f6a18"
+    }
+  }
+}

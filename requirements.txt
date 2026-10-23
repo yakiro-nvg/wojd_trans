@@ -1,2 +1,4 @@
-pylocres
-opencc-python-reimplemented
+pylocres==0.2
+binsl==0.1.2
+click==8.5.0
+polib==1.2.0

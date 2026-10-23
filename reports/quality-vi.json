@@ -1,0 +1,28 @@
+{
+  "unique_sources": 211072,
+  "unique_source_quality": {
+    "ignore": 3190,
+    "source_reviewed": 87971,
+    "unreviewed": 119911
+  },
+  "catalog_entries": 533654,
+  "entry_quality": {
+    "source_reviewed": 192165,
+    "unreviewed": 337003,
+    "ignore": 4486
+  },
+  "structural_qa_failures": 0,
+  "evidence_records": 88861,
+  "active_evidence_records": 88295,
+  "unused_evidence_records": 566,
+  "policy": "Lowest active variant level is shown for each source. Same source with a different translation has separate evidence. Structural QA never grants semantic or client verification.",
+  "definitions": {
+    "untranslated": "Missing or unresolved source in a current route.",
+    "ignore": "Explicit decision to retain source; not language work.",
+    "unreviewed": "Translation reused/imported without recorded source comparison.",
+    "draft": "New translation awaiting source review.",
+    "source_reviewed": "Recorded comparison with CN source; not necessarily checked in game.",
+    "client_verified": "Specific source/target observed in game with recorded evidence.",
+    "needs_repair": "Active translation fails structural/source-binding checks."
+  }
+}

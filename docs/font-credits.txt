@@ -1,0 +1,9 @@
+Vietnamese font credit
+
+League Spartan — Copyright 2020 The League Spartan Project Authors
+https://github.com/theleagueof/league-spartan
+SIL Open Font License 1.1: see OFL-League-Spartan.txt included in the ZIP.
+Original font metadata is retained in the files.
+
+The repository Apache-2.0 license does not replace third-party font or
+MinHook licensing. Legacy XF/MVH conversion fonts are not in this package.

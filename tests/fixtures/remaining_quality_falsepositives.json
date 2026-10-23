@@ -1,0 +1,32 @@
+[
+  {
+    "source_sha256": "8fb030e511d1395aecbb6c8c26f0489958b8f03b0db27a82b8f1560b47e2b3fa",
+    "source": "测试【不使用A2F-未配置表情-骨骼头NPC】其效果应为：播放女娲口型+biaoqing_sj_taimei01表情",
+    "candidate_sha256": "e15bb0b18d2d5b6ffee95b8bf7850863e7581d72c11c0af0cd6995a8691fa43f",
+    "candidate": "Thử nghiệm【không dùng A2F-chưa cấu hình biểu cảm-NPC đầu xương】hiệu quả phải là: phát khẩu hình Nữ Oa+biểu cảm biaoqing_sj_taimei01",
+    "evidence_path": "structural-blocker.json",
+    "evidence_sha256": "bc4052d81b0f282c0bc60906ad0ffcbeb7d0133b60b3af784bd01df230ead7a8",
+    "semantic_status": "FROZEN_CANDIDATE_FOR_DIFFERENT_REVIEW",
+    "client_verified": false
+  },
+  {
+    "source_sha256": "cd7702bf1889dfb2e95bf67183bb0bdb084e9a026b376ccbb8146d8a2f1215f6",
+    "source": "@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,200,100)@t(cOrchid,bold@@绝望的念想非绝望的念想恸的守望！)@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,200,100)\\\\n@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,200,100)\\f@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,400,400,center)“我的天空里没有太阳，总是黑夜，但并不暗，因为有东西代替了太阳。虽然没有太阳那么明亮，但对我来说已经足够。凭借着这份光，我便能把黑夜当成白天。我从来就没有太阳，所以不怕失去。”\\\\f 第一章\\\\n    1\\\\n    出了近铁布施站，沿着铁路径直向西。已经十月了，天气仍闷热难当，地面也很干燥。每当卡车疾驰而过，扬起的尘土极可能会让人又皱眉又揉眼睛。\\\\n    笹垣润三的脚步说不上轻快。他今天本不必出勤。很久没休假了，还以为今天可以悠游地看点书。为了今天，他特地留着松本清张的新书没看。\\\\n    公园出现在右边，大小足以容纳两场三垒棒球开打，丛林越野游戏、秋千、滑梯等常见的游乐设施一应俱全。这座公园是附近最大的一座，叫真澄公园。\\\\n    公园后面有一栋兴建中的七层建筑，乍看之下平淡无奇，但笹垣知道里面几乎空无一物。在调到大阪警察本部之前，他就待在管辖这一带的西布施分局。\\\\n    看热闹的人动作很快，已经聚集在大楼前，停在那里的好几辆警车几乎被看客团团围住。\\\\n    笹垣没有直接走向大楼，而是在公园前右转。转角数来第五家店挂着“烤乌贼饼”的招牌，店面仅一叠大小。烤乌贼饼的台子面向马路，后面坐着一个五十岁左右的胖女人，正在看报。店内看来是卖零食的，但没见到小孩子的身影。\\\\n    “老板娘，给我烤一片。”笹垣出声招呼。\\\\n    中年妇人急忙合起报纸。“好，来了来了。”\\\\n    妇人站起身，把报纸放在椅子上。笹垣衔了根和平牌香烟，擦火柴点着，瞄了一下那份报纸，看到“厚生省公布市场海鲜汞含量检查结果”的标题，旁边以小字写着“大量食",
+    "candidate_sha256": "4e1b9361ec1ad77294d55cfe5da13f0229f4231ad24a39f3c601c0e88c5314a5",
+    "candidate": "@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,200,100)@t(cOrchid,bold@@Niềm mong nhớ tuyệt vọng không phải niềm mong nhớ tuyệt vọng, sự ngóng trông đau thương！)@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,200,100)\\\\n@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,200,100)\\f@p(/Game/UI/吴思宇1022_NPC攻略优化继续.吴思宇1022_NPC攻略优化继续,400,400,center)“Bầu trời của tôi không có mặt trời, luôn là đêm tối, nhưng không tăm tối, vì có thứ thay thế mặt trời. Tuy không rực rỡ bằng mặt trời, nhưng với tôi đã là đủ. Nhờ ánh sáng ấy, tôi có thể coi đêm tối là ban ngày. Tôi chưa từng có mặt trời, nên không sợ mất đi.”\\\\f Chương một\\\\n    1\\\\n    Ra khỏi ga Fuse tuyến Kintetsu, đi thẳng về phía tây dọc theo đường sắt. Đã sang tháng mười mà trời vẫn oi bức khó chịu, mặt đất cũng rất khô. Mỗi lần xe tải phóng qua, bụi tung lên rất có thể khiến người ta vừa nhăn mặt vừa dụi mắt.\\\\n    Bước chân Sasagaki Junzo chẳng lấy gì làm nhẹ nhõm. Hôm nay vốn dĩ ông không phải đi làm. Đã lâu không được nghỉ, ông còn tưởng hôm nay có thể thong thả đọc ít sách. Vì ngày này, ông đã cố ý để dành cuốn sách mới của Matsumoto Seicho chưa đọc.\\\\n    Công viên hiện ra bên phải, rộng đủ cho hai trận bóng chày ba gôn diễn ra cùng lúc, có đầy đủ những thiết bị vui chơi quen thuộc như giàn leo trèo, xích đu, cầu trượt. Đây là công viên lớn nhất vùng, tên là công viên Masumi.\\\\n    Sau công viên có một tòa nhà bảy tầng đang xây, thoạt nhìn chẳng có gì đặc biệt, nhưng Sasagaki biết bên trong gần như trống rỗng. Trước khi chuyển về Tổng bộ Cảnh sát Osaka, ông từng làm ở đồn cảnh sát Nishi Fuse phụ trách khu vực này.\\\\n    Đám người hiếu kỳ đến rất nhanh, đã tụ tập trước tòa nhà; mấy chiếc xe cảnh sát đỗ ở đó gần như bị người xem vây kín.\\\\n    Sasagaki không đi thẳng tới tòa nhà mà rẽ phải trước công viên. Cửa hàng thứ năm tính từ góc đường treo biển “bánh mực nướng”, mặt tiền chỉ rộng chừng một tấm chiếu. Quầy nướng bánh mực quay ra đường, phía sau là một phụ nữ béo chừng năm mươi tuổi đang ngồi đọc báo. Bên trong có vẻ bán quà vặt, nhưng chẳng thấy bóng trẻ con nào.\\\\n    “Bà chủ, nướng cho tôi một miếng.” Sasagaki lên tiếng gọi.\\\\n    Người phụ nữ trung niên vội gấp báo lại. “Vâng, có ngay, có ngay.”\\\\n    Người phụ nữ đứng dậy, đặt tờ báo lên ghế. Sasagaki ngậm một điếu thuốc hiệu Hòa Bình, quẹt diêm châm lửa, liếc nhìn tờ báo và thấy tiêu đề “Bộ Y tế và Phúc lợi công bố kết quả kiểm tra hàm lượng thủy ngân trong hải sản trên thị trường”, bên cạnh có dòng chữ nhỏ “Ăn nhiều",
+    "evidence_path": "structural_blocker_44.json",
+    "evidence_sha256": "6fa1b578ac7700ceb142651f396ef57197aa82fed9a2e7355e8aa38300f17d55",
+    "semantic_status": "FROZEN_CANDIDATE_FOR_DIFFERENT_REVIEW",
+    "client_verified": false
+  },
+  {
+    "source_sha256": "ed129db38c187b68d208acceed01e1c4e77fa76202b8d528ee737c9bf4307a4d",
+    "source": "测试【不使用A2F-配置表情-骨骼头NPC】其效果应为：播放女娲口型+配置表情",
+    "candidate_sha256": "769dd0cf483db49b54de6b054ea0417d9419a7051ed104debb7fe0302ce17a8c",
+    "candidate": "Kiểm thử【không dùng A2F-cấu hình biểu cảm-NPC đầu có khung xương】hiệu quả phải là：phát khẩu hình Nữ Oa+biểu cảm cấu hình",
+    "evidence_path": "structural-obstacle.json",
+    "evidence_sha256": "f3de541ea7be23f7bff6c39dbb1fdddf7458dd9ea169b9c86f637d2b6373700d",
+    "semantic_status": "FROZEN_CANDIDATE_FOR_DIFFERENT_REVIEW",
+    "client_verified": false
+  }
+]

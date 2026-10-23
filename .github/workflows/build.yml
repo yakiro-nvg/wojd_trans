@@ -1,0 +1,106 @@
+name: Build and verify localization
+on:
+  push:
+    branches: [master, release, 'refactor/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  WOJD_LANGUAGE: vi
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: true
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        run: |
+          New-Item -ItemType Directory work/tmp -Force | Out-Null
+          python -m pip install --cache-dir work/pip-cache -r requirements.txt
+      - name: Check catalog and installer behavior on inert fixtures
+        run: python -X utf8 -m unittest discover -s tests -v
+      - name: Compile dictionary
+        run: python -X utf8 scripts/wojd.py compile-runtime translations/${{ env.WOJD_LANGUAGE }}.native.ndjson work/catalog.bin
+      - name: Report source-bound translation review progress
+        run: python -X utf8 scripts/wojd.py quality-report translations/${{ env.WOJD_LANGUAGE }}.native.ndjson translations/${{ env.WOJD_LANGUAGE }}.fmtstring.ndjson translations/${{ env.WOJD_LANGUAGE }}.residual.ndjson --ledger translations/${{ env.WOJD_LANGUAGE }}.quality.ndjson --out reports/quality-${{ env.WOJD_LANGUAGE }}.json
+      - name: Compile native DLLs from public source
+        shell: pwsh
+        run: |
+          foreach ($profile in @('runtime','dump','runtime-test','dump-test')) {
+            & .\native\build.cmd $profile
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          }
+      - name: Verify full dictionary with independent native fixtures
+        shell: pwsh
+        run: |
+          python -X utf8 native/test_runtime.py --profile runtime --language $env:WOJD_LANGUAGE
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python -X utf8 native/test_runtime.py --profile dump --language $env:WOJD_LANGUAGE
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python -X utf8 native/test_c8_setup.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Verify production exports and original DLL forwarders
+        run: python -X utf8 native/check_artifacts.py
+      - name: Download the pinned PAK packer
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory work/tools -Force | Out-Null
+          Invoke-WebRequest https://github.com/trumank/repak/releases/download/v0.2.2/repak_cli-x86_64-pc-windows-msvc.zip -OutFile work/tools/repak.zip
+          $expected='b63ea4c243011901aea148de50b80f12fba858acb83cbf2e27c494b3acdb2b40'
+          if ((Get-FileHash work/tools/repak.zip -Algorithm SHA256).Hash -ne $expected) { throw 'PAK packer checksum mismatch' }
+          Expand-Archive work/tools/repak.zip work/tools/repak
+      - name: Build and round-trip verify complete packages
+        run: python -X utf8 scripts/build_package.py --language ${{ env.WOJD_LANGUAGE }} --repak work/tools/repak/repak.exe
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: localization-packages
+          path: |
+            artifacts/*.zip
+            artifacts/checksums.txt
+            artifacts/*-build.json
+            reports/quality-*.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: native-test-results
+          path: |
+            native/build/*-test/runtime-selftest-*.json
+            native/build/production-check.json
+            native/build/c8-setup-results.json
+            work/installer-scenarios/fixture-results.json
+          if-no-files-found: error
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Download this run's verified packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          WOJD_RUN: ${{ github.run_id }}
+        run: gh run download "$WOJD_RUN" --name localization-packages --dir artifacts
+      - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-path: artifacts/*.zip
+      - name: Publish with source revision and risk notice
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag="v$(date -u +%Y%m%d-%H%M%S)"
+          gh release create "$tag" artifacts/*.zip artifacts/checksums.txt artifacts/*-build.json --target "$GITHUB_SHA" --title "WOJD Việt hóa — production $tag" --notes-file docs/release-notes.md

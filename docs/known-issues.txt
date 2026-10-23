@@ -1,0 +1,12 @@
+Bản phát hành tạm
+
+- Còn nhiều câu kế thừa chưa được review nghĩa. Đợt này ưu tiên 230 sửa lỗi
+  hiển nhiên đã đối chiếu; bộ lọc từ chỉ tạo danh sách cần review.
+- Một số nội dung và đường nạp chưa có bản dịch. Chữ Trung có thể còn lại.
+- Bố cục chưa được kiểm tra trên mọi màn hình, độ phân giải và tỉ lệ UI.
+- Sau update client, lần hiệu chỉnh địa chỉ có thể cần mở lại game. Làm theo
+  hộp thoại trong game. Cache không bỏ qua bước kiểm tra code hiện tại.
+- Native DLL có rủi ro tương thích và nhà phát hành/anti-cheat; không có
+  bảo đảm về tài khoản hay sự chấp thuận. Không tự mở/đóng game khi cài.
+- Nếu còn PAK legacy (~VI_PATCH*, ~VI_QFONT*), chuyển chúng ra ngoài thư mục
+  Content/Paks trước khi cài. Bộ cài giữ nguyên mod không rõ nguồn gốc.

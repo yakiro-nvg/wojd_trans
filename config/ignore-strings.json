@@ -1,0 +1,140 @@
+[
+  {
+    "namespace": "Battle.txt",
+    "key": "130",
+    "source": "ZaoChengShangHai",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "131",
+    "source": "MeiMiaoShangHai",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "132",
+    "source": "ShouDaoShangHai",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "133",
+    "source": "ChengShouJiNengShangHai",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "134",
+    "source": "DiDuiShouDaoShangHai",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "135",
+    "source": "DiDuiZaoChengShangHai",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "136",
+    "source": "YouXiaoZhiLiao",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "137",
+    "source": "GuoLiangZhiLiao",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "138",
+    "source": "ZongJiZhiLiao",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "139",
+    "source": "HuoDeZhiLiao",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "140",
+    "source": "DiFangZhiLiao",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "141",
+    "source": "DiFangHuoDeZhiLiao",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "142",
+    "source": "ZengYiTongJi",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "143",
+    "source": "ZengYiFuGaiLv",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "144",
+    "source": "JianYiTongJi",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "145",
+    "source": "JianYiFuGaiLv",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "146",
+    "source": "WeiXieZhi",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "147",
+    "source": "DaDuan",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "148",
+    "source": "QuSan",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "149",
+    "source": "ZhongShang",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "150",
+    "source": "DuiYouWuShang",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "151",
+    "source": "FaLiZhiHuoQu",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  },
+  {
+    "namespace": "Battle.txt",
+    "key": "152",
+    "source": "NuQiZhiHuoQu",
+    "reason": "Internal battle-stat lookup identifier; current source verified"
+  }
+]

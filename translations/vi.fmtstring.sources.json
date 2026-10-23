@@ -1,0 +1,2079 @@
+{
+  "files": [
+    {
+      "path": "Ability.txt",
+      "sha256": "480d36189dd7deaf7c4c9a7ad297a37b5a75bc89534ceef70a94f97627cd7b99",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "AchievementManager.txt",
+      "sha256": "5c64cd704c1b6b698aac0f100bae922d12d84723a2e4bc88458fa147c88f9f8c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 41
+    },
+    {
+      "path": "Activity.txt",
+      "sha256": "fb62688c33a047cbff752f0be87d01e2dff4f89200be3280b7cc703b51feb9d4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 157
+    },
+    {
+      "path": "ActivityTags.txt",
+      "sha256": "a2650c5207db352d502773ca30d7b8d694961b6379764ab07515533803c30741",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "Arena.txt",
+      "sha256": "6a8f9765e3559ca37c9e4238a7534775e004a795108bedf15b88a7b2c629fadb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 108
+    },
+    {
+      "path": "ArenaStronghold.txt",
+      "sha256": "017c75731e2aee71ffa31430de1d129aca1f3d455283968660d44dfff31f4cdc",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "Assassin.txt",
+      "sha256": "ac3d24a81502d4ba1fa47a41e0cf900daa71ab2821d2ba2897cc133800f81ace",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 42
+    },
+    {
+      "path": "AuraWatcher.txt",
+      "sha256": "18576586f9c901ceb27bee0446e991cc0723bb643b4246f1375b2d037eebdf6f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 15
+    },
+    {
+      "path": "BaoGuoItem.txt",
+      "sha256": "4328b5feaef41978cb6496f184e4daa5deb80a56dc55b7cafbdec595edc04b64",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "Base.txt",
+      "sha256": "fc85dab628fdbee6a2dff379af15c7b0cab4bbfc400dbd7a5970a858a439435b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 27
+    },
+    {
+      "path": "Battle.txt",
+      "sha256": "63f94a591acdb7c410c0a1a07bb083dba57aa74e1f18068b57c72218802f36e4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 129
+    },
+    {
+      "path": "BattlePass.txt",
+      "sha256": "baed50a999792baaaa6c8540708d0545f1d49e184c6cacee5f102ecae728aeb7",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 27
+    },
+    {
+      "path": "Brother.txt",
+      "sha256": "49faa7a0d47846b0cfff7c1d02b75ff4d8862149005e59867c2409b3c5c2d346",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 46
+    },
+    {
+      "path": "BuffToolTipWidget.txt",
+      "sha256": "4752937c683ab47f495bc2199fcaa96ffa1bbbd028f8d07232f29d28d604d6c4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "BuyTime.txt",
+      "sha256": "4929c2f81b48d8f24e5abacc285fdeece9676d6ca0d88724ae76216e7bf8364e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "CalendarWeeklyTask.txt",
+      "sha256": "bbdb12706cf9420df86bb6f47a714fb5d95412379bca953d9a61a848d0d1f27b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 22
+    },
+    {
+      "path": "Character.txt",
+      "sha256": "52036436791606b5c0476a4782655e278242fe57cdd8cee84e09569cdb1bcdaf",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 60
+    },
+    {
+      "path": "CharmValue.txt",
+      "sha256": "fd6bb7cd18607bc2a852f3ebcd4468396f51052be4e2217447c80c9d0b708e60",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 32
+    },
+    {
+      "path": "Chat.txt",
+      "sha256": "7200715c0a25ad97c6855585a8f84246bf5803b59186a0ffbe25a81ef87a77fa",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 84
+    },
+    {
+      "path": "CollectionManufactureManager.txt",
+      "sha256": "54371cd38477d15a557854cc79596fe71026dbe756eaa71d6c4a719174154b95",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 137
+    },
+    {
+      "path": "CombatPlan.txt",
+      "sha256": "770557ddc02976decbf8f293a3ffa54dc22a5407e7ad343ae405455129f65b05",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 95
+    },
+    {
+      "path": "ComboMacro.txt",
+      "sha256": "ea78c1e4dfe2c3d10140e895e2fd9a085692c10df5210bffd946f558d6da7e15",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 50
+    },
+    {
+      "path": "CommonFormatString.txt",
+      "sha256": "2e8c565eec27db292e3cf41f15bf60e10c771efb3cc1cf7e969bdf06aef1a1f5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 25
+    },
+    {
+      "path": "CommonKillTip.txt",
+      "sha256": "cde2d551fa864efd177728728641815bf20fe2f6b5b74581cbab0b29670c08a9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "CommonSortAndFilter.txt",
+      "sha256": "759ebe16c1081bae777b16938a8b38be261abeef6d9f11db2b9248f0f35fa06f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "CommonText.txt",
+      "sha256": "27fa75cfe841e33acfffefc582f641f6413a6c45c9d7122aca84364975e8999b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 23
+    },
+    {
+      "path": "Competition.txt",
+      "sha256": "9a4a971eb1d21a522da9f4e6a8133ee43cc60d3561fbc17a9026fa4e81102e5a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 47
+    },
+    {
+      "path": "CoolDrinkActivity.txt",
+      "sha256": "e4517cac781104c4adff9fc51092a489b82b9818e28a0b51a758cfb1cc3ce506",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "Currency.txt",
+      "sha256": "d4a5158269b18c7c3a4507fd692e28052d04a107e9a808a391a72427b962f22c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "CustomArenaRoom.txt",
+      "sha256": "29cd7e1f0dbd768424cc59734d8bbb0d0064c5bc38ed57b666ce7f42a5376c0c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 73
+    },
+    {
+      "path": "CustomWidget.txt",
+      "sha256": "60e29a9841900fb63906a2070c8ceab57c9c2a73b13dedb225d74f503479b253",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "DamageTrailEquipment.txt",
+      "sha256": "d0da3920baff1825a81e287bff1d93810a1bd483f07cafd000f5dfce11f54987",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "DamageTrialCard.txt",
+      "sha256": "6f7168ee1a25f4d4a7a40b25827fc0fed3460758474a5c8be92c801950f28501",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "DamageTrialFaBao.txt",
+      "sha256": "74d43424992fb470e8d9d53e25a13cb60991fa40590fb2a45daa251b918b8f60",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "DamageTrialZhenTu.txt",
+      "sha256": "6d02225f10d4ee788452587ed48eba550e72f5d3435fef497ec01b7197c5e4d4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "DatingNPC.txt",
+      "sha256": "370b8fa5e592c7f63de5d8dc15a07e2393005453d12588a306d758eb1c0457c2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 64
+    },
+    {
+      "path": "Death.txt",
+      "sha256": "032c251c91f55b5ea6e0f85d1403dc98ae2ac1924b7a0a932ed4eb8e180caaa4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "DeathSummary.txt",
+      "sha256": "9ac96eb5d22f2e1e8eb0c9f4ccbbb56dd19fc9b11d677df348981cb9f23ba7c2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "DefenseOfTheBoss.txt",
+      "sha256": "c2a19ff07f7b0b4ce1da3ecea0e9c187968761494e1e8ef1c96f4d48da641506",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 56
+    },
+    {
+      "path": "DestinyGraph.txt",
+      "sha256": "673d24729d67f1bd891c2666b86c68d91b8aec960aba9212bca28c660b760733",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 22
+    },
+    {
+      "path": "DreamBallManager.txt",
+      "sha256": "a89d82507ca88cc8e61b07184c1dbd1163b6309d88575f7dda4f58cb4de1e553",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 5
+    },
+    {
+      "path": "DreamBoardManager.txt",
+      "sha256": "b21e64556bbb23ab3c9caaadd7ad5ab22aa17cd7063a02e15a94a2e8d143eefb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Duel.txt",
+      "sha256": "445b449c48743cc72518c1df390296023e0743fc40b2895dca50be712614811c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "DungeonTicket.txt",
+      "sha256": "57e4c3bcf2648763d9f0741c5cdff38ff69fcf1ff4e3a6b6d30eddf64e22a218",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 32
+    },
+    {
+      "path": "EZCGem.txt",
+      "sha256": "17a06f634e5a6a3778c62165418033a6e0e06be34d9e7f9514d496f0b95ccf86",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "EditorZone.txt",
+      "sha256": "bcc7afe16b0968fece6138a903fd33b718f8e5d9f584da3d2de9074cac170113",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Emote.txt",
+      "sha256": "53151b385b67017e546c2ce1248fb5fe013974b70801b4863c5084a839512c69",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "EpicWeaponRanking.txt",
+      "sha256": "657764372327a7b21203332f2dcd2896115617d85870f7572e9878edaec97b87",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "Equipment.txt",
+      "sha256": "334be4e130bc9ad0fe2559b7f6f33ad78a4db58c013537fbe349c4f9d9e27d2d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 119
+    },
+    {
+      "path": "Error.txt",
+      "sha256": "78daff0acf9efe24b3c9086b17d0d6216d51db591778099bb30d5d0f9af83f9c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "EscMenu.txt",
+      "sha256": "6bb53ca596c777e1ace45e24797f132289132eb7a97451714b910ccf1cafaa18",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "ExpendRebate.txt",
+      "sha256": "ced6d1da1bfb2a0d612ae11bd11cf1bc23ecc3f448e38090826ebc4c92ef0400",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "Explore.txt",
+      "sha256": "3ca6e4c567d7f8deb48d88204ab65cedc1a1ce07a62fa8f1d3fd94f82b8f40cd",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 147
+    },
+    {
+      "path": "FaceShape.txt",
+      "sha256": "a6da9505ebd95951407f503f6e83e54852eed27a769a0162010f3e49e019eef8",
+      "encoding": "utf-16-le",
+      "bom": "fffe",
+      "entries": 512
+    },
+    {
+      "path": "Faction.txt",
+      "sha256": "4bfe81d585dbb44870ce5bab0cdb7397399f469caaf2cc23904111cf6ba7ede7",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 287
+    },
+    {
+      "path": "FactionActivity.txt",
+      "sha256": "ba04652c5fff95d9db05ab14801cf136515284120e226a3783ffe1c4f27973a9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 43
+    },
+    {
+      "path": "FactionChampionshipCompetition.txt",
+      "sha256": "930e4a5fa444521518b431830a956b5f7aedf461390302ee9022c946b5a60db6",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 31
+    },
+    {
+      "path": "FactionFishing.txt",
+      "sha256": "62a337c0c301c24bc2945f9ad2666124dbff550ab63e9060f24b7515fedd560e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "FactionLeagueCompetition.txt",
+      "sha256": "8f22ec186cc5b50e1c9cd432bd4898d3fc3a29c4ca45002cba045d23ce351f52",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 131
+    },
+    {
+      "path": "FactionLeagueTactics.txt",
+      "sha256": "95a609f877f407b0a8c16afbec7262019475f48e2c2799f83a5d3d5b788364ee",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "FactionLog.txt",
+      "sha256": "a7cb9ac86bda1c3ab685fcb0e7217132bb834600a127f68fa3afccf7c10741c0",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 53
+    },
+    {
+      "path": "FactionRaceGame.txt",
+      "sha256": "1e02cf9b18cd4216d2cf26f248d5de70d53e803dbd301d5f3e47426270021758",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "FactionRaceManager.txt",
+      "sha256": "15a44bab20adfab7dd5768499b4670afe8704c897289295a1bfe463c194ae6b1",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "Fashion.txt",
+      "sha256": "64253a916c41b668f1e0d82a54fab099646b8ff3df59adaae42c2ef2dcc40519",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 295
+    },
+    {
+      "path": "FashionCollection.txt",
+      "sha256": "0b8425af553a72a3425302fb3989ae2debb2f9bd700a719b6d00bb77043c5dfe",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 13
+    },
+    {
+      "path": "FashionPlan.txt",
+      "sha256": "706879fb63f596a9c2e30c42dde9ba275b066beae8ab3ab23f4cb42481641432",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "FashionRefine.txt",
+      "sha256": "4d2bc2da8024a59252c9d8219c6c83417ef571bd143ec81301fe80c8a3d6d11f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 69
+    },
+    {
+      "path": "FashionShareScheme.txt",
+      "sha256": "631b1e9adc00fa63cf2495bb12cbd001033f4c2ff0828e1d0ef5767af9bded2c",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 12
+    },
+    {
+      "path": "FashionUnbuyableMessage.txt",
+      "sha256": "9002f598549e120f683fb9b57cc38a55032af241efb50057066a895167bd05fd",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "FeaturePreview.txt",
+      "sha256": "b497b2cf6e4f87e33a6b0b8459d82ab599c4e8e9df405f711f47ea262b19d3af",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 48
+    },
+    {
+      "path": "FestivalActivity.txt",
+      "sha256": "fb40353aebb260638b2b341a81b11e7a0626808bd2680fd7d0037a74147b197a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 76
+    },
+    {
+      "path": "FestivalSnowman.txt",
+      "sha256": "6479bc044b17ba5c248567bea43eebc0be4f4b0d6909525f3ac56abe37dd97b3",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Fireworks.txt",
+      "sha256": "378b8f383cb22e4b3ef06d8dc4b061c7061fbbe18afbc4f66cd92de40f87d0f6",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "Fishing.txt",
+      "sha256": "49db23485df9295a278e77f808b848c9b4ca73251fa64b8f41ecccf2f69a9f07",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 35
+    },
+    {
+      "path": "FloatingWidget.txt",
+      "sha256": "2488c1b26bd1ae4131cfb358ab112945ba9b203987db838bf326623a11365d5f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "FluctLightAI.txt",
+      "sha256": "c9a0777636f2b992d342ec2e65a8b2d69c1c8524943c528865b5b8de22442999",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "ForceMode.txt",
+      "sha256": "2c4516cdf77cb2230780ee6970b62b669685be2a1cd0f323fd7ce3d9dce9fcf8",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 198
+    },
+    {
+      "path": "Friend.txt",
+      "sha256": "3a871225848678cc922d5c9b09d0290fac657244dab248b613977673e9d16858",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 83
+    },
+    {
+      "path": "FriendManager.txt",
+      "sha256": "9cd0309896560323e11af4865fc7019f682c238fb977c5766cdd38e7ed322fd3",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 67
+    },
+    {
+      "path": "GenericHandInItem.txt",
+      "sha256": "a1d8aab7409d51daeea481f784b72cd5b1bcc93a5b4c7b33ee41c1b855f0e3f8",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "GuardianSpirit.txt",
+      "sha256": "033808e9444d1e1752ce9552021b10cceb00159c8bb1cebcbb612097099fcc1d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 19
+    },
+    {
+      "path": "GuessingCompetition.txt",
+      "sha256": "8fb179a28fe243b9525194670c026a1486920ba7da7046cafc230db7403d2174",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Guide.txt",
+      "sha256": "c20ff48b993a57e2ac305d4c14c729aae13a282595ebc55141cfe432cf31766c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "HeadLogo.txt",
+      "sha256": "d1a426b45df7a56aed9c97e6e6b226e6a9d2b997a9020b10e6c8667ef89f30cc",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "HeartLockGame.txt",
+      "sha256": "3ec506c594c831c0cf4b9d1e1d0780c3ffe7a5fe610f44524d99f1b2a7e448a9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 6
+    },
+    {
+      "path": "Home.txt",
+      "sha256": "fb84f0f21b312eaef425b1c7fd15dd1e8a90902724b5fd3b61b23ead00f0ce0f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 424
+    },
+    {
+      "path": "HomeBuffProp.txt",
+      "sha256": "80c7b855e7be1f52e503dd9a97f89627ee8563a867ff9c5b8485b44b9d408098",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "Homeqiyuan.txt",
+      "sha256": "1d80a62feb9400410ae663fb7014cfc1c0dfa3b6c3241eaaf9d61729dff64a7d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "HostPlayerBase.txt",
+      "sha256": "02e1fd25e9ffe667257d639e73f26145d0fb707089e0f55e20d076f87ab8badb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "HostPlayerTask.txt",
+      "sha256": "37f150f26591ea41889a1bd5a0148a10121cc3e418870b450f75aec3ec7caea4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "HuoDongPaiMai.txt",
+      "sha256": "4791772a93b8a3a6b4bc75394d39328196270a0888638c3bf5a5057be6636e08",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 23
+    },
+    {
+      "path": "IdleGame.txt",
+      "sha256": "3215d22ff9f1a346bfddadbb071faf4b4a85ed3d5125f02cc6ea0fedd3a99377",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 49
+    },
+    {
+      "path": "InGameHUD.txt",
+      "sha256": "9cc901f865d4fcd7f727521daa5c63d8705c7148ee9016700e9dccddf4197bfb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "InfoPanel.txt",
+      "sha256": "a43f6caa570db46df68bd4b105ed7a8fa82f9b7dca199afc299c19e97d3a0de9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 140
+    },
+    {
+      "path": "Instrument.txt",
+      "sha256": "2c8d08e39b626e57309b8ed1e84cad00fa99fe0bdc14a66121f191222339d920",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 43
+    },
+    {
+      "path": "Interaction.txt",
+      "sha256": "ac7bff5bf79609bbf0be371a4cae157ae067a03fc7006ed75cea578221aaeef2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 5
+    },
+    {
+      "path": "Item.txt",
+      "sha256": "27ff7c68e7b260550a2bea421962e7d63f5d0cbcc1a41f5007f814a0ce185f2c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 68
+    },
+    {
+      "path": "ItemToolTipWidget.txt",
+      "sha256": "fe0cbe993749f97da972923ff02158545db82d77b9119411c775409e04b36fc9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 25
+    },
+    {
+      "path": "JiaoYiHang.txt",
+      "sha256": "0bf38f0a075dd8befc4a7737a1ffbcb0dc691153f52d07cc727bfd765eac0abb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 74
+    },
+    {
+      "path": "LeisuerGameCenter.txt",
+      "sha256": "e16beb0e5047f4010f978e768ae14dcab7ec63e0a42cd56c08d5df6c96f5ffa0",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "LeisureAction.txt",
+      "sha256": "1e316bd2a9703702c05aa5b09f980b6d74850adb9915630292ff5d69c5a3e9fd",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "LimitedTimeEventMenu.txt",
+      "sha256": "0b60cb4714c4077e5e6790d0b5f2b334a8d6c1a8f173356bf5fe8b50c79f3247",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "LoadingTips/235935.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/235936.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/235937.txt",
+      "sha256": "8e1e0b82db8430270203de9acbe6cf718d168b0a3912430aa25f1c39a53038fc",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "LoadingTips/238044.txt",
+      "sha256": "bd40d28057ca2834d86475725863f115e9bc45e53ba8a126d2b8b54a2a9980e1",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "LoadingTips/241941.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/251831.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/251832.txt",
+      "sha256": "8e1e0b82db8430270203de9acbe6cf718d168b0a3912430aa25f1c39a53038fc",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "LoadingTips/258081.txt",
+      "sha256": "622ce3689095da5aa7b9f6980d04bed1f024f9b0fb023fcb21161a5b9bd0a8ad",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 12
+    },
+    {
+      "path": "LoadingTips/289004.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/289051.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/289706.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/289749.txt",
+      "sha256": "1f7cce081cdd082327c63836c7db77909b90d7b95fe1c040703508555986976b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/290514.txt",
+      "sha256": "af0f0add9f2693f996276b132c694a90a91a02c524c2ec2db82f4038ce412efa",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/290519.txt",
+      "sha256": "622ce3689095da5aa7b9f6980d04bed1f024f9b0fb023fcb21161a5b9bd0a8ad",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 12
+    },
+    {
+      "path": "LoadingTips/290529.txt",
+      "sha256": "af0f0add9f2693f996276b132c694a90a91a02c524c2ec2db82f4038ce412efa",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/Chelunzhan-150045.txt",
+      "sha256": "30d8ca1af7d2ff881cf45724d1c8032764ba60cbba25563c6772585afdd9d70d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 5
+    },
+    {
+      "path": "LoadingTips/Common.txt",
+      "sha256": "3e5068ec3d1a74a81eb314d0505cd99903684b83a4d1a534942098a0b7cdf459",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 89
+    },
+    {
+      "path": "LoadingTips/FB-Caomiaocun-54557.txt",
+      "sha256": "1bac3252fc150e8c280c29cc91c1db40ab2f0d9f75c7a1e28311a7ba9bbd94d6",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/FB-Feijiao-748.txt",
+      "sha256": "e8a599ec397582561b4323e0847274b55c647f1313bf2b7bad82f1fb6fe2e8b0",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 19
+    },
+    {
+      "path": "LoadingTips/FB-Feijiao2-148324.txt",
+      "sha256": "4bd13a48cee847f17d67f5992c50f4e3a00948bdb52b8311b11077782d327c0a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "LoadingTips/FB-Feijiao3-64808.txt",
+      "sha256": "33cb00021d58c64345362ec363de88b1312ec6a33fa2b9858aca6f95caf6a7ce",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 21
+    },
+    {
+      "path": "LoadingTips/FB-Fenxiang-129019.txt",
+      "sha256": "ec2531573a9f1fce772bc2f0aa0355c2a7a82e97e07810aa0a3dc75b32ddee92",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/FB-Guiwang-91645.txt",
+      "sha256": "56e55640054d3962de3837eac67006d4c58ab9fae20c9cc920466536e147d2b1",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/FB-Hehuan-91646.txt",
+      "sha256": "e6aa3ff4f2fb8ae9eed326b9d50a1a796510407f574b4d79ffaa2d34be7fda50",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/FB-Heishidong1-5874.txt",
+      "sha256": "2447d1ebb6fbc10ec8d6b0e45a0e08ae94f7d469b07546af5074c312c1fd7774",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "LoadingTips/FB-Heishidong2-148263.txt",
+      "sha256": "bde4f5af576c4f89527d66f9507a210214a22fb15a3f04f3d721b8f5f83a3934",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "LoadingTips/FB-Heishidong3-26026.txt",
+      "sha256": "e37d34ae969560f66bc5c549f7a76abfe460d4444f8e3745987977d03df133de",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 20
+    },
+    {
+      "path": "LoadingTips/FB-Huangquan1-1755.txt",
+      "sha256": "03cba7ed477a7b7a6d3ab770af564ff6a9e2b080a38972705ab80f836c282eae",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 21
+    },
+    {
+      "path": "LoadingTips/FB-Huangquan2-25152.txt",
+      "sha256": "8a82b6cea28f6a7573e4034ad0d6fca1d82f265964134b79c809b39995f6ddec",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 23
+    },
+    {
+      "path": "LoadingTips/FB-Huangquan3-148266.txt",
+      "sha256": "0a3b6ca5199937cc1603e252a9347c2ebc2dacbf89751b0fc42d9c140da2dca8",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 20
+    },
+    {
+      "path": "LoadingTips/FB-Kaimingshou-110611.txt",
+      "sha256": "6803036aa4ae3f35ce91cc59479bb0ba34f709fbe22bf317f60a85dcc9f37aad",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "LoadingTips/FB-Kaimingshou2-150511.txt",
+      "sha256": "9fe15a53dbba1357d87cb46e79befcd4f55997d7c14941eecc20b8c4e3202e17",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "LoadingTips/FB-Lianxuantang2-148525.txt",
+      "sha256": "c54ac23bb9859212d3adb35b70ca6b45970a4f25a1a25041e81ff1f25cc73e3b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 19
+    },
+    {
+      "path": "LoadingTips/FB-Lianxuetang-55381.txt",
+      "sha256": "f5149e5874e9d621a7a0e25a9bb5a3df50da15511687cd40af398ca57624eab2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "LoadingTips/FB-Lingxi-83711.txt",
+      "sha256": "9813c3dbc4246391b9fda8165a49194fdbf9f0ddd8163cbed4857668a5bbeae2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "LoadingTips/FB-Qingyun-91644.txt",
+      "sha256": "64f77fea8594de5d2d88b87c2e02a20af919888911f5596940637e2ff26c5c8f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/FB-Shehun-148437.txt",
+      "sha256": "a6c1e07957da6db05e1deddaafa8ef75712255810c6dae88d8f0b8ca41bde955",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 21
+    },
+    {
+      "path": "LoadingTips/FB-Shehun1-53352.txt",
+      "sha256": "3602bede2b791c567b424d4e383f595d368f786f898989c3fad480371858649c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 22
+    },
+    {
+      "path": "LoadingTips/FB-Shehun2-148437.txt",
+      "sha256": "a6c1e07957da6db05e1deddaafa8ef75712255810c6dae88d8f0b8ca41bde955",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 21
+    },
+    {
+      "path": "LoadingTips/FB-Shehun3-91966.txt",
+      "sha256": "2e68f498e0e3e880cb4b7b0f40d3cd8705ec6bef8ae14191fbf5cdd96762a0f5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 24
+    },
+    {
+      "path": "LoadingTips/FB-Shuiqilin-93198.txt",
+      "sha256": "c7a7ad8a93060b2c091b1641699eb3a4574c83c0b5ab64e626448fb3b2160876",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/FB-Shuiqilin2-149866.txt",
+      "sha256": "dd4d0dfe0d05a5b23c42c6e59ee74f5950cd4decfedee277aebc9e66011c8345",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "LoadingTips/FB-Silingyuan-55382.txt",
+      "sha256": "30996e46c96c541e8eaa9310fbf96f535593134bd0559938597b201cb06e3630",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/FB-Silingyuan2-138738.txt",
+      "sha256": "c21506070382bc15e993cd51557c314345e40736121f42316e400f4c82e0f74b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "LoadingTips/FB-Xiuluo-99325.txt",
+      "sha256": "14cb85c7fe461eab71a7b70278f2ca6271f682e32b91e915172090455848d1d7",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/FB-Zuogui-23073.txt",
+      "sha256": "a74aafef84cb92820e9bc226f4e6a38ae2b5a5439c5280889d8c777a9e5d95d8",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "LoadingTips/Fenxiangmenpai-11110.txt",
+      "sha256": "c7ec8921f7c0c58dc0389662d8d0b25d9f1d99f39a26c25c387418970cfb6a6f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 90
+    },
+    {
+      "path": "LoadingTips/JiaYuan-146887.txt",
+      "sha256": "48b519b936543284916042c9c76ced6c0571c3795c43a9ff9ac4ebcba526b4ae",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 6
+    },
+    {
+      "path": "LoadingTips/Judianzhan-langhuan-148743.txt",
+      "sha256": "a0c51f86935e5236f6fbd59535b1be40c8cb8397df62520162bc5a9576859a4a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/Judianzhan-liubo-58736.txt",
+      "sha256": "a0c51f86935e5236f6fbd59535b1be40c8cb8397df62520162bc5a9576859a4a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/Judianzhan-manhuang-148742.txt",
+      "sha256": "a0c51f86935e5236f6fbd59535b1be40c8cb8397df62520162bc5a9576859a4a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/Judianzhan-qingyun-22164.txt",
+      "sha256": "a0c51f86935e5236f6fbd59535b1be40c8cb8397df62520162bc5a9576859a4a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "LoadingTips/Kongsangshan-4842.txt",
+      "sha256": "467c9bebca911c4191c92e5204fbff4f27a74c85d8239ec72a32bfe8c16162ac",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 88
+    },
+    {
+      "path": "LoadingTips/Kunluobaoku-58710.txt",
+      "sha256": "1dc278061285a3f5b5459078d7ffaefc5873ab21e7decd509e74851734a528ea",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 6
+    },
+    {
+      "path": "LoadingTips/Langhuan-9441.txt",
+      "sha256": "bae62971ba45eec43286f7f17f51263a22fd78a587972583a5b3aef269c5621e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 93
+    },
+    {
+      "path": "LoadingTips/Lingximenpai-19902.txt",
+      "sha256": "6189cfe012462582db24e79b0d8199eaa6501fa3f00b678866d070baf0f2c4f4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 93
+    },
+    {
+      "path": "LoadingTips/qingyunmen-15928.txt",
+      "sha256": "adbcffa806e19bd17df7162e679fa940913646588ff80088848663e2ce585fec",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 90
+    },
+    {
+      "path": "Login.txt",
+      "sha256": "6f19f3e4fc49f8da2a86c22feb328fb144a2f6e13de05c2da7876a30c7a7c670",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 123
+    },
+    {
+      "path": "Lottery.txt",
+      "sha256": "3ddfecc410fc38fcf0374185e63960053654ce0ee976421f641c7d670beb1b74",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 32
+    },
+    {
+      "path": "Mahjong.txt",
+      "sha256": "a58cc3d14bba6e5ebf5262d39f34c37f4e5df0e09238745ef23009bece513673",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 39
+    },
+    {
+      "path": "Mail.txt",
+      "sha256": "d81a111b211f98e7e4454c11f3195364a2337e44673016f734fbe43363a40683",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 75
+    },
+    {
+      "path": "MainMenu.txt",
+      "sha256": "adab8a0e6b29b53c7d7b8982d4921ebcd2595f1d4edb9736433fd0ec6dbca7b8",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Map.txt",
+      "sha256": "b274cea7ef59d3d139116531df14aedc6825d338d2270eb2d37283c3c4770744",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 71
+    },
+    {
+      "path": "MapEditorBlockName.txt",
+      "sha256": "ce2047cebf3a280ba8edff5dc6c19a96c5c96ace02bafd5fc760e063cade3ece",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7069
+    },
+    {
+      "path": "MapEditorMapName.txt",
+      "sha256": "d33e9a31e40b246a835f4975e8ce6805fb88c88c0eef3297237c651d41acf875",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 808
+    },
+    {
+      "path": "MapGuide.txt",
+      "sha256": "59d5b77e02e867f4cd0dde2e1cbc745d116985021e629eadb2f614af7709ad0e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 5
+    },
+    {
+      "path": "Marry.txt",
+      "sha256": "b2a58d41a70e1715b843a0bda493309c9696ff3eaca08fd9608e93c7c800d8f8",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 37
+    },
+    {
+      "path": "MessageBox.txt",
+      "sha256": "832123c946254dff641df88e5ce531a3d99eda801bb6f7eacbe778b5bb1cc832",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "MessageList.txt",
+      "sha256": "c4d3700e583282c6ee91f8090ba1b43c2158c4eee5b44ab6d314f4ba27a3f2b2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 63
+    },
+    {
+      "path": "MindTechnique.txt",
+      "sha256": "ea4ed4530b8e8557cc49c245242de54ee313cc85e109d9f01cdf597c7ca5a9d6",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 51
+    },
+    {
+      "path": "Mood.txt",
+      "sha256": "c7e9e32812d155b36b6a89c42b6ba703382878f0e6025ef8bb2b419aa9ce16ae",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 6
+    },
+    {
+      "path": "MuYeFengYao.txt",
+      "sha256": "62d7e945a4ed8a21f5c8b131d5f01708cf0ecb5bed5c81f2a85606b1c8a3ce28",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 42
+    },
+    {
+      "path": "MurderingManager.txt",
+      "sha256": "3e0a229ce88f2b04a45f10777118d7c029782eb3bd26b33a543f12555b326881",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "NPCBase.txt",
+      "sha256": "34b54ea94e706507ee85c60126445a4e6494ea540d1ae76e5a0c834db49dbfaa",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "NPCDialog.txt",
+      "sha256": "468b300a8a012440e24daadedb624637a84704ca0e7731ae890c77846db4260e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "NPCTeam.txt",
+      "sha256": "fbc91a910de45b5d9da2cbd233f393eff6f600a42dedcf9cdf0ccc48fe0b5866",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "NationalDay.txt",
+      "sha256": "8c626031426dbdeba675fda58c35c087e1923a8c495afd81f74317f7d67192ee",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 19
+    },
+    {
+      "path": "NationalDay2026.txt",
+      "sha256": "11a5b0ca46d8f0c9ac07b3bb4dc48400a7afa0b9c27b59f27de617ad73f44476",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 5
+    },
+    {
+      "path": "NatureTest.txt",
+      "sha256": "5715f4f45a6a26ef65d07f05391ea8b71d2dfd8f8862ad97e3e2f72690df1d2e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 27
+    },
+    {
+      "path": "Network.txt",
+      "sha256": "5176873e4812ea54f95b3caa784de05911c204222882d7ad9bb2522f0a4cea9a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "NewPlayerBuff.txt",
+      "sha256": "5b6b454d9bdfe2a95c79821c71c8b2bc190e0fbf2c9acc47634c87e81fc0968b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "NightRogue.txt",
+      "sha256": "93c22b0182ba614d5cced938ad2f4a716de60505106835002f393a828a011f6c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 73
+    },
+    {
+      "path": "OccupationCommon.txt",
+      "sha256": "b2c3c00b04a837c74dc5fe78575530c6b43ba646fa297b01c30f36d26acce7a9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "Package.txt",
+      "sha256": "d597223e24275a72bdc4bf95ea5539de76f1ba0719babe5f6b8b403426236388",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 149
+    },
+    {
+      "path": "PaiHangBang.txt",
+      "sha256": "e90ef7a6c05f27cc1626b38d223c565bb88f37502513d350d073e791cfcf2d5d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 70
+    },
+    {
+      "path": "PersonalChest.txt",
+      "sha256": "a347501b775285d1b433e5f1d9724e34623cd9cbec7f52ddd2ce7863e4e6967a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 14
+    },
+    {
+      "path": "Pet.txt",
+      "sha256": "08afe332d15f50eb4fd61e0f263c140b36d5528a4387c971d0af9bb3e2042128",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 418
+    },
+    {
+      "path": "PlayCenter.txt",
+      "sha256": "9cfd5863aec6fccbd5f118ba60c897d3c78d9216a704d8d7dbd4985a34b2b50e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 73
+    },
+    {
+      "path": "PlayerHomeBp.txt",
+      "sha256": "e77395b28b42edbf4867d2361950e8b3c3b58ea5d814697be350258fc3bab092",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 97
+    },
+    {
+      "path": "PlayerHomeDataManager.txt",
+      "sha256": "26e17ee73f48a0b92c4be5563a7fa644417c4d39eb11b06332f946d3070fa08b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "PlayerHomeManager.txt",
+      "sha256": "b670a1545c9abc47db5c489ccd9e5f1cba606a2d3afb167b5b4ba5048aea1d7f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "PlayerHomePersonalBp.txt",
+      "sha256": "2f31e09d747176671b1d6b6a61bd582cf3b9044ab88c7711dbe81e3d45823687",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 51
+    },
+    {
+      "path": "Portal.txt",
+      "sha256": "845638e138e809179cb51f0348df36aeb7076988a36f243ac3be1ddb5913dfd3",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "PortalManager.txt",
+      "sha256": "716374d498d5b714404811cd3e36f8e0325b86e4a1bb643ad93c0d3672f47ec5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Prediction.txt",
+      "sha256": "ddd84d49bc94859207a90b52fecd5ce0eb1b287526f6e2413b45111b6447f1a0",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "PublicEvent.txt",
+      "sha256": "5b391c91909b637f702f16c12f61ad53093ed0a9014f237dc80dbd76bd0fc14a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 22
+    },
+    {
+      "path": "PuzzleActivityManager.txt",
+      "sha256": "a5c25d6f901056b95a1025415b3955b041a288fe423d18cefd8eb1d58e26eb98",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "QiMaiHuiWu.txt",
+      "sha256": "4ab8626e1b1518f7b54fbd15b40d1487eed47d906c514706d09dda909b0d7908",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 22
+    },
+    {
+      "path": "QiXi.txt",
+      "sha256": "6b2c639ca2a6ff1e81ae1e0337b5a639ee2a8ffd134b334be41450ef64332031",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 24
+    },
+    {
+      "path": "QiXiFashionSaleActivity.txt",
+      "sha256": "be0435a1d0d64529df922ae440b6e53f658e70acf7d672777141c14860d1db3c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 30
+    },
+    {
+      "path": "QuickText.txt",
+      "sha256": "7f77fbb4e44032b99b6bc50613967d08cd7c749498e4f97849675562dbabd8ce",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 69
+    },
+    {
+      "path": "Raid.txt",
+      "sha256": "c66125a2d7769f11087dd8593f3d79a27ad025a6f129406b4abd66ac94323055",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 594
+    },
+    {
+      "path": "RaidCareer.txt",
+      "sha256": "bcc3c8b48c573d79b14e686ff6df7911ef4cae37c4c81894572a265ec5dea96a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 25
+    },
+    {
+      "path": "Realm.txt",
+      "sha256": "a4cd413486c5421dbdd99b75a9bfe59556b99158c92a637d82f465635bb4ae6b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 42
+    },
+    {
+      "path": "RealmAdvance.txt",
+      "sha256": "4f2bea82ed5c952cb6a8a0a8e8ab69f94cd1a5734c146786ff3d4f82dfb95431",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "RedBag.txt",
+      "sha256": "6b14f094f95b042d2d145b489ed6dc28a49e669c05f72e8afb80f44ba5db57f6",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 6
+    },
+    {
+      "path": "Replay.txt",
+      "sha256": "29ef3be6cae28136378fcda9469d032f5de50c5e2b684a97cb6a0493b5f86593",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 18
+    },
+    {
+      "path": "Reputation.txt",
+      "sha256": "27579002d67df8bea5f205020982f7c7d736c8a4c56125406be7cdfc9f3fbcaa",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 25
+    },
+    {
+      "path": "Reward.txt",
+      "sha256": "791ef95913a3682a0ff5be3be948cfe219a4184f22af9bbf751e8cbedbb7297c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "RewardRecovery.txt",
+      "sha256": "62369d90831daea6b69bd54625ff1705dc404358357ba7a5db552f5b2fc9a68e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 19
+    },
+    {
+      "path": "RichText.txt",
+      "sha256": "add77a47ccfab6012ff0061e988b53b85f80f437824f0ac8d4020263ce9461b5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "RightClick.txt",
+      "sha256": "b722e30d8d799f1e3b6f2230863ab103381192a0a7c0a49911602be4503a2d9f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 27
+    },
+    {
+      "path": "RuNian.txt",
+      "sha256": "a913138f0633b3809b7b8702c323ba40e7a38a11b06a6319af489078f1a684ff",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "SeamlessPortal.txt",
+      "sha256": "1a8ea608ec6c1ec0c718ba70a37f90cc4ff1f4dfcd3f427a9f77eae07cada307",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Sect.txt",
+      "sha256": "da59eccd7da0290445a354412740ada0cf0a3d4a637b95b68b77ad1d09eebb87",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 98
+    },
+    {
+      "path": "SecurityLock.txt",
+      "sha256": "ddee42947bd06ee9ac9dbfd94831228bd67521af79eb3e49b7e56d53d5d791fb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 15
+    },
+    {
+      "path": "SequenceSkip.txt",
+      "sha256": "15ec0174405739a22b2eb50ecedc69d6987c5a256077c285c4c16a6f8d924dbc",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "Shop.txt",
+      "sha256": "017bdb9c4e9384e57b5762b4e9169b29e1cc0350c750f47fd2a1bed57c19ac49",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 90
+    },
+    {
+      "path": "ShopTool.txt",
+      "sha256": "e57367484e0e7f1d7e27eff3b0738e33b4e21f13e92353576c55e1faad18e307",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 12
+    },
+    {
+      "path": "ShortcutBar.txt",
+      "sha256": "237af28bde8261894a927d7aa19f881b984b34b1401358b9692b42481ff784f5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "SignIn.txt",
+      "sha256": "e2f6e371f9e28d70427d460f45fe9545c35bb62851f4473457bf6e35a3b4446b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 22
+    },
+    {
+      "path": "Skill.txt",
+      "sha256": "f0e76d174667f18affd3cf983f81d854ca582e1b3c436ed3ab7381250f2741d1",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 106
+    },
+    {
+      "path": "Snowman.txt",
+      "sha256": "d026dae60e2b58746d5328f0b65b8ec746a4f4365a52285fc4d737ff08581041",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 15
+    },
+    {
+      "path": "SoloChallenge.txt",
+      "sha256": "b2406782fc871b694dcfad3b3acf1070188ae954ea5b6a4a10b62140de6c0f5b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "Speaker.txt",
+      "sha256": "c5a69fb29027141c353ad5a79bd5a093e86443528aeb8f9603f11ab40e638f7c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "StarBase.txt",
+      "sha256": "dd1ce296e5aeccd15b1e65261594ce1012d8ebcc003fe076a121273679c95a13",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "StarStrange.txt",
+      "sha256": "634ecf0a1bb5c7121000dcc58bbd59e2313f28e3092d3b6cb04fa36086d6e793",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 79
+    },
+    {
+      "path": "StoryLineRetro.txt",
+      "sha256": "d8eeb4bebd4e31fab79a89c0b57f1fb88b19929868d0e72b8d18d8b54215be78",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 23
+    },
+    {
+      "path": "StrongHoldEventTip.txt",
+      "sha256": "6dd427100876d2018fccb93d88ea005d95b83a6dfa5173542af8cce29caefaba",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "SummonedMonster.txt",
+      "sha256": "cd55c07d0f643a2a358b45a97b6aad5ae15109891417d8113113b3ef6b6ee66d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "SurveyHandBook.txt",
+      "sha256": "a2ef97526860124d08319847f11d8446e501df88cffa39141447c2f2df170f3e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "SystemSetting.txt",
+      "sha256": "1a887b0c245596a5f922c4c2e7457e279e1fc0f3b018685e47a39167c40e32f9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "SystemSettingConfig.txt",
+      "sha256": "ddc90f4f4cac218cd87ac3134f57d8f276520bbaf5b6f1adba3638586c91e4dc",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 773
+    },
+    {
+      "path": "TakePicture.txt",
+      "sha256": "e289b2453a25844f8921f2d9bf0230a16f4adea5b1430e749e50acaaba3eb81f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "Talent.txt",
+      "sha256": "a53e53413fbe3b73b0fa7591538f4be79ad914d5e845578d137d590a4e794df2",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "Talisman.txt",
+      "sha256": "345b73ae6d50c8d8c742dd07689cc2277523548ad86f20057cb44d623c47fa07",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 167
+    },
+    {
+      "path": "TalismanAstrolabe.txt",
+      "sha256": "e8611b4bc344dc693362695caef904547ec8f2c7141ae70293e6e9f03d71cdeb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 7
+    },
+    {
+      "path": "TalismanTreasureBasin.txt",
+      "sha256": "4a8dc99d4ead04e67f22ea90592821002f757512499ee65651bdb55acc9e975f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "Tarkov.txt",
+      "sha256": "5590339d0b48e34c86be64db6b220133aaf20fbcaf96c0aa01ace2a3475e5c9e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 72
+    },
+    {
+      "path": "Task.txt",
+      "sha256": "98299344d7af3ad3a5e3565a697faf0169a80e3e7bcf3b23bed84be639208c20",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 59
+    },
+    {
+      "path": "TaskCameraManager.txt",
+      "sha256": "1cc15ce608e6a9e9903303099385bb6f80178ef1d1e17a77fafcbb884a174e4e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "TaskDialogManager.txt",
+      "sha256": "bf597c5384eb356b255b3e67f5814c610d6df9a7359ac459b8c6060748cfd404",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "TaskTrackList.txt",
+      "sha256": "4d3e68054616bbb345396d56608e0387bcaa171af9438413709b929be9b938e9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "Team.txt",
+      "sha256": "342283aa30476a130d81c1c5323c4fd5fab9f1f2776b2bba9767b60c4979db9d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 198
+    },
+    {
+      "path": "TeamManager.txt",
+      "sha256": "909dacfd354b63cff3f6eb9289f0ab3ae56a4bde754d186b1991bc219b3d00a0",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 79
+    },
+    {
+      "path": "TeamQuickMessage.txt",
+      "sha256": "21dda1c85df5e2244348a43ca33d0952f9b3e24efd0c14599152b355905e39c4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "TianFu.txt",
+      "sha256": "7ff41e5548a6257ca8603def0d0185059e1f599edb00b13a4bf85c7e6d3e4ace",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 49
+    },
+    {
+      "path": "ToolMenu.txt",
+      "sha256": "9db642673f1f01e9a29c83bd76f37a46f910957393d5c7c263eaa12150fe9110",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "ToolTipWidget.txt",
+      "sha256": "aec42718e898170161723051b357f1436aed8a6a104ba988338035c8af45c3a4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 8
+    },
+    {
+      "path": "Tower.txt",
+      "sha256": "58ecf74eb42fc5b7757f0172e9800716c48d866256d2aa774641f45fd39d28ff",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 11
+    },
+    {
+      "path": "Trade.txt",
+      "sha256": "394e27c50e28eb6586849dc910eb34a3755f4f5fbbd5b130613622b4fb0fc5fb",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 26
+    },
+    {
+      "path": "TransferOccupation.txt",
+      "sha256": "5ff4ec0e81635c6d5a57487935c533d808cda9cefd4ffde7fd5847f061ff730d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 23
+    },
+    {
+      "path": "TreasureSeek.txt",
+      "sha256": "4e824f65390b8983ae8763476b5fafdef6014f8b310f91f3c44d8db46d0dc62d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 44
+    },
+    {
+      "path": "TuJianManager.txt",
+      "sha256": "675e7ad0ba31326b29f96e444a10a82dd23e788cf77a7d5ba451f908b16f4a10",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 104
+    },
+    {
+      "path": "TuNaGame.txt",
+      "sha256": "2034c330d16951b8b42d66f97d2ce727897d71a263f551e5d357bc5563dd4105",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "UIDefault_Achievement.txt",
+      "sha256": "38f6da46fd8cc42d8cbc7e57ce6e8a62352c05933bb58618f848a740305de821",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "UIDefault_Activity.txt",
+      "sha256": "2b1ef01efd523d989a0ee3f122e38083f29029bbb2bc75e159a413d3dc80677a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "UIDefault_AuraWatcher.txt",
+      "sha256": "a8a5916707b04f79762314e7470cafe583a395eac7d85119977cb4d089e076e5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "UIDefault_BetOnGames.txt",
+      "sha256": "85af826cce69e9abd807d5284a9967803ede0aab72e3f8e4668a0dcae3458da9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "UIDefault_Calendar.txt",
+      "sha256": "78ccdee2beea5955a90a18d9108d8a0aa29fef574e6f55f36bf04db4c9b2ce49",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "UIDefault_CosmeticRank.txt",
+      "sha256": "6458c426f1f68c5343d377ecd73424ef5d0699d94b27496f454ded51a3242564",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "UIDefault_CustomUI.txt",
+      "sha256": "5a1c3ce0fbd27596a692d1f37f9f064d913b372bacc57d06ce760c0506b26082",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 50
+    },
+    {
+      "path": "UIDefault_Esc.txt",
+      "sha256": "77aac6f362a6a7b2809d466f308dfda90be6164319289ba06ed99b6a2bae8bc9",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 46
+    },
+    {
+      "path": "UIDefault_FaBao.txt",
+      "sha256": "9f9e03ead074ecc7c9400f1a90ded5ed522ff3da4bb4c6dcdafc6f64f23ab22e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "UIDefault_FeaturedEvent.txt",
+      "sha256": "7d841a4607bcf678fa87ecd485bae14a6eec24cd64626d3a0504a4d773dfeb90",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 26
+    },
+    {
+      "path": "UIDefault_GongNengFaBao.txt",
+      "sha256": "db317b5b70e77c874eef3ef1d9f4d44d62ea716ae4827752d5c1a3924e0cd57e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 2
+    },
+    {
+      "path": "UIDefault_MiniGame.txt",
+      "sha256": "98576919ebc1dfeb302e9175b2e0a6eda844d5c77e5f0bb8a1da28d2d1dec1f6",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "UIDefault_NatureTest.txt",
+      "sha256": "995eb63a955612fff0a06a32a57b248ff98de8436c1d5d7bee4ecaaf3ff8f871",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 10
+    },
+    {
+      "path": "UIDefault_NewVersionPreviewS3.txt",
+      "sha256": "b50982b52f473f51f01239a0e2ec4f99d66a5f55af732f3140b38009bae28a71",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 24
+    },
+    {
+      "path": "UIDefault_NewVersionPreviewS4.txt",
+      "sha256": "eb28a5ee1fcdabed439df3a1d8d475b8b8f8b9637de9afd8189495803d92d07f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 46
+    },
+    {
+      "path": "UIDefault_PaiZhao.txt",
+      "sha256": "df299f9d2344e3921230714238eaaff3a433fc71bea5077abe7be410cbb5a89c",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 45
+    },
+    {
+      "path": "UIDefault_Pet.txt",
+      "sha256": "1f15c6a99e9bd9260504ab675a8f0901da504aa6074d7b9ee07ba90a02423f2f",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "UIDefault_PlantingActivity.txt",
+      "sha256": "fc7baef1266c953858a17f48aacf75a448df012cfe31f354c0c33679336c8080",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 3
+    },
+    {
+      "path": "UIDefault_Popup.txt",
+      "sha256": "707dcf2ae8ff39c28350365c512ca5e1e208007f15471a7e6c599c7404e832d4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 1
+    },
+    {
+      "path": "UIDefault_RecruitPlatform.txt",
+      "sha256": "b3b0be1babf25d218b6e1526fb016c8bc167ceb4d5a8e8de36806dde8c2e1b86",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 4
+    },
+    {
+      "path": "UIDefault_SafeLock.txt",
+      "sha256": "96efea99f3576a8a5e300cc8176e06d6482872e751ad8e4ed9126e8d6655534e",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 9
+    },
+    {
+      "path": "UIDefault_ShiZhuang.txt",
+      "sha256": "f7644ed1d3535d271875eec4eb7f9306a46427504a8e3ac9c9685e5219d8b406",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 12
+    },
+    {
+      "path": "UIDefault_XingPo.txt",
+      "sha256": "875dbb96c44dd36ea963620c2aa225eb390dbde754b28e6771222929e9f24271",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 16
+    },
+    {
+      "path": "UINameCfg.txt",
+      "sha256": "043175e3ae0b35635e7d180ebd19f00bada80410a51bc4a284cbd75f5232943a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 61
+    },
+    {
+      "path": "VisionRaid.txt",
+      "sha256": "a05e90359c0d20e622e1f11c4242eefba12bee1f15580deb1d01d9db05c28585",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 13
+    },
+    {
+      "path": "WXLPublicEvent.txt",
+      "sha256": "2b445f8d963dd11ddc3f400f5dafe1206e0be3203227bf4e5f12ca95524ba2ff",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 63
+    },
+    {
+      "path": "WildCardHandlers.txt",
+      "sha256": "c1b9994a909de06919dac04eb8f550d0ba03740d36c72ebd33329e812689b063",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 15
+    },
+    {
+      "path": "WorldMapLevel.txt",
+      "sha256": "10200c1b1e872d8ef1433bd7c2c62f50bfd8432cb0144ced38f7de1d11763b09",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 6
+    },
+    {
+      "path": "WorldPlane.txt",
+      "sha256": "0e5549c1493977f2de7af2354d6d1bc323c6157cc3e52d8e7f12a1e7e9772849",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 250
+    },
+    {
+      "path": "XingXiuDuiYing.txt",
+      "sha256": "dba431424696a8d0312c163a268dd7015154d2519c16d96717cb9509e1c32104",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 29
+    },
+    {
+      "path": "YbShop.txt",
+      "sha256": "7b594e0c12f91602263682df57a9f47bb17929afd3b57c0d9b7ed32c9c51730d",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 124
+    },
+    {
+      "path": "ZCPrintf.txt",
+      "sha256": "708639cc8973954bc500d18e63cd44dce74a2221b093d03c336d176f0e3bb784",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 427
+    },
+    {
+      "path": "ZhenTu.txt",
+      "sha256": "e62b323be577a9a40ae7266b381ff44cff5d0d5e52dea53ccd1936b15fd4dea4",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 79
+    },
+    {
+      "path": "Zhumo.txt",
+      "sha256": "1ab8b3afe2ef748523d719d1855d7e6ee794121bd68b1fa486cf9d3b8c2da5b5",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 41
+    },
+    {
+      "path": "ZhumoOrganization.txt",
+      "sha256": "104ddbee6c365ea7c23b0144d6fa387e9c94cbd73a2692364620a1215e7ff0f7",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 17
+    },
+    {
+      "path": "action_name.txt",
+      "sha256": "327443fd51cf53788b1d91c22d60299b1845c2f66e736d6cf8b14a4ba379ff8b",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 95
+    },
+    {
+      "path": "ai.txt",
+      "sha256": "d5bead8aeecbeedf70e0ff2cb932f2036a106b3e3684d688d32662e9fc98c9ac",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 7449
+    },
+    {
+      "path": "flag_name.txt",
+      "sha256": "d3a75c9397f4a2ad1294d562a124189bd40101984f997f4e243bed75f574ab3a",
+      "encoding": "utf-8",
+      "bom": "",
+      "entries": 217
+    },
+    {
+      "path": "propwindowcfg.txt",
+      "sha256": "53915644ccf0e88035613443eacf13d158b31cbd2f6f536492c8033a00e36f6e",
+      "encoding": "utf-8",
+      "bom": "efbbbf",
+      "entries": 199
+    }
+  ],
+  "layer_order": [
+    "FormatString"
+  ]
+}

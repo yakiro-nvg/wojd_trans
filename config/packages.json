@@ -1,0 +1,9 @@
+{
+  "format_version": 1,
+  "variants": {
+    "base": {
+      "archive": "VI_PATCH.zip",
+      "description": "Bản production: hook native tối ưu, bản dịch Việt, font Việt và các sửa UI. Không dùng font chuyển Hán Việt."
+    }
+  }
+}

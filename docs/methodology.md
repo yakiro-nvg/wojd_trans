@@ -1,102 +1,33 @@
-# Translation Workflow Methodology
+# Text sources and method
 
-## Why This Pipeline Exists
-Most UE5 localization projects revolve around editing existing `.locres` files. The Zhuxian China client ships with sparse `Game.locres` data, leaving a large portion of UI and quest text missing. Reversing every widget to discover `FText` sources is impractical and the assets only expose empty-namespace strings. Instead, we rely on the runtime localization manager to reveal what the game actually looks up.
+A substantial amount of text missing from shipped locres is present locally in .data resources inside PAKs. Runtime captures demonstrate this route for cards, quests and many other strings. This does not establish that every string is local or that the server never supplies text.
 
-Enabling very-verbose localization logging records every failed lookup with namespace, key, and source text. Coupled with our hash calculator, we can regenerate the required `locres` entries and ship an override PAK.
+The shipped locres is not a complete source catalog. Local data can feed Unreal's text infrastructure at runtime; other display routes do not generate the same misses. Historical runtime identities are not treated as durable source IDs.
 
-## One-Time Engine Configuration
-Add this block to `ZhuxianClient/Saved/Config/Windows/Engine.ini` (or platform equivalent) to capture every missing lookup:
+Direct .data replacement is unsuitable: the client validates signed resources using asymmetric cryptography, and these files also contain non-localization/gameplay parameters. Replacing an entire file risks retaining obsolete parameters across client updates. The project does not re-sign resources or disable integrity checks.
 
-```
-[Core.Log]
-LogTextLocalizationManager=VeryVerbose
-```
+## Runtime dictionary
 
-After launching the client, the engine writes detailed messages to `ZhuxianClient.log`. Each record includes namespace, key, and source text whenever the localization manager falls back to source. Those lines become the authoritative catalog for strings the base game is missing.
+The component observes the native route returning decoded .data strings and substitutes a translation only when the complete source matches the dictionary. Unmatched or ignored strings stay unchanged. It does not hook generic Lua string manipulation. This document intentionally omits low-level interception/reverse-engineering recipes.
 
-## Data Flow Overview
-```
-ZhuxianClient.log   --collect   -->  collected.json
-                       │
-                       └─ sync  --> translations/<lang>.ndjson
-FormatString/*.txt  --fmtstring --> translations/<lang>.fmtstring.ndjson
-                                     ▲         ▲
-                        import locres│         │manual edits / PRs
-                                     │         ▼
-                                     └─ translate (AI) → updated NDJSON catalogs
-                                                  │
-                                                  └─ pack → Game.locres + FormatString txt → <LANG>_PATCH.pak
-```
+There is no stable native field ID. Source changes stop matching automatically. The runtime compares full strings; editing-workflow hashes alone never authorize a replacement. Literal backslash-n, actual newlines, whitespace and markup remain distinct. Identical text used in multiple contexts currently receives one native translation, requiring editorial judgement where ambiguous.
 
-Each language now uses two NDJSON catalogs under `translations/`: `<lang>.ndjson` for standard locres data and `<lang>.fmtstring.ndjson` for FormatString overrides. Records track namespace (or relative file path), key, source text, optional locres imports, and translated text. Steps can be repeated at any time—new logs, fresh TXT exports, official patches, or community PRs all converge through the same flow.
+Native states are translated, missing and ignore. Ignore is a persisted decision to keep Chinese. No native dated inference is made. Developer usage reports mark absent dictionary sources not_observed for their selected sessions/builds; they never automatically declare content dead or delete it. Release builds collect no per-string usage.
 
-## Step-by-Step Guide
+## Independent fallbacks
 
-### 1. Collect Unreal log output
-1. Run the client with verbose logging enabled until the desired content is exercised.
-2. Copy `ZhuxianClient.log` beside the CLI and run:
-   ```
-   wojd-trans collect collected.json --force
-   ```
-   `--force` rewrites the snapshot. The resulting array contains every (namespace, key, source) observed in the log.
+Fresh locres misses must be collected without translated locres on either resource route. Retain the actual namespace/key/source for each observation. Only an observed substituted native output is excluded; matching Chinese source text alone does not prove producer identity. Identical strings can occur independently in data and widgets.
 
-### 2. Sync the locres catalog(s)
-`sync` hydrates (or updates) per-language locres NDJSON files from the collected snapshot:
-```
-wojd-trans sync collected.json
-```
-- Adds new entries to each catalog.
-- Resets translations when sources change (use `--force` to wipe all translations).
-- Reports pending counts so you know what remains.
+Miss logs cannot recover already-resolved stock entries. The release therefore cooks two exact approved binding snapshots in resources/locres/, preserving namespace/key, authoritative source CRC and target for content and gamedata separately. Their full logical maps and compiled bytes are checked. Residual catalogs remain editorial inputs; legacy catalogs supply literal-source translation reuse, never arbitrary historical runtime IDs. Generated widget identities must be checked with their actual asset references. Whitespace, literal escapes and real newline forms are not normalized during this cook.
 
-### 3. Sync FormatString text files
-Traverse the game's FormatString folder to materialise `<lang>.fmtstring.ndjson`:
-```
-wojd-trans fmtstring FormatString
-```
-- Walks every `.txt` file (other extensions are ignored).
-- Captures the relative file path, key, and source text; translations remain `null` initially.
-- Re-run with `--force` to reset existing fmtstring translations if necessary.
+FormatString uses the current TXT sources, selecting patched whole files before sync. It preserves comments, encoding, BOM, line endings and key layout. File/key/source reconciliation is independent of native coverage. Here only, an unresolved source changed under the same file/key may be marked dated, because that identity is available. It stays Chinese. Rendering rejects source-file changes until a fresh synchronization.
 
-### 4. Import official Game.locres
-When the vendor ships `Game.locres`, some strings will already be localized. Importing ensures we reuse those and capture hashes for entries not present in logs:
-```
-wojd-trans import Game.locres
-```
-- For matching namespace/key pairs, the tool compares the computed source hash with the file’s stored hash. Matching rows copy the official text into `locresImport` for later reuse.
-- For previously unseen keys, it appends records with the file’s hash so we can pack them back even without knowing the original source.
-- The original `collected.json` is untouched.
+## Quality and evidence
 
-### 5. AI-assisted translation
-Translate pending entries per language:
-```
-wojd-trans translate
-```
-The CLI prompts for Bedrock Claude credentials, model, and reuses the language-specific system prompt (`prompts/<lang>/system-prompt.txt`).
+Structural checks preserve tags, logical attributes, placeholder order, numeric values and newline forms. Recognized link display text may change, while logical attributes remain exact. Structural QA does not prove linguistic correctness. Paths, internal identifiers and gameplay parameters are not automatically player text.
 
-Key behaviors:
-- Grouping is by runtime text (`locresImport` when present; otherwise the collected source, or the raw FormatString value) so identical strings translate once across both catalogs.
-- `--batch-size` controls how many unique strings are bundled into a single Bedrock request (default 5). Larger values reduce per-request overhead but require more tokens; smaller values are safer if the model struggles with long prompts.
-- `--concurrency` defines how many requests are sent in parallel; `--checkpoint` dictates how often translation files are flushed to disk; `--limit` restricts how many unique strings are processed in the session.
+Two migration captures had identical source sets and counters on the tested build. This supports repeatability for those runs, not universal coverage. Each developer run needs its own build metadata, readiness/counter review and archive result; menu-specific validation remains necessary.
 
-### 6. Human review and edits
-Manual tweaks happen directly in `translations/<lang>.ndjson` and `translations/<lang>.fmtstring.ndjson` (or via PRs). Each line is a standalone JSON object; update the `translated` field as needed. Re-running `sync`/`fmtstring` merges fresh inputs without disturbing reviewed translations unless the source itself changes.
+## Tóm tắt
 
-### 7. Build locres + PAK
-After translations are in place:
-```
-wojd-trans pack artifacts
-```
-- Generates `Game.locres` per language using the appropriate hash pipeline (`utf32le_alt` with OpenCC simplification). Imported hashes are reused when available.
-- Recreates the necessary `FormatString/*.txt` files, falling back to the source text whenever a translation is missing so the game never displays blanks.
-- Creates `<LANG>_PATCH.pak` inside `artifacts/`, preserving both `ZhuxianClient/gamedata/client/ZCTranslateData/Game/zh-Hans/Game.locres` and `ZhuxianClient/gamedata/client/FormatString/*.txt`.
-- Temporary working directories are cleaned unless `--keep-temp` is set.
-
-## Iterating on Updates
-- **New gameplay logs**: rerun `collect` and `sync`. Existing translations remain unless the source text changes.
-- **Official patches**: rerun `import` with the updated locres, then translate or manually adjust any new entries.
-- **New FormatString exports**: rerun `wojd-trans fmtstring` to fold in the latest TXT content before translating.
-- **Community contributions**: reviewers edit the NDJSON files, commit/PR, and rebuild PAK assets via `pack`.
-
-Because every artifact derives from NDJSON catalogs, the repository stays review-friendly, and rebuilds are deterministic. This method scales to additional languages by adding entries to `languages.json`, provisioning a prompt file, and following the same cycle.
+Nhiều text thiếu trong locres thực ra nằm ở .data local trong PAK. Không ghi đè cả file vì chữ ký bất đối xứng và rủi ro tham số cũ lệch bản game. Hook chỉ thay kết quả chuỗi khi khớp nguyên source. Locres dùng binding riêng cho hai route; miss log sạch bổ sung chứng cứ, không thay toàn bộ stock IDs. FormatString đối chiếu riêng; NDJSON cũ dùng để reuse câu dịch.

@@ -1,0 +1,49 @@
+{
+  "vendor_dbghelp": {
+    "bytes": 1868736,
+    "sha256": "9a02133854ff9f06c3b23a70f8c2a4814b2ed4eef613244b485e3737259ddf9e"
+  },
+  "accepted_legacy_installations": [
+    {
+      "id": "C8_S1_S2_20261023",
+      "files": [
+        {
+          "target": "bin/dbghelp.dll",
+          "exists": true,
+          "bytes": 234496,
+          "sha256": "e6b397aa12d7d379ee8b9b60fb204b689a27cd31d28b50f19a87bcd707213029"
+        },
+        {
+          "target": "data/catalog.bin",
+          "exists": true,
+          "bytes": 33774137,
+          "sha256": "dc3f0622cb97c38825918c0a86252ff8b1f158b6c844990875ac97ff800bde68"
+        },
+        {
+          "target": "data/Archive-Session.ps1",
+          "exists": true,
+          "bytes": 4415,
+          "sha256": "b8aa5f6271c3b68b490b5d8ad721b239be2266fdb348b03d06c107798dbaff2a"
+        },
+        {
+          "target": "pak/zz_WOJD_LOCALIZATION_P.pak",
+          "exists": true,
+          "bytes": 83495600,
+          "sha256": "166130887b88379861289a580e052e807b614d3700b2d7981de34b701c578aa2"
+        },
+        {
+          "target": "pak/zz_WOJD_HUD_S2_1_P.pak",
+          "exists": true,
+          "bytes": 746882,
+          "sha256": "49dfe2ba797a7f9316f48f105db719032e597d48f9bf87065ee59b98ea342cb3"
+        },
+        {
+          "target": "bin/wojd_dbghelp_original.dll",
+          "exists": true,
+          "bytes": 1868736,
+          "sha256": "9a02133854ff9f06c3b23a70f8c2a4814b2ed4eef613244b485e3737259ddf9e"
+        }
+      ]
+    }
+  ]
+}
