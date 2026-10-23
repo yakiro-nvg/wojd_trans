@@ -17,6 +17,7 @@ static BOOL signature_at_report(const ImageView *v,const BYTE *at,const BYTE *b,
 static void code_probe_failure(DWORD route,const MemoryProbe *p){(void)route;(void)p;}
 #define GAME_EXE L"D:\\unused-fixture-only"
 static BOOL g_game_host;
+#include "../src/native_data_assignment_signature.inc"
 #include "../src/native_data_cache.inc"
 #include "../src/native_tooltip_allocator.inc"
 #include "../src/native_tooltip_notification.inc"

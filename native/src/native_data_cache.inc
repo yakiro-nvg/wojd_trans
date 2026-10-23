@@ -75,7 +75,7 @@ static DWORD cache_probe(void *base,const ReaderCache *cache,DataResult *out,DWO
         probe.address=(uintptr_t)(!assign || !in_image(&v,assign,sizeof(data_assign_bytes))?assign:raw);
         code_probe_failure(0,&probe);return out->status=ERROR_INVALID_DATA;
     }
-    if(signature_at_report(&v,assign,data_assign_bytes,data_assign_mask,sizeof(data_assign_bytes),&probe))*stage|=2;
+    if(assignment_signature_at_report(&v,assign,&probe))*stage|=2;
     else code_probe_failure(0,&probe);
     if(signature_at_report(&v,raw,data_read_bytes_bytes,data_read_bytes_mask,sizeof(data_read_bytes_bytes),&probe))*stage|=4;
     else code_probe_failure(0,&probe);

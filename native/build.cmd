@@ -25,7 +25,7 @@ set "TMP=%TEMP%"
 cd /d "%WOJD_OUT%"
 cl /nologo /c /TC /MT /O2 /W3 /I"%WOJD_REPO%\native\vendor\minhook\include" "%WOJD_REPO%\native\vendor\minhook\src\buffer.c" "%WOJD_REPO%\native\vendor\minhook\src\hook.c" "%WOJD_REPO%\native\vendor\minhook\src\trampoline.c" "%WOJD_REPO%\native\vendor\minhook\src\hde\hde64.c"
 if errorlevel 1 exit /b 1
-cl /nologo /c /TC /MT /O2 /Ob0 /W4 /WX /wd4505 /DWOJD_CAPTURE=%WOJD_CAPTURE% /DWOJD_SELFTEST=%WOJD_SELFTEST% /Fo"localization.obj" "%WOJD_REPO%\native\src\localization.c"
+cl /nologo /c /TC /utf-8 /MT /O2 /Ob0 /W4 /WX /wd4505 /DWOJD_CAPTURE=%WOJD_CAPTURE% /DWOJD_SELFTEST=%WOJD_SELFTEST% /Fo"localization.obj" "%WOJD_REPO%\native\src\localization.c"
 if errorlevel 1 exit /b 1
 lib /nologo /DEF:"%WOJD_REPO%\native\original.def" /OUT:"wojd_dbghelp_original.lib" /MACHINE:X64
 if errorlevel 1 exit /b 1
@@ -47,7 +47,7 @@ cl /nologo /TC /MT /O2 /W4 /WX /wd4505 /Fe"allocator_fixture.exe" /Fo"allocator_
 if errorlevel 1 exit /b 1
 cl /nologo /TC /MT /Od /W4 /WX /wd4505 /Fe"plain_skill_fixture.exe" /Fo"plain_skill_fixture.obj" "%WOJD_REPO%\native\tests\c8_plain_skill_fixture.c"
 if errorlevel 1 exit /b 1
-cl /nologo /c /TC /MT /O2 /Ob0 /W4 /WX /wd4505 /Fo"setup_integration_fixture.obj" "%WOJD_REPO%\native\tests\c8_setup_integration_fixture.c"
+cl /nologo /c /TC /utf-8 /MT /O2 /Ob0 /W4 /WX /wd4505 /Fo"setup_integration_fixture.obj" "%WOJD_REPO%\native\tests\c8_setup_integration_fixture.c"
 if errorlevel 1 exit /b 1
 link /nologo /OUT:"setup_integration_fixture.exe" /MACHINE:X64 setup_integration_fixture.obj "%WOJD_OUT%\buffer.obj" "%WOJD_OUT%\hook.obj" "%WOJD_OUT%\trampoline.obj" "%WOJD_OUT%\hde64.obj" kernel32.lib
 exit /b %errorlevel%

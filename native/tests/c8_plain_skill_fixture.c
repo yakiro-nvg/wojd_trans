@@ -22,6 +22,7 @@ static DWORD fixture_probe_log_count;
 static void fixture_probe_log(const char *event,const char *format,...) {(void)event;(void)format;fixture_probe_log_count++;}
 #define WOJD_PROBE_LOG fixture_probe_log
 #include "../src/native_data_probe_diagnostics.inc"
+#include "../src/native_data_assignment_signature.inc"
 static void (*g_discovery_pump)(void);
 #include "../src/native_data_resolver.inc"
 #include "../src/native_data_cache.inc"

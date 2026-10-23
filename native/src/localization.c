@@ -65,9 +65,11 @@ static BOOL signature_at(const ImageView *view,const BYTE *address,const BYTE *e
 }
 #include "native_data_probe_diagnostics.inc"
 static void (*g_discovery_pump)(void);
+#include "native_data_assignment_signature.inc"
 #include "native_data_resolver.inc"
 #include "native_data_cache.inc"
 #include "native_data_origin_gate.inc"
+#include "native_data_executing_origin.inc"
 
 enum { DECISION_TRANSLATED=1,DECISION_IGNORE=2 };
 typedef struct WideRule { WCHAR *source,*target;int source_length;DWORD decision;const TextRule *rule; } WideRule;
@@ -222,14 +224,10 @@ static void process_string(GameString *out,DWORD key,void *caller) {
 #endif
 }
 static GameString * __fastcall assignment_hook(GameString *out,const WCHAR *text){
-    void *caller=_ReturnAddress();GameString *result;DWORD last_error,error;
-    if(caller!=g_decoder_return)return g_original_assign(out,text);
+    void *caller=_ReturnAddress();GameString *result;DWORD last_error;
     result=g_original_assign(out,text);last_error=GetLastError();
-    if(!g_active){SetLastError(last_error);return result;}
-    if(g_game_host && !g_origin_verified){
-        error=verify_assignment_origin(g_image_base,g_decoder_reader,(const BYTE *)g_target);
-        if(error){if(InterlockedIncrement(&g_origin_rejected)<=4)logf_n4("ORIGIN_REJECTED","status=%lu",error);SetLastError(last_error);return result;}
-        if(!InterlockedCompareExchange(&g_origin_verified,1,0))logf_n4("ORIGIN_VERIFIED","attach_us=%llu",diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart));
+    if(!g_active || (g_game_host?!executing_origin(caller):caller!=g_decoder_return)){
+        SetLastError(last_error);return result;
     }
 #if WOJD_CAPTURE
     if(InterlockedIncrement(&g_status.calls)==1)logf_n4("FIRST_DECODED_ASSIGNMENT","attach_us=%llu original_first_call_unknown=1",diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart));
@@ -265,18 +263,35 @@ static DWORD tooltip_allocator_create_runtime(const BYTE *assign,void **trampoli
     trace_stage("create",status,GetLastError());logf_n4("PHASE_TIMING","phase=create us=%llu",diag_us(diag_ticks()-phase));
     return status==MH_OK?ERROR_SUCCESS:(DWORD)status+0x10000;
 }
+static DWORD enable_assignment(void) {
+    MH_STATUS status;DWORD error;ULONGLONG phase;
+    if(g_active)return ERROR_SUCCESS;
+    if(!g_target || !g_original_assign)return ERROR_INVALID_STATE;
+    phase=diag_ticks();InterlockedExchange(&g_active,1);status=MH_EnableHook(g_target);
+    trace_stage("enable",status,GetLastError());
+    logf_n4("PHASE_TIMING","phase=enable us=%llu",diag_us(diag_ticks()-phase));
+    if(status!=MH_OK){InterlockedExchange(&g_active,0);return (DWORD)status+0x10000;}
+    if(g_game_host) {
+        error=assignment_signature_record((const BYTE *)g_target,(const void *)(uintptr_t)assignment_hook);
+        if(error){InterlockedExchange(&g_active,0);MH_DisableHook(g_target);return error;}
+    }
+    logf_n4("ASSIGNMENT_ENABLED","attach_us=%llu decoder_entry_patched=0 executing_origin_validation=1",
+        diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart));
+    return ERROR_SUCCESS;
+}
 static DWORD prepare_assignment(void *assign) {
     ImageView view;DWORD error;
     if(!g_wide_ready)return ERROR_NOT_READY;
-    if(g_target)return g_target==assign && g_original_assign?ERROR_SUCCESS:ERROR_INVALID_DATA;
+    if(g_target){if(g_target!=assign || !g_original_assign)return ERROR_INVALID_DATA;return g_game_host?enable_assignment():ERROR_SUCCESS;}
     if(g_game_host && (!image_view(g_image_base,&view) || !tooltip_allocator_valid(&view,(const BYTE *)assign)))return ERROR_NOT_READY;
+    if(g_game_host && !read_exact(assign,g_assignment_signature.original,sizeof(g_assignment_signature.original)))return ERROR_NOT_READY;
     error=runtime_initialize();if(error)return error;
     error=tooltip_allocator_create_once(&g_tooltip_allocator_prepared,(const BYTE *)assign,tooltip_allocator_create_runtime);if(error)return error;
     g_target=assign;g_original_assign=(AssignFn)(uintptr_t)g_tooltip_allocator_prepared.trampoline;g_assign=g_original_assign;
     g_tooltip_assign=g_original_assign;g_tooltip_translator_ready_us=diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart);
     InterlockedExchange(&g_tooltip_translation_ready,1);
     logf_n4("TOOLTIP_TRANSLATOR_READY","attach_us=%llu rules=%lu stable_allocator_trampoline=1 target=%p generic_enabled=%ld",g_tooltip_translator_ready_us,g_wide_count,g_target,g_active);
-    return ERROR_SUCCESS;
+    return g_game_host?enable_assignment():ERROR_SUCCESS;
 }
 static DWORD tooltip_prepare_for_serializer(const BYTE *serializer) {
     ImageView view;const BYTE *assign;DWORD error;
@@ -289,19 +304,19 @@ static DWORD tooltip_prepare_for_serializer(const BYTE *serializer) {
     return prepare_assignment((void *)assign);
 }
 static DWORD install_assignment(void *assign) {
-    MH_STATUS status;DWORD error;ULONGLONG phase;
-    if(g_active || !assign || !g_decoder_return)return ERROR_INVALID_STATE;
+    DWORD error;
+    if(!assign || !g_decoder_return)return ERROR_INVALID_STATE;
     error=prepare_wide();if(error)return error;
     error=prepare_assignment(assign);if(error)return error;
-    phase=diag_ticks();InterlockedExchange(&g_active,1);status=MH_EnableHook(assign);trace_stage("enable",status,GetLastError());
-    logf_n4("PHASE_TIMING","phase=enable us=%llu",diag_us(diag_ticks()-phase));
-    if(status!=MH_OK){InterlockedExchange(&g_active,0);return (DWORD)status+0x10000;}
+    error=enable_assignment();if(error)return error;
+    if(g_executing_first_us)logf_n4("EXECUTING_ORIGIN_VERIFIED","caller_rva=%llx first_us=%llu full_decoder_and_raw_reader=1",
+        (ULONGLONG)((BYTE *)InterlockedCompareExchangePointer(&g_executing_return,NULL,NULL)-g_image_base),g_executing_first_us);
     logf_n4("ASSIGNMENT_INSTALLED","assign=%p reader_return=%p rules=%lu attach_us=%llu decoder_entry_patched=0",assign,g_decoder_return,g_wide_count,diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart));
     return ERROR_SUCCESS;
 }
 static DWORD restore_data(void) {
     DWORD error=tooltip_restore();MH_STATUS status;
-    InterlockedExchange(&g_active,0);InterlockedExchange(&g_tooltip_translation_ready,0);
+    InterlockedExchange(&g_active,0);InterlockedExchange(&g_assignment_signature.ready,0);InterlockedExchange(&g_tooltip_translation_ready,0);
     if(g_target) {
         status=MH_DisableHook(g_target);
         if(status!=MH_OK && status!=MH_ERROR_DISABLED && status!=MH_ERROR_NOT_CREATED)error=(DWORD)status+0x10000;
@@ -347,6 +362,13 @@ static DWORD WINAPI probe_worker(void *parameter){
             if(g_discovery_pump)g_discovery_pump();
             if(GetFileAttributesW(STOP_FILE)!=INVALID_FILE_ATTRIBUTES){error=ERROR_CANCELLED;break;}
             attempts++;
+            if(!executing_origin_result(&probed)) {
+                result=probed;route=cache_result_route(cache_error,&cache,g_image_base,&result);
+                if(route==CACHE_ROUTE_WARM)g_tooltip_generic_cache_ready=TRUE;
+                else generic_calibrated=TRUE;
+                logf_n4("GENERIC_CHAIN_READY","source=EXECUTING_CALL route=%s attach_us=%llu",route==CACHE_ROUTE_WARM?"WARM":"CALIBRATION",diag_us(diag_ticks()-(ULONGLONG)g_diag_attach.QuadPart));
+                error=ERROR_SUCCESS;break;
+            }
             if(cached) {
                 probe_error=cache_probe(g_image_base,&cache,&probed,&cache_stage);
                 if(!probe_error) {
@@ -375,7 +397,7 @@ static DWORD WINAPI probe_worker(void *parameter){
             }
             /* An exhausted relocation search cannot discard a current known
                hint. It continues to be validated until the global watchdog. */
-            if(discovery.complete && (discovery.status==ERROR_DUP_NAME || !cached)) {error=discovery.status;break;}
+            if(data_discovery_terminal(&discovery,cached,g_active!=0,g_tooltip_pending)) {error=discovery.status;break;}
             Sleep(2);
         }while(diag_us(diag_ticks()-start)<180000000ull);
         if(error && error!=ERROR_CANCELLED && diag_us(diag_ticks()-start)>=180000000ull)error=ERROR_TIMEOUT;

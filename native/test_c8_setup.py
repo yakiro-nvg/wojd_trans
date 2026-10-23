@@ -6,7 +6,7 @@ assert OUT.is_dir(),'Build runtime-test first'
 temporary=OUT/'tmp';temporary.mkdir(exist_ok=True)
 environment=dict(os.environ,TEMP=str(temporary),TMP=str(temporary))
 results=[]
-for name,wanted in [('allocator_fixture',20),('plain_skill_fixture',35),('setup_integration_fixture',18)]:
+for name,wanted in [('allocator_fixture',20),('plain_skill_fixture',35),('setup_integration_fixture',37)]:
     completed=subprocess.run([str(OUT/(name+'.exe'))],cwd=OUT,env=environment,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='strict',timeout=90)
     (OUT/(name+'.log')).write_text(completed.stdout,encoding='utf-8')
     match=re.search(r'(?:RESULT|SUMMARY) checks=(\d+) failures=(\d+)',completed.stdout)
@@ -15,5 +15,5 @@ for name,wanted in [('allocator_fixture',20),('plain_skill_fixture',35),('setup_
     if not passed:
         (ROOT/'native/build/c8-setup-results.json').write_text(json.dumps(dict(status='FAIL',results=results),indent=2),encoding='utf-8')
         raise AssertionError((name,completed.returncode,completed.stdout))
-(ROOT/'native/build/c8-setup-results.json').write_text(json.dumps(dict(status='PASS',checks=73,failures=0,game_opened=False,captured_code_executed=False,results=results),indent=2),encoding='utf-8')
-print('C8 setup fixtures: 73 checks passed')
+(ROOT/'native/build/c8-setup-results.json').write_text(json.dumps(dict(status='PASS',checks=92,failures=0,game_opened=False,captured_code_executed=False,results=results),indent=2),encoding='utf-8')
+print('C8 setup fixtures: 92 checks passed')

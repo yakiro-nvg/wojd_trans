@@ -8,6 +8,8 @@ Direct .data replacement is unsuitable: the client validates signed resources us
 
 The solution used in this release is **runtime string substitution**. The signed .data files stay unchanged: the game reads and decodes its own data, then a native DLL intercepts the validated string-reading/deserialization paths. It compares the complete decoded source with a translation dictionary and, on a match, replaces the string returned to the game. This operates on string values rather than replacing whole data records or their numeric/gameplay parameters. Locres and FormatString overlays continue to handle text that follows those separate routes.
 
+The validated string-assignment hook is enabled as soon as its allocator and dictionary are ready. At the decoder's first call, the hook checks its complete code signature, unwind owner and raw-reader callee before translating that string. It does not wait for the background discovery pass, which could otherwise miss dialogue records loaded during startup. Later discovery validates the exact assignment patch installed by this DLL; it rejects a different destination or changed body. Cached addresses remain hints, not authority to translate arbitrary callers.
+
 These constraints explain why the native hook is needed. The legacy language-file approach cannot reach strings that bypass Unreal's localization path, so it cannot provide equivalent coverage for the observed data-reader and Skill/Buff paths. Loading and hooking native client code is a deeper intervention: it can break after updates or conflict with anti-cheat, and publisher acceptance or account safety cannot be guaranteed. The following section describes how substitution is constrained; it does not make the intervention risk-free.
 
 ```mermaid

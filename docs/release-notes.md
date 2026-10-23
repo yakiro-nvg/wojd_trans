@@ -1,4 +1,6 @@
-Bản Việt hóa dành cho người chơi, gồm bản dịch kỹ năng/boss, font tiếng Việt, các sửa giao diện và lỗi Quỳnh Các. Đợt này ưu tiên sửa 230 lỗi chữ hiển nhiên; phần soát nghĩa còn lại tiếp tục sau phát hành.
+Bản này sửa lỗi thoại nhiệm vụ vẫn hiện tiếng Trung do hook bật muộn, bỏ lỡ dữ liệu lúc game khởi động. Đã kiểm tra trực tiếp: câu thoại của Phổ Hoằng được thay thành tiếng Việt ngay khi đọc dữ liệu và hiển thị đúng trong game.
+
+Giữ các bản dịch kỹ năng/boss, font tiếng Việt và sửa giao diện của bản trước. Chat translator và cách dàn chữ trong thư vẫn đang được phát triển, chưa có trong bản này; phần soát nghĩa còn lại tiếp tục sau.
 
 **Tải VI_PATCH.zip**. Chỉ có một gói cài đặt; không cài kèm LIM/QFONT cũ.
 

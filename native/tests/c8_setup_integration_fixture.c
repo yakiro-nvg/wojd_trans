@@ -7,14 +7,14 @@ static int checks,failures;
 #define CHECK(t,label) do{checks++;if(!(t)){printf("FAIL %s line=%d\n",label,__LINE__);failures++;}else printf("PASS %s\n",label);}while(0)
 int main(void) {
     BYTE *image,*trampoline,before[sizeof(data_assign_bytes)];IMAGE_DOS_HEADER *dos;IMAGE_NT_HEADERS64 *nt;void *blocked_trampoline=NULL;
-    IMAGE_SECTION_HEADER *section;RUNTIME_FUNCTION functions[7];ImageView view;DWORD error,g,j;
+    IMAGE_SECTION_HEADER *section;RUNTIME_FUNCTION functions[9];ImageView view;DWORD error,g,j;
     static const DWORD anchors[3]={0x2050,0x3050,0x4050},owners[3]={0x2000,0x3000,0x4000};
-    image=(BYTE *)VirtualAlloc(NULL,0x8000,MEM_RESERVE|MEM_COMMIT,PAGE_EXECUTE_READWRITE);if(!image)return 2;
+    image=(BYTE *)VirtualAlloc(NULL,0xc000,MEM_RESERVE|MEM_COMMIT,PAGE_EXECUTE_READWRITE);if(!image)return 2;
     dos=(IMAGE_DOS_HEADER *)image;dos->e_magic=IMAGE_DOS_SIGNATURE;dos->e_lfanew=0x80;
     nt=(IMAGE_NT_HEADERS64 *)(image+0x80);nt->Signature=IMAGE_NT_SIGNATURE;nt->FileHeader.Machine=IMAGE_FILE_MACHINE_AMD64;
     nt->FileHeader.SizeOfOptionalHeader=sizeof(IMAGE_OPTIONAL_HEADER64);nt->FileHeader.NumberOfSections=1;
-    nt->OptionalHeader.Magic=IMAGE_NT_OPTIONAL_HDR64_MAGIC;nt->OptionalHeader.SizeOfImage=0x8000;
-    section=IMAGE_FIRST_SECTION(nt);section->VirtualAddress=0x400;section->Misc.VirtualSize=0x7c00;
+    nt->OptionalHeader.Magic=IMAGE_NT_OPTIONAL_HDR64_MAGIC;nt->OptionalHeader.SizeOfImage=0xc000;
+    section=IMAGE_FIRST_SECTION(nt);section->VirtualAddress=0x400;section->Misc.VirtualSize=0xbc00;
     section->Characteristics=IMAGE_SCN_MEM_EXECUTE|IMAGE_SCN_MEM_READ;
     memcpy(image+0x600,data_assign_bytes,sizeof(data_assign_bytes));
     memcpy(image+0x800,WOJD_FSTRING_SERIALIZER_BYTES48,48);image[0xf00]=1;
@@ -40,13 +40,75 @@ int main(void) {
             memcpy(at+context->size-4,&displacement,4);
         }
     }
-    if(!RtlAddFunctionTable(functions,7,(DWORD64)(uintptr_t)image))return 2;
+    memcpy(image+0x8000,data_reader_bytes,sizeof(data_reader_bytes));
+    memcpy(image+0xa000,data_read_bytes_bytes,sizeof(data_read_bytes_bytes));
+    {
+        LONG displacement=(LONG)((image+0x600)-(image+0x8223));memcpy(image+0x821f,&displacement,4);
+        displacement=(LONG)((image+0xa000)-(image+0x8113));memcpy(image+0x810f,&displacement,4);
+    }
+    functions[7].BeginAddress=0x8000;functions[7].EndAddress=0x8000+sizeof(data_reader_bytes);functions[7].UnwindData=0xf00;
+    functions[8].BeginAddress=0xa000;functions[8].EndAddress=0xa000+sizeof(data_read_bytes_bytes);functions[8].UnwindData=0xf00;
+    if(!RtlAddFunctionTable(functions,9,(DWORD64)(uintptr_t)image))return 2;
     memcpy(before,image+0x600,sizeof(before));g_game_host=TRUE;g_image_base=image;g_prefer_far=TRUE;
     g_wide_ready=TRUE;g_wide_count=1;QueryPerformanceFrequency(&g_diag_frequency);QueryPerformanceCounter(&g_diag_attach);
     CHECK(image_view(image,&view),"synthetic PE and registered unwind metadata ready");
     CHECK(tooltip_prepare_for_serializer(image+0x800)==ERROR_SUCCESS && g_target==image+0x600 &&
-        g_tooltip_translation_ready && g_original_assign && !g_active,"typed path prepares allocator before generic reader setup");
-    CHECK(!memcmp(before,image+0x600,sizeof(before)),"actual MH_CreateHook leaves assignment target unchanged");
+        g_tooltip_translation_ready && g_original_assign && g_active && g_assignment_signature.ready && !g_executing_return,
+        "validated allocator detour enables before generic decoder is discovered");
+    {
+        ReaderCache cache={0};DataResult result;MemoryProbe probe;DWORD stage;BYTE saved;
+        cache.reader=0x8000;cache.assign=0x600;cache.raw=0xa000;
+        CHECK(memcmp(before,image+0x600,sizeof(before)) && assignment_signature_at_report(&view,image+0x600,&probe),
+            "actual MinHook patch is recognized as owned rather than pristine code");
+        CHECK(check_executing_origin(image+0x8223)==ERROR_SUCCESS,"full executing decoder and raw-reader chain validate");
+        CHECK(!executing_origin(image+0x8224) && !g_executing_return,"unrelated caller cannot publish decoder origin");
+        image[0x815e]^=1;
+        CHECK(!executing_origin(image+0x8223) && !g_executing_return,"not-yet-matching decoder remains pending");
+        image[0x815e]^=1;
+        CHECK(executing_origin(image+0x8223) && g_executing_return==image+0x8223 && g_executing_first_us,
+            "first valid executing call is accepted without waiting for setup scan");
+        CHECK(executing_origin_result(&result)==ERROR_SUCCESS && result.candidates==1 &&
+            result.reader==(ULONGLONG)(uintptr_t)(image+0x8000) && result.raw_reader==(ULONGLONG)(uintptr_t)(image+0xa000),
+            "cold start hands executing proof to setup without a cache or completed scan");
+        {
+            DataDiscoveryJob exhausted={0};exhausted.complete=TRUE;exhausted.status=ERROR_NOT_FOUND;
+            CHECK(!data_discovery_terminal(&exhausted,FALSE,TRUE,FALSE) &&
+                !data_discovery_terminal(&exhausted,FALSE,FALSE,TRUE),
+                "early scan exhaustion waits for executing hook or pending typed setup");
+            CHECK(data_discovery_terminal(&exhausted,FALSE,FALSE,FALSE),"no remaining discovery route terminates normally");
+            exhausted.status=ERROR_DUP_NAME;
+            CHECK(data_discovery_terminal(&exhausted,TRUE,TRUE,TRUE),"ambiguous scanned origins remain a terminal error");
+        }
+        CHECK(!executing_origin(image+0x8224),"published decoder origin still rejects other callers");
+        CHECK(cache_probe(image,&cache,&result,&stage)==ERROR_SUCCESS && stage==15 && result.assign==(ULONGLONG)(uintptr_t)(image+0x600),
+            "warm cache completes after early patch instead of reporting a false mask failure");
+        ZeroMemory(&result,sizeof(result));reader_scan(&view,image+0x8000,image+0x8000,sizeof(data_reader_bytes),&result);
+        CHECK(result.candidates==1,"relocation scan also recognizes the exact owned assignment patch");
+        saved=image[0x606];image[0x606]^=1;
+        CHECK(!assignment_signature_at_report(&view,image+0x600,&probe) && cache_probe(image,&cache,&result,&stage)!=ERROR_SUCCESS,
+            "different detour destination is rejected by both signature and cache validation");
+        image[0x606]=saved;
+        CHECK(assignment_signature_at_report(&view,image+0x600,&probe),"restoring owned patch recovers validation");
+        image[0x650]^=1;
+        CHECK(!assignment_signature_at_report(&view,image+0x600,&probe),"changed instruction after owned jump is rejected");
+        image[0x650]^=1;memcpy(image+0x9000,image+0x600,sizeof(data_assign_bytes));
+        CHECK(!assignment_signature_at_report(&view,image+0x9000,&probe),"owned patch bytes copied to another address grant no authority");
+        functions[7].EndAddress--;
+        CHECK(check_executing_origin(image+0x8223)!=ERROR_SUCCESS,"wrong unwind owner size is rejected");
+        functions[7].EndAddress++;
+        CHECK(check_executing_origin(image+0x8223)==ERROR_SUCCESS,"restored complete origin validates again");
+        {
+            void *near_trampoline=NULL;BYTE entry[14];DWORD patch_size=0;
+            memcpy(image+0x9000,before,sizeof(before));g_prefer_far=FALSE;
+            CHECK(MH_CreateHook(image+0x9000,(void *)(uintptr_t)assignment_hook,&near_trampoline)==MH_OK &&
+                MH_EnableHook(image+0x9000)==MH_OK && read_exact(image+0x9000,entry,sizeof(entry)) &&
+                assignment_jump_owned(image+0x9000,entry,(void *)(uintptr_t)assignment_hook,&patch_size) && patch_size==5,
+                "actual near MinHook relay is also recognized as this detour");
+            CHECK(MH_DisableHook(image+0x9000)==MH_OK && MH_RemoveHook(image+0x9000)==MH_OK &&
+                !memcmp(before,image+0x9000,sizeof(before)),"near ownership fixture restores all original instructions");
+            g_prefer_far=TRUE;
+        }
+    }
     trampoline=(BYTE *)(uintptr_t)g_original_assign;
     g_tooltip_plain_view=view;
     for(g=0;g<2;g++) {
@@ -79,8 +141,8 @@ int main(void) {
             "context changed after resolution cannot publish origins or disrupt existing Buff hook");
         *at^=1;
     }
-    CHECK(tooltip_enable_group(image+0x800,TRUE,0)==ERROR_SUCCESS && g_tooltip_active && !g_active && !g_tooltip_setup_complete,
-        "actual typed hook enabled while generic setup is incomplete");
+    CHECK(tooltip_enable_group(image+0x800,TRUE,0)==ERROR_SUCCESS && g_tooltip_active && g_active && !g_tooltip_setup_complete,
+        "both detours are enabled while generic setup is incomplete");
     CHECK(tooltip_serializer_valid(&view,image+0x800),"later group validates complete owned installed48 snapshot including actual far detour");
     g_decoder_reader=image+0x1000;g_decoder_return=image+0x1223;
     error=install_assignment(image+0x600);
