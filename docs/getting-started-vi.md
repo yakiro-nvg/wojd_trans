@@ -2,7 +2,11 @@
 
 **[Tải VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)**. Chỉ cần chọn gói này; không cài kèm LIM/QFONT cũ.
 
-> **Rủi ro:** bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Có thể gặp lỗi mở game, văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn. Chưa có xác nhận chấp thuận từ nhà phát hành; không thể cam kết an toàn tài khoản. Đọc [lý do phải dùng phương pháp này](../README.md#vì-sao-phải-dùng-cách-này) trước khi quyết định cài.
+DLL được CI tạo tự động từ [mã nguồn công khai](../native/) của dự án. Người có kiến thức kỹ thuật có thể kiểm tra code, [quá trình build](https://github.com/yakiro-nvg/wojd_trans/actions/workflows/build.yml) và chứng thực bản phát hành. Chỉ tải ZIP từ GitHub Releases của dự án; không dùng DLL gửi riêng hoặc bản sửa, bản chia sẻ lại không rõ nguồn. DLL bị người có dụng ý xấu sửa đổi có thể gây hại cho máy hoặc đánh cắp thông tin.
+
+> **Rủi ro từ game và Perfect World:** bản dịch can thiệp khi game đang chạy, nên có thể gây lỗi/văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn. Dù dùng đúng bản phát hành của dự án, **Perfect World vẫn có thể hạn chế, đình chỉ hoặc khóa tài khoản**. Chưa có xác nhận chấp thuận từ Perfect World; dự án không cam kết an toàn tài khoản và không chịu trách nhiệm nếu họ xử lý tài khoản vì việc sử dụng bản dịch. **Việc sử dụng là lựa chọn của bạn và đồng nghĩa với việc chấp nhận các rủi ro này.**
+
+Đọc [lý do phải dùng phương pháp này và sơ đồ hoạt động](../README.md#vì-sao-phải-dùng-cách-này) trước khi quyết định cài.
 
 1. Thoát game bình thường, rồi giải nén toàn bộ ZIP vào một thư mục riêng.
 2. Nếu từng dùng bản cũ, chuyển các file bắt đầu bằng `~VI_PATCH` hoặc `~VI_QFONT` ra ngoài thư mục `Content\Paks`.

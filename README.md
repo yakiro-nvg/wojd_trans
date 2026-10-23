@@ -4,11 +4,17 @@ Bản Việt hóa cộng đồng, gồm bản dịch, font tiếng Việt và c�
 
 **[Tải VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)** · [Xem bản phát hành](https://github.com/yakiro-nvg/wojd_trans/releases/latest)
 
-> **Đọc kỹ rủi ro trước khi cài**
+## Nguồn tải và rủi ro cần biết
+
+**Nguồn phát hành có thể kiểm tra.** DLL trong bản phát hành được tạo tự động bằng CI (GitHub Actions) từ [mã nguồn công khai](native/) của dự án. Người có kiến thức kỹ thuật có thể xem code, [quá trình build](https://github.com/yakiro-nvg/wojd_trans/actions/workflows/build.yml), phiên bản mã nguồn và chứng thực đi kèm để tự đánh giá.
+
+**Chỉ tải ZIP từ GitHub Releases của dự án này.** Không dùng DLL gửi riêng hoặc bản sửa, bản chia sẻ lại không rõ nguồn gốc. DLL là mã chạy trên máy bạn; nếu bị người có dụng ý xấu sửa đổi, nó có thể gây hại cho máy hoặc đánh cắp thông tin. Mã nguồn công khai của dự án không bảo chứng cho một DLL do nơi khác cung cấp.
+
+> **Rủi ro từ game và Perfect World là vấn đề riêng**
 >
-> Bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Đây là can thiệp trực tiếp vào client, có thể gây lỗi mở game, văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn.
+> Bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Can thiệp này có thể gây lỗi mở game hoặc văng game, nhất là sau cập nhật. Dù dùng đúng bản phát hành của dự án, hệ thống chống gian lận vẫn có thể cảnh báo/chặn và **Perfect World có thể hạn chế, đình chỉ hoặc khóa tài khoản**.
 >
-> Chưa có xác nhận chấp thuận từ nhà phát hành. **Không thể cam kết an toàn tài khoản hay bảo đảm game luôn hoạt động ổn định.** Chỉ cài nếu bạn chấp nhận những rủi ro này.
+> Dự án chưa có xác nhận chấp thuận từ Perfect World và **không cam kết an toàn tài khoản**. Bạn tự quyết định và chấp nhận các rủi ro khi sử dụng. **Dự án không chịu trách nhiệm nếu Perfect World xử lý tài khoản vì việc sử dụng bản dịch.**
 
 ## Vì sao phải dùng cách này?
 

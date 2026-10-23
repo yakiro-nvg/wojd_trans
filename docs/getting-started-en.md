@@ -2,7 +2,11 @@
 
 **[Download VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)**. This is the complete player package. Do not combine it with old LIM/QFONT packages.
 
-> **Read the risks first:** the translation loads an additional DLL and modifies text while the client is running. It may cause startup failures or crashes, or trigger anti-cheat warnings/blocking. Publisher acceptance and account safety cannot be guaranteed. This method is needed because substantial text bypasses Unreal's standard localization route; replacing language files alone cannot translate those paths. The signed game data files remain unchanged.
+The release DLL is built automatically in CI from the project's [public source](../native/). Technical users can review the code, [build workflow](https://github.com/yakiro-nvg/wojd_trans/actions/workflows/build.yml), source revision and artifact attestation. **Download only from this project's GitHub Releases.** Avoid separately supplied DLLs, unknown re-uploads or modified builds: a malicious DLL can harm your computer or steal information. Public source does not authenticate a DLL supplied elsewhere.
+
+> **Game and account risks are separate:** this translation loads an additional DLL and changes text while the client runs. It may cause startup failures/crashes or trigger anti-cheat warnings/blocking. Even a genuine release can lead to **account restrictions, suspension or a ban by Perfect World**. The project has no confirmed publisher approval, cannot guarantee account safety, and takes no responsibility for account penalties related to using this translation. **Use is your choice and acceptance of these risks.**
+
+This method is needed because substantial text bypasses Unreal's standard localization route; replacing language files alone cannot translate those paths. The signed game data files remain unchanged. See the [method and architecture](methodology.md).
 
 1. Exit the game normally and extract the entire ZIP into a separate folder.
 2. Move old files starting with `~VI_PATCH` or `~VI_QFONT` outside Content\Paks.

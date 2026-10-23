@@ -3,13 +3,31 @@ WOJD VIỆT HÓA
 VI_PATCH.zip là trọn bộ cài đặt dành cho người chơi, gồm bản dịch, font
 tiếng Việt và các sửa giao diện. Không cài kèm LIM/QFONT của bản cũ.
 
-ĐỌC KỸ RỦI RO TRƯỚC KHI CÀI
+NGUỒN TẢI VÀ AN TOÀN MÁY TÍNH
 
-Bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Đây là can thiệp
-trực tiếp vào client, có thể gây lỗi mở game, văng game hoặc bị hệ thống
-chống gian lận cảnh báo/chặn. Chưa có xác nhận chấp thuận từ nhà phát hành.
-Không thể cam kết an toàn tài khoản hay bảo đảm game luôn ổn định.
-Chỉ cài nếu bạn chấp nhận những rủi ro này.
+DLL trong bản phát hành được tạo tự động bằng CI (GitHub Actions) từ mã
+nguồn công khai của dự án. Người có kiến thức kỹ thuật có thể xem code,
+quá trình build, phiên bản mã nguồn và chứng thực để tự đánh giá.
+
+Chỉ tải ZIP từ GitHub Releases của dự án này:
+https://github.com/yakiro-nvg/wojd_trans/releases
+
+Không dùng DLL gửi riêng hoặc bản sửa, bản chia sẻ lại không rõ nguồn gốc.
+DLL là mã chạy trên máy bạn; nếu bị người có dụng ý xấu sửa đổi, nó có
+thể gây hại cho máy hoặc đánh cắp thông tin. Mã nguồn công khai của dự án
+không bảo chứng cho một DLL do nơi khác cung cấp.
+
+RỦI RO TỪ GAME VÀ PERFECT WORLD
+
+Bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Can thiệp này có
+thể gây lỗi mở game hoặc văng game, nhất là sau cập nhật. Dù dùng đúng
+bản phát hành của dự án, hệ thống chống gian lận vẫn có thể cảnh báo/chặn.
+Perfect World có thể hạn chế, đình chỉ hoặc khóa tài khoản.
+
+Dự án chưa có xác nhận chấp thuận từ Perfect World và không cam kết an
+toàn tài khoản. Bạn tự quyết định và chấp nhận các rủi ro khi sử dụng.
+Dự án không chịu trách nhiệm nếu Perfect World xử lý tài khoản vì việc
+sử dụng bản dịch.
 
 VÌ SAO PHẢI DÙNG CÁCH NÀY?
 

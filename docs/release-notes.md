@@ -2,7 +2,9 @@ Bản Việt hóa dành cho người chơi, gồm bản dịch kỹ năng/boss, 
 
 **Tải VI_PATCH.zip**. Chỉ có một gói cài đặt; không cài kèm LIM/QFONT cũ.
 
-> **Đọc kỹ rủi ro trước khi cài:** bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Có thể gây lỗi mở game, văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn. Chưa có xác nhận chấp thuận từ nhà phát hành; **không thể cam kết an toàn tài khoản hay bảo đảm game luôn ổn định**.
+DLL được CI tạo tự động từ mã nguồn công khai. Người có kiến thức kỹ thuật có thể kiểm tra code, lượt build và chứng thực bản phát hành. **Chỉ tải ZIP từ GitHub Releases của dự án.** Không dùng DLL gửi riêng hoặc bản sửa, bản chia sẻ lại không rõ nguồn; một DLL bị sửa với dụng ý xấu có thể gây hại cho máy hoặc đánh cắp thông tin.
+
+> **Rủi ro từ game và Perfect World:** bản dịch nạp thêm DLL để thay chữ khi game chạy, nên có thể gây lỗi/văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn. Dù dùng đúng bản phát hành của dự án, **Perfect World vẫn có thể hạn chế, đình chỉ hoặc khóa tài khoản**. Dự án chưa có xác nhận chấp thuận từ họ, không cam kết an toàn tài khoản và không chịu trách nhiệm nếu họ xử lý tài khoản vì việc sử dụng bản dịch. **Sử dụng là lựa chọn của bạn và đồng nghĩa với việc chấp nhận các rủi ro này.**
 
 Game dùng đường nạp chữ riêng, nhiều phần không đi qua hệ thống ngôn ngữ chuẩn của Unreal. Cách cũ chỉ thay tệp ngôn ngữ không dịch được những phần đó, trong khi dữ liệu gốc được game kiểm tra chữ ký. Vì vậy, bản hiện tại giữ nguyên các tệp dữ liệu gốc và thay chuỗi sau khi game đọc lên. Giới hạn này là lý do phải dùng cách can thiệp trên; nó không loại bỏ rủi ro.
 
