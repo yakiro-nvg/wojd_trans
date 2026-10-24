@@ -10,3 +10,8 @@ Bản phát hành tạm
   bảo đảm về tài khoản hay sự chấp thuận. Không tự mở/đóng game khi cài.
 - Nếu còn PAK legacy (~VI_PATCH*, ~VI_QFONT*), chuyển chúng ra ngoài thư mục
   Content/Paks trước khi cài. Bộ cài giữ nguyên mod không rõ nguồn gốc.
+
+- Legacy không nạp DLL và không có dịch chat tự động. Nội dung đi ngoài
+  locres/FormatString có thể chỉ hiện phiên âm Hán–Việt hoặc còn CN.
+- Font đọc từng chữ không phân biệt ngữ cảnh hay đa âm; không thay thế
+  một bản dịch nghĩa. Coverage 26.972 chữ, không phải toàn bộ Unicode.

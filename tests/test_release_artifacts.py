@@ -7,8 +7,10 @@ class ReleaseArtifactTests(unittest.TestCase):
         source=root/'download';content=source/'artifacts' if nested else source;content.mkdir(parents=True)
         data=b'inert player archive';sha=hashlib.sha256(data).hexdigest()
         (content/'VI_PATCH.zip').write_bytes(data)
-        (content/'checksums.txt').write_text(sha+'  VI_PATCH.zip\n',encoding='ascii')
-        (content/'vi-build.json').write_text(json.dumps(dict(source_revision='fixture',variants=dict(base=dict(file='VI_PATCH.zip',sha256=sha)))),encoding='utf-8')
+        (content/'VI_LEGACY.zip').write_bytes(b'inert DLL-free archive')
+        legacy_sha=hashlib.sha256((content/'VI_LEGACY.zip').read_bytes()).hexdigest()
+        (content/'checksums.txt').write_text(sha+'  VI_PATCH.zip\n'+legacy_sha+'  VI_LEGACY.zip\n',encoding='ascii')
+        (content/'vi-build.json').write_text(json.dumps(dict(source_revision='fixture',variants=dict(base=dict(file='VI_PATCH.zip',sha256=sha),legacy=dict(file='VI_LEGACY.zip',sha256=legacy_sha)))),encoding='utf-8')
         return source,content,sha
 
     def test_flat_and_common_root_artifacts_produce_same_release_files(self):
@@ -17,7 +19,7 @@ class ReleaseArtifactTests(unittest.TestCase):
                 root=pathlib.Path(directory);source,content,sha=self.make(root,nested)
                 (source/'reports').mkdir();(source/'reports/quality.json').write_text('{}')
                 self.assertEqual(stage_release(source,root/'release','fixture'),sha)
-                self.assertEqual(sorted(p.name for p in (root/'release').iterdir()),['VI_PATCH.zip','checksums.txt','vi-build.json'])
+                self.assertEqual(sorted(p.name for p in (root/'release').iterdir()),['VI_LEGACY.zip','VI_PATCH.zip','checksums.txt','vi-build.json'])
 
     def test_wrong_revision_checksum_and_ambiguous_members_reject_before_copy(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'work') as directory:

@@ -3,7 +3,27 @@ Vietnamese font credit
 League Spartan — Copyright 2020 The League Spartan Project Authors
 https://github.com/theleagueof/league-spartan
 SIL Open Font License 1.1: see OFL-League-Spartan.txt included in the ZIP.
-Original font metadata is retained in the files.
+Original base-font Latin/Vietnamese outlines and metrics are retained.
 
-The repository Apache-2.0 license does not replace third-party font or
-MinHook licensing. Legacy XF/MVH conversion fonts are not in this package.
+WOJD HV Player Name composes all Han-Viet name syllables solely from the
+main UI League Spartan outlines. Original glyphs and metrics are retained.
+No MVH or XF outlines or separate source font files are in this payload.
+Reproduce it with scripts/build_player_name_font.py using the main UI
+font and resources/player-name-readings.ndjson.
+
+The reading table starts with readings recovered from the project's legacy
+MVH conversion font (LangNhan aka LyMocQuan, metadata dated 4.12.2019).
+The source hash and reading snapshot are recorded in
+resources/player-name-readings.source.json. Dictionary supplements and
+explicit preferred readings extend coverage and correct known semantic
+translations or transcription errors. One default is selected per character;
+this is not a claim of universal or context-sensitive transliteration.
+
+The repository Apache-2.0 license does not replace third-party font,
+dictionary or MinHook licensing. See the accompanying license files.
+
+Dictionary supplements: WinVNKey Han-Viet database 3.04, courtesy of
+Thanh Sơn Lê and the contributors credited in its source header;
+Phong Phan, hanviet-pinyin-wordlist (MIT, see MIT-HanViet-PhongPhan.txt);
+Unicode Unihan 17.0.0 (see Unicode-LICENSE.txt). Source hashes and selection
+rules are recorded in resources/player-name-readings.source.json.

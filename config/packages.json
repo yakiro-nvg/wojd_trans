@@ -3,7 +3,20 @@
   "variants": {
     "base": {
       "archive": "VI_PATCH.zip",
-      "description": "Trọn bộ cài đặt bản Việt hóa dành cho người chơi: bản dịch, font tiếng Việt và các sửa giao diện."
+      "description": "Bản đầy đủ có DLL và lựa chọn Legacy không nạp DLL trong cùng bộ cài.",
+      "profile": "runtime",
+      "supported_profiles": [
+        "runtime",
+        "legacy"
+      ]
+    },
+    "legacy": {
+      "archive": "VI_LEGACY.zip",
+      "profile": "legacy",
+      "supported_profiles": [
+        "legacy"
+      ],
+      "description": "Legacy không chứa DLL: locres, FormatString, bố cục và font Hán–Việt. Phạm vi dịch hạn chế; không có dịch chat tự động."
     }
   }
 }

@@ -1,11 +1,17 @@
 WOJD VIỆT HÓA
 
-VI_PATCH.zip là trọn bộ cài đặt dành cho người chơi, gồm bản dịch, font
-tiếng Việt và các sửa giao diện. Không cài kèm LIM/QFONT của bản cũ.
+VI_PATCH.zip chứa hai lựa chọn: Đầy đủ dùng DLL và Legacy không nạp DLL.
+VI_LEGACY.zip là gói riêng hoàn toàn không chứa DLL. Cả hai giữ bản dịch
+locres/FormatString, font và sửa giao diện; Legacy dịch được ít nội dung
+hơn, không có dịch chat tự động. Không cài kèm LIM/QFONT của bản cũ.
+
+Bản Legacy dùng font Hán–Việt từ nét font chính cho chữ Trung chưa được
+dịch. Đây là chuyển âm từng chữ, không phải dịch nghĩa cả câu; tên và
+thông tin gốc vẫn giữ nguyên. Một số chữ ngoài bảng vẫn hiện chữ Trung.
 
 NGUỒN TẢI VÀ AN TOÀN MÁY TÍNH
 
-DLL trong bản phát hành được tạo tự động bằng CI (GitHub Actions) từ mã
+DLL trong bản Đầy đủ được tạo tự động bằng CI (GitHub Actions) từ mã
 nguồn công khai của dự án. Người có kiến thức kỹ thuật có thể xem code,
 quá trình build, phiên bản mã nguồn và chứng thực để tự đánh giá.
 
@@ -19,7 +25,7 @@ không bảo chứng cho một DLL do nơi khác cung cấp.
 
 RỦI RO TỪ GAME VÀ PERFECT WORLD
 
-Bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Can thiệp này có
+Bản Đầy đủ nạp thêm DLL để thay chữ khi game đang chạy. Can thiệp này có
 thể gây lỗi mở game hoặc văng game, nhất là sau cập nhật. Dù dùng đúng
 bản phát hành của dự án, hệ thống chống gian lận vẫn có thể cảnh báo/chặn.
 Perfect World có thể hạn chế, đình chỉ hoặc khóa tài khoản.
@@ -36,7 +42,7 @@ Game dùng đường nạp chữ riêng; nhiều nội dung như kỹ năng và 
 nên không chèn được bản dịch vào những phần này. Dữ liệu gốc còn được
 game kiểm tra chữ ký, nên không thể chỉ sửa rồi chép đè.
 
-Vì vậy, bản hiện tại giữ nguyên các tệp dữ liệu gốc và thay chuỗi sau khi
+Vì vậy, bản Đầy đủ giữ nguyên các tệp dữ liệu gốc và thay chuỗi sau khi
 game đọc lên: DLL tra nguyên câu trong từ điển rồi trả về tiếng Việt.
 Giới hạn của game buộc phải dùng cách này để dịch những đường nạp đó;
 đồng thời, nó mang theo các rủi ro đã nêu trên.
@@ -46,10 +52,16 @@ CÀI ĐẶT
 1. Thoát game bình thường. Giải nén toàn bộ ZIP vào một thư mục riêng.
 2. Nếu từng dùng bản cũ, chuyển các file bắt đầu bằng ~VI_PATCH hoặc
    ~VI_QFONT ra ngoài thư mục Content\Paks.
-3. Chạy install.bat rồi dán đường dẫn thư mục game khi được hỏi.
+3. Chạy install.bat, chọn Đầy đủ hoặc Legacy rồi dán đường dẫn thư mục game khi được hỏi.
    Có thể dùng thư mục Game, ZhuxianClient hoặc Binaries\Win64.
    Ví dụ: D:\ZXSJclient\ZXSJ\Game.
-4. Mở game qua launcher như thường lệ. Nếu bản dịch yêu cầu mở lại,
+4. Chỉ bản Đầy đủ có bước Dịch chat; Enter để không bật ở lần cài đầu. Có thể chọn
+   Google Translate, DeepL, DeepSeek hoặc Gemini. Google Translate không
+   cần key; ba dịch vụ còn lại cần API key riêng. DeepSeek/Gemini cho
+   chọn model. Khi bật, phần chữ cần dịch được gửi tới dịch vụ đã chọn.
+   Đọc CHAT_GUIDE.txt trong VI_PATCH.zip để xem cách lấy key, chọn model,
+   giá tham khảo, chất lượng thử nghiệm và hạn mức.
+5. Mở game qua launcher như thường lệ. Nếu bản dịch yêu cầu mở lại,
    thoát game rồi mở lại.
 
 Nếu game nằm trong Program Files hoặc thư mục bị Windows hạn chế quyền
@@ -59,10 +71,22 @@ Quyền quản trị phụ thuộc nơi cài game và quyền ghi của tài kho
 CẬP NHẬT VÀ GỠ
 
 - Cập nhật: thoát game rồi chạy install.bat của gói mới.
+- Đổi bản: thoát game, chạy install.bat và chọn Đầy đủ/Legacy. Bộ cài
+  xử lý DLL đang được quản lý, giữ thiết lập chat và key riêng.
 - Kiểm tra bản đã cài: chạy verify.bat.
+- Đổi dịch chat (chỉ bản Đầy đủ): thoát game rồi chạy chat-settings.bat. Chọn dịch vụ/model
+  mặc định, sau đó đổi riêng từng kênh hoặc tắt kênh không cần. Kênh đông
+  có thể dùng Google hoặc model rẻ hơn để tiết kiệm; bạn tự chọn.
 - Gỡ bản dịch: thoát game rồi chạy uninstall.bat.
 - Khôi phục một lần cài/gỡ: chạy rollback.bat và nhập mã giao dịch được
   bộ cài in ra. Không xóa backup hoặc tự đổi file giữa lúc khôi phục.
+
+GIỮ KÍN API KEY DỊCH CHAT. Người có key có thể dùng hạn mức hoặc phát
+sinh phí trên tài khoản của bạn. Bộ cài che ô nhập, mã hóa key bằng
+Windows và không ghi key vào log riêng; vẫn cần tránh lộ key qua chat,
+log chia sẻ, ảnh chụp hoặc livestream, nhất là khi mở trang quản lý key
+và màn hình biến môi trường. Nếu lỡ lộ, thu hồi key cũ tại dịch vụ rồi
+tạo key mới. Xóa tin/ảnh đã gửi không vô hiệu hóa key. Xem CHAT_GUIDE.txt.
 
 Các thao tác này cũng cần quyền ghi phù hợp với thư mục game. Bộ cài
 không tự mở hay đóng game; nếu gặp file bị thay đổi bởi mod khác, nó sẽ
@@ -74,3 +98,28 @@ Xem KNOWN_ISSUES.txt. Khi báo lỗi, gửi tên bản phát hành, ảnh và c�
 hiện; kiểm tra thông tin riêng tư trước khi chia sẻ log.
 
 Bản phát hành và hướng dẫn: https://github.com/yakiro-nvg/wojd_trans
+
+TÊN ĐỘNG HÁN–VIỆT
+
+Tên đội/đoàn và tên, tên bang trên đầu dùng cách đọc Hán–Việt từng chữ.
+Tên vốn là tiếng Việt giữ nguyên. Ô tên trên đầu dùng chung nên NPC còn
+chữ Trung cũng có thể được phiên âm. Chat giữ thông tin liên kết tên gốc
+để thao tác đúng người chơi. Chuyển âm tên chạy tại máy, kể cả khi tắt
+dịch chat cloud. Với bản Đầy đủ, đọc CHAT_GUIDE.txt để biết chi tiết.
+
+THU LOG LEGACY
+
+Sau khi cài Legacy, mở game qua launcher, vào các màn hình cần kiểm tra,
+rồi thoát bình thường. Chạy collect-legacy-log.bat để sao lưu log game.
+Công cụ chỉ đọc log và kiểm tra bản đã cài; không nạp DLL hay sửa .data.
+Log phải mới hơn lần cài Legacy. Không tự gửi log hay thông tin cá nhân.
+
+DÙNG GEMINI CHO TẤT CẢ KÊNH CHAT ĐƯỢC HỖ TRỢ
+
+Cài bản Đầy đủ, chọn Gemini ở bước Dịch chat rồi chọn model mong muốn.
+Ở bước đổi riêng theo kênh, Enter để các kênh dùng chung Gemini. Nếu
+đang có thiết lập cũ, chạy chat-settings.bat và chọn lại như trên để thay
+các lựa chọn theo kênh cũ. Tin hệ thống và Chiêu Mộ vẫn được bỏ qua.
+Khi được hỏi key, nhập key riêng hoặc giữ key đã lưu trên máy; không
+chia sẻ key với người khác. Model/dịch vụ có thể tính phí theo lượng
+chat. Có thể tắt dịch chat bất cứ lúc nào mà vẫn dùng bản Việt hóa game.

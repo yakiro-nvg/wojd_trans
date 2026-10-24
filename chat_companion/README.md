@@ -1,10 +1,12 @@
 # Dynamic text translation service (development)
 
+The player release now implements received-chat translation in the native runtime, configured through `chat-settings.bat`; it does not require this Python service. This directory documents separate development prototypes and fixtures. See [the player chat guide](../distribution/CHAT_GUIDE.txt) for the shipped feature.
+
 This module is the background translation component for planned **in-game** dynamic text translation. It does not capture the screen, replace the game's chat window, read game memory, install a DLL or send game messages. The current localization package does not yet connect chat to this service.
 
 The intended integration keeps Chinese originals and structured message metadata intact. A game-side adapter submits an owned text snapshot without blocking the UI, then applies the result to the matching local message on the UI thread. The chat history and scroll view must retain that result. Replies require a separate, explicit translation/preview/confirmation action; normal input stays unchanged. Received translations must never enter a game-send path, including the game's resend button.
 
-The Lua adapter has synthetic tests, but actual callback environment, UI-thread identity, history identity/refresh and source-only resend are still integration gates. Offline tests do not establish client compatibility or publisher acceptance. No production chat feature is claimed yet.
+The Lua adapter has synthetic tests, but actual callback environment, UI-thread identity, history identity/refresh and source-only resend are still integration gates. Offline tests do not establish client compatibility or publisher acceptance. These particular prototype adapters are not the shipped native chat adapter.
 
 ## Providers
 

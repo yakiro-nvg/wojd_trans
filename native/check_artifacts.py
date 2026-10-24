@@ -61,7 +61,7 @@ for profile in ['runtime','dump']:
     assert [v['name'] for v in additional]==['WojdTranslationVersion'],additional
     for value in ['D:\\wojd-research','C:\\Users\\','/home/']:
         assert value.encode() not in raw and value.encode('utf-16-le') not in raw
-    allowed={'kernel32.dll','ntdll.dll','advapi32.dll','user32.dll','shell32.dll','ole32.dll','wojd_dbghelp_original.dll'}
+    allowed={'kernel32.dll','ntdll.dll','advapi32.dll','user32.dll','shell32.dll','ole32.dll','wojd_dbghelp_original.dll','winhttp.dll','bcrypt.dll','crypt32.dll'}
     unexpected=set(name.lower() for name in imports)-allowed
     assert not unexpected,('Non-system runtime dependency; distribution is not self-contained',unexpected)
     results[profile]=dict(status='PASS',original_forwarders=forwarded,production_exports_only=True,no_research_paths=True,

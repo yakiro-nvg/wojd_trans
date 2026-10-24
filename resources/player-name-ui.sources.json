@@ -1,0 +1,15 @@
+{
+  "format_version": 1,
+  "path": "ZhuxianClient/gamedata/client/CustomUIConfig/XingMingBan.json",
+  "source_pak": "ClientGameData.pak",
+  "source_sha256": "4ce57d9b5ea32eff067fd656eeb1995a36d3200d5655454a03c8c36db8da82dc",
+  "source_bytes": 140161,
+  "source_font": "/Game/UI/UI_Texture/UI_ziti/FZShengSKSJW_Zhong_Font.FZShengSKSJW_Zhong_Font",
+  "name_font": "/Game/UI/UI_Texture/UI_ziti/WOJD_HV_PlayerName_Font.WOJD_HV_PlayerName_Font",
+  "widgets": [
+    "Txt_Faction",
+    "Txt_TgtName"
+  ],
+  "change": "Only the two Font values; all other source bytes preserved. Current XingMingBan name-board renderer; UI widget SourceBlueprint matches WB_TargetInfo3D.",
+  "game_verified": false
+}

@@ -76,6 +76,7 @@ def manifest(o,legacy=None):
             pp=pin(p);files.append(dict(path=p.relative_to(o['pkg']).as_posix(),bytes=pp['bytes'],sha256=pp['sha256']))
     pp=pin(o['vendor'])
     m=dict(format_version=2,owner='wojd-localization',profile='runtime',release_id='INERT-RC-FIXTURE',source_revision='independent-offline-test',vendor_dbghelp=dict(bytes=pp['bytes'],sha256=pp['sha256']),accepted_legacy_installations=legacy or [],files=files)
+    if 'profiles' in o:m.update(profile='legacy' if o['profiles']==['legacy'] else 'runtime',supported_profiles=o['profiles'])
     dump(o['pkg']/'manifest.json',m)
     return m
 
@@ -96,10 +97,11 @@ def private(o):
 def assert_private(o,s):
     assert {n:pin(o['data']/n) for n in s}==s
 def state(o): return json.loads((o['data']/'install-state.json').read_bytes())
-def run(o,action,code=0,tx=None,shim=None):
+def run(o,action,code=0,tx=None,shim=None,profile=None):
     cmd=[POWERSHELL,'-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass']
     args=['-Action',action,'-GameRoot',str(o['game']),'-PackageRoot',str(o['pkg'])]
     if tx:args+=['-TransactionId',tx]
+    if profile:args+=['-Profile',profile]
     if shim:
         sp=o['case']/('shim-'+str(len(CALLS))+'.ps1')
         shim_text=shim+"\n& '"+str(o['pkg']/'Installer.ps1').replace("'","''")+"' @args\nexit $LASTEXITCODE\n"
@@ -315,6 +317,77 @@ def faults(kind,n):
     assert any(j['status']=='ROLLED_BACK' for j in js)
     return dict(explicit_test_copy_instrumentation=True,fault=kind,ordinal=n,automatic_rollback_restored_all_managed_preimages=True)
 
+def profiles(o,only=False):
+    o['profiles']=['legacy'] if only else ['runtime','legacy']
+    write(o['pkg']/'payload/legacy/zz_WOJD_LOCALIZATION_P.pak',b'legacy-font-locres-layout-fixture')
+    write(o['pkg']/'Collect-LegacyLog.ps1',(AUTHOR/'Collect-LegacyLog.ps1').read_bytes())
+    if only:
+        for name in ('payload/dbghelp.dll','payload/catalog.bin','payload/zz_WOJD_LOCALIZATION_P.pak','Archive-Session.ps1','MinHook-LICENSE.txt'):
+            (o['pkg']/name).unlink()
+    manifest(o)
+
+def legacy_fresh(stock=False,vendor=True):
+    o=make('legacy-fresh-'+str(stock)+'-'+str(vendor),stock=stock);profiles(o,only=True)
+    if not vendor:o['vendor'].unlink()
+    original=pin(o['bin']/'dbghelp.dll');run(o,'Install');first=state(o)['transaction_id'];s=private(o)
+    assert state(o)['profile']=='legacy' and pin(o['bin']/'dbghelp.dll')==original
+    for name in ('bin/wojd_dbghelp_original.dll','data/catalog.bin','data/Archive-Session.ps1'):assert not target(o,name).exists()
+    assert not any(p.suffix.lower()=='.dll' for p in o['pkg'].rglob('*'))
+    before=managed(o);run(o,'Verify');run(o,'Uninstall');assert pin(o['bin']/'dbghelp.dll')==original;assert_private(o,s)
+    run(o,'Rollback',tx=first);assert pin(o['bin']/'dbghelp.dll')==original;assert_private(o,s)
+    return dict(dll_bytes_unchanged=True,no_native_payload=True,vendor_required=False)
+
+def profile_switch(stock=False):
+    o=make('profile-switch-'+str(stock),stock=stock);profiles(o);run(o,'Install');s=private(o);runtime=managed(o)
+    run(o,'Install',profile='legacy');legacy_tx=state(o)['transaction_id'];legacy_snapshot=managed(o)
+    assert state(o)['profile']=='legacy';run(o,'Verify');assert_private(o,s)
+    assert pin(o['bin']/'dbghelp.dll')['exists']==stock
+    if stock:assert pin(o['bin']/'dbghelp.dll')==pin(o['vendor'])
+    assert not (o['bin']/'wojd_dbghelp_original.dll').exists()
+    run(o,'Install',profile='runtime');new_tx=state(o)['transaction_id'];run(o,'Verify')
+    run(o,'Rollback',tx=new_tx);assert managed(o)==legacy_snapshot;run(o,'Verify')
+    run(o,'Rollback',tx=legacy_tx);assert managed(o)==runtime;run(o,'Verify');assert_private(o,s)
+    return dict(two_way_switch_and_rollback=True,private_sentinels_preserved=True)
+
+def legacy_tamper(kind):
+    o=make('legacy-tamper-'+kind);profiles(o,only=True)
+    if kind=='native-package':
+        write(o['pkg']/'unexpected.dll',pe(True,b'UNEXPECTED'));manifest(o);rejection(o)
+    else:
+        run(o,'Install')
+        if kind=='native-game':write(o['bin']/'dbghelp.dll',pe(True,b'UNKNOWN'))
+        elif kind=='missing-pak':(o['pak']/'zz_WOJD_LOCALIZATION_P.pak').unlink()
+        elif kind=='forged-state':
+            doc=state(o)
+            for row in doc['files']:
+                if row['target'].startswith('pak/'):row.update(exists=False,bytes=0,sha256=None)
+            dump(o['data']/'install-state.json',doc)
+        rejection(o,'Verify')
+    return dict(legacy_conflict_preserved=kind)
+
+def unsupported_profile():
+    o=make('unsupported-profile');before=snapshot(o);run(o,'Install',profile='legacy',code=1);assert snapshot(o)==before
+    return dict(unavailable_profile_rejected=True)
+
+def switch_fault():
+    o=make('profile-switch-remove-fault',instrument=fault_instrument('remove',2));profiles(o)
+    run(o,'Install');before=managed(o);s=private(o);run(o,'Install',profile='legacy',code=1)
+    assert managed(o)==before;assert state(o)['profile']=='runtime';assert_private(o,s);run(o,'Verify')
+    return dict(partially_removed_runtime_restored=True)
+
+def legacy_log():
+    o=make('legacy-log-collection');profiles(o,only=True);run(o,'Install')
+    log=o['case']/'fixture-game.log';write(log,'[2026.10.25-00.00.00:000]LogTextLocalizationManager: (Namespace:N, Key:k, Source:甲), but it did not exist.\n')
+    cmd=[POWERSHELL,'-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',str(o['pkg']/'Collect-LegacyLog.ps1'),'-GameRoot',str(o['game']),'-LogPath',str(log)]
+    result=subprocess.run(cmd,capture_output=True,timeout=20);assert result.returncode==0,(result.stdout,result.stderr)
+    reports=list((o['data']/'logs').glob('legacy-*/collection.json'));assert len(reports)==1
+    doc=json.loads(reports[0].read_bytes());assert doc['status']=='PASS' and doc['sha256']==pin(log)['sha256']
+    assert reports[0].with_name('ZhuxianClient.log').read_bytes()==log.read_bytes()
+    import os
+    os.utime(log,(0,0));result=subprocess.run(cmd,capture_output=True,timeout=20);assert result.returncode==1
+    assert len(list((o['data']/'logs').glob('legacy-*/collection.json')))==1
+    return dict(fresh_log_archived_exactly=True,stale_log_rejected=True)
+
 def main():
     assert sha((AUTHOR/'Installer.ps1').read_bytes())==SOURCE_SHA
     assert not CASES.exists(),'Fresh fixture run only'
@@ -358,6 +431,14 @@ def main():
     for n in range(1,8):case('fault after fresh Publish '+str(n),lambda n=n:faults('publish',n))
     for n in range(1,8):case('fault after uninstall Remove-Owned '+str(n),lambda n=n:faults('remove',n))
     case('fault immediately before commit',lambda:faults('commit',1))
+    case('Legacy fresh no vendor DLL dependency',lambda:legacy_fresh(vendor=False))
+    case('Legacy stock DLL untouched',lambda:legacy_fresh(stock=True))
+    case('runtime Legacy two-way switch rollback private files',profile_switch)
+    case('runtime Legacy stock DLL restore switch rollback',lambda:profile_switch(stock=True))
+    for kind in ('native-package','native-game','missing-pak','forged-state'):case('Legacy tamper '+kind,lambda kind=kind:legacy_tamper(kind))
+    case('unsupported selected profile rejects without writes',unsupported_profile)
+    case('runtime Legacy partial removal failure restores runtime',switch_fault)
+    case('Legacy fresh log exact archive and stale rejection',legacy_log)
     print(json.dumps(dict(tests=len(RESULTS),calls=len(CALLS),failures=sum(x['status']!='PASS' for x in RESULTS)),ensure_ascii=False))
 
 if __name__=='__main__':main()

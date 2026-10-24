@@ -1,6 +1,10 @@
 # Font và bố cục
 
-Gói production giữ font Việt, widget thoại, cấu hình ngắt dòng và các sửa UI hiện hành. Không có font chuyển Hán Việt LIM/QFONT. Credit và giấy phép font đi kèm; build đọc lại toàn bộ file sau khi đóng PAK.
+Gói production giữ font Việt, widget thoại, cấu hình ngắt dòng và các sửa UI hiện hành. Các ô tên đội/đoàn và tên, tên bang trên đầu dùng font Hán–Việt riêng; không đổi font toàn bộ giao diện. Client hiện hành dựng tên trên đầu bằng XingMingBan từ `gamedata/client/CustomUIConfig/XingMingBan.json`; hai trường `Txt_TgtName` và `Txt_Faction` cần trỏ tới font riêng ở cả cấu hình JSON này và widget UMG tương ứng. Chỉ đổi UMG không bao phủ đường dựng tên mới. Font riêng ghép toàn bộ 26.972 âm Hán–Việt từ nét Latin/Việt của font chính League Spartan, giữ nguyên glyph và metrics có sẵn. MVH chỉ cung cấp bảng đọc gốc; không nhập outline MVH hoặc XF. Cmap BMP và đầy đủ đều bao phủ các mục tương ứng trong bảng. Chữ ngoài bảng tiếp tục dùng font CJK dự phòng gốc của game. Ô `Txt_BuffSource_name` trong `WB_Tips_Buff_new` cũng dùng font riêng để phiên âm tên nguồn hiệu ứng; các ô tiêu đề, mô tả, nhãn Nguồn và ID giữ nguyên font. Build kiểm tra toàn bộ file sau khi đóng PAK.
+
+Ô tên trên đầu chính dùng chung cho người chơi và một số NPC, nên tên NPC còn chữ Trung cũng có thể được phiên âm. Cấu hình riêng của NPC cảnh (`XingMingBan_ChangJingNPC.json`) được giữ nguyên. Tên đã dịch sang Việt giữ nguyên nội dung. Font chuyển cách đọc không thay tên gốc hay ID; chữ chưa hỗ trợ tiếp tục dùng cơ chế font dự phòng của game.
+
+Bảng chữ đọc trong chat bắt đầu từ outline MVH và mở rộng bằng các nguồn Hán–Việt có ghi credit (WinVNKey/Thanh Sơn Lê, Phong Phan và Unicode Unihan). Quy tắc chọn một âm mặc định được ghi trong metadata; không đoán ngữ cảnh tên riêng. Tên gốc và PC_Name trong chat giữ nguyên; tên đọc bọc bằng 【…】 nằm dưới [VI]. Bảng đọc công khai ở `resources/player-name-readings.ndjson`. `scripts/compile_player_name_readings.py --check` kiểm tra bảng native; `scripts/build_player_name_font.py --output <file>` tái tạo font từ bảng đọc và font chính công khai. Công cụ tạo font dành cho phát triển; gói cài chứa font đã tạo sẵn.
 
 Fork muốn đổi font nên tạo asset layer riêng, giữ đường dẫn/tên tài nguyên và kiểm tra tooltip, thoại dài, dấu Việt lẫn text CN chưa dịch. Font thiếu CJK có thể làm câu chưa dịch hiện ô vuông.
 

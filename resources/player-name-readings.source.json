@@ -1,0 +1,71 @@
+{
+  "source_repository": "https://github.com/yakiro-nvg/wojd_trans",
+  "source_revision": "baf13b9",
+  "source_path": "assets/vi-lim-mvh/ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FB_CN.ufont",
+  "source_font_sha256": "ca15f6a83e118eb701fd1117d0943a166b7334126aa36559946bc67f96a8feb0",
+  "source_han_glyphs": 20923,
+  "readings": 26972,
+  "vector_decoded_readings": 12521,
+  "manual_glyph_readings": {
+    "20496": "Chợt",
+    "27657": "táo",
+    "30529": "Tĩnh",
+    "30556": "Tĩnh",
+    "31467": "Tĩnh",
+    "35924": "iễm",
+    "38742": "Tĩnh",
+    "38745": "Tĩnh",
+    "38748": "Tĩnh",
+    "39031": "khoảnh"
+  },
+  "method": "MVH reading recovery by outline matching against its own Latin glyphs, with visually transcribed exceptions. Only the resulting reading table is a build input; all generated name glyphs are composites of the main UI font. No MVH or XF outlines are embedded.",
+  "unknown_text_readings": "Keep unknown characters; the scoped composite Font retains the original simsun fallback.",
+  "credits": [
+    "LangNhan aka LyMocQuan (legacy MVH font metadata)",
+    "MVH conversion font distribution in the project",
+    "League Spartan Project Authors (preserved Latin/Vietnamese base glyphs, OFL-1.1)"
+  ],
+  "mvh_readings": 12531,
+  "supplement_sources": [
+    {
+      "title": "WinVNKey Han-Viet database 3.04, Thanh Sơn Lê and credited contributors",
+      "url": "https://winvnkey.sourceforge.net/han-nom/SoLuocCachNhapChuHanNom-PhuLuc-A.htm",
+      "file": "resources/hanviet-sources/Data-HanViet-LST.txt",
+      "sha256": "1a106a6b07dc687889357adac986720474c2c76ad816e9dc8e4548cbc8598ea7"
+    },
+    {
+      "repository": "https://github.com/vunguyen1989/hanviet-pinyin-wordlist",
+      "original_author": "Phong Phan",
+      "original_repository": "https://github.com/ph0ngp/hanviet-pinyin-wordlist",
+      "revision": "b9923df92c8b55f013001390e37cddd35e986dc1",
+      "file": "resources/hanviet-sources/hanviet-pinyin.csv",
+      "sha256": "dd90d59db1265a47317477c9f741baeff7cb4dfed58d9a0c2be5f69b9ed14d66",
+      "license": "MIT"
+    },
+    {
+      "title": "Unicode Unihan 17.0.0",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/Unihan.zip",
+      "archive_sha256": "f7a48b2b545acfaa77b2d607ae28747404ce02baefee16396c5d2d7a8ef34b5e",
+      "file": "resources/hanviet-sources/unihan-17.0.0.json",
+      "license": "Unicode License V3",
+      "sha256": "21e3ef37f9ff7b68db9b63ce641f8e56b41abda111513350ff14852db29771ca"
+    }
+  ],
+  "default_selection": "One common default per character; explicit preferred readings, MVH base, dictionary main Mandarin correspondence, then shared dictionary/Unihan reading or most widespread candidate in the MVH reading inventory. Simplified/traditional and compatibility aliases inherit an existing reading. No name-context guessing and no XF input.",
+  "expanded_dictionary": {
+    "readings": 26972,
+    "mvh_base": 12531,
+    "origins": {
+      "MVH": 12435,
+      "Preferred common default": 100,
+      "WinVNKey/Unihan": 10477,
+      "Phong Phan": 1323,
+      "Unicode variant": 2637
+    },
+    "common_bmp_readings": 16923,
+    "xf_input": false
+  },
+  "mapping_snapshot": "resources/player-name-mvh-readings.ndjson",
+  "mapping_snapshot_sha256": "6668cee02125f9b004974fbbaf43444decb17947991883d6dd8ed4ff84a729bf",
+  "reviewed_corrections": "Explicit common readings replace known semantic translations and transcription errors in the MVH table; preferred readings take precedence. Unlisted polyphony keeps one default per character."
+}

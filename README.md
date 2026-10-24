@@ -2,7 +2,9 @@
 
 Bản Việt hóa cộng đồng, gồm bản dịch, font tiếng Việt và các sửa giao diện.
 
-**[Tải VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)** · [Xem bản phát hành](https://github.com/yakiro-nvg/wojd_trans/releases/latest)
+**[Đầy đủ / chọn bản — VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)** · **[Legacy không DLL — VI_LEGACY.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_LEGACY.zip)** · [Xem bản phát hành](https://github.com/yakiro-nvg/wojd_trans/releases/latest)
+
+Bộ cài có hai lựa chọn: **Đầy đủ** dùng DLL để dịch các đường dữ liệu riêng và hỗ trợ dịch chat; **Legacy** chỉ dùng PAK chứa locres, FormatString, bố cục và font Hán–Việt. `VI_LEGACY.zip` là ZIP riêng không chứa DLL. Legacy dịch được ít nội dung hơn và phần chuyển âm chỉ giúp đọc chữ, không thay cho bản dịch câu. [Chi tiết Legacy và cách thu log](docs/legacy-vi.md).
 
 ## Nguồn tải và rủi ro cần biết
 
@@ -12,7 +14,7 @@ Bản Việt hóa cộng đồng, gồm bản dịch, font tiếng Việt và c�
 
 > **Rủi ro từ game và Perfect World là vấn đề riêng**
 >
-> Bản dịch nạp thêm DLL để thay chữ khi game đang chạy. Can thiệp này có thể gây lỗi mở game hoặc văng game, nhất là sau cập nhật. Dù dùng đúng bản phát hành của dự án, hệ thống chống gian lận vẫn có thể cảnh báo/chặn và **Perfect World có thể hạn chế, đình chỉ hoặc khóa tài khoản**.
+> Bản đầy đủ nạp thêm DLL để thay chữ khi game đang chạy. Can thiệp này có thể gây lỗi mở game hoặc văng game, nhất là sau cập nhật. Dù dùng đúng bản phát hành của dự án, hệ thống chống gian lận vẫn có thể cảnh báo/chặn và **Perfect World có thể hạn chế, đình chỉ hoặc khóa tài khoản**.
 >
 > Dự án chưa có xác nhận chấp thuận từ Perfect World và **không cam kết an toàn tài khoản**. Bạn tự quyết định và chấp nhận các rủi ro khi sử dụng. **Dự án không chịu trách nhiệm nếu Perfect World xử lý tài khoản vì việc sử dụng bản dịch.**
 
@@ -20,7 +22,7 @@ Bản Việt hóa cộng đồng, gồm bản dịch, font tiếng Việt và c�
 
 Game dùng đường nạp văn bản riêng: nhiều nội dung, trong đó có kỹ năng và boss, không đi qua hệ thống ngôn ngữ chuẩn của Unreal. Cách cũ chỉ thay tệp ngôn ngữ nên không chèn được bản dịch vào những đường nạp này. Các tệp dữ liệu gốc lại được game kiểm tra chữ ký, nên cũng không thể chỉ sửa rồi chép đè.
 
-Vì giới hạn đó, bản hiện tại phải thay chữ **sau khi game đọc dữ liệu lên**. Các tệp dữ liệu gốc được giữ nguyên; DLL tra nguyên câu trong từ điển rồi trả về bản tiếng Việt. Đây là lý do cần phương pháp can thiệp nêu trên, và cũng là nguồn rủi ro cần cân nhắc.
+Vì giới hạn đó, bản đầy đủ thay chữ **sau khi game đọc dữ liệu lên**. Các tệp dữ liệu gốc được giữ nguyên; DLL tra nguyên câu trong từ điển rồi trả về bản tiếng Việt. Đây là lý do cần phương pháp can thiệp nêu trên, và cũng là nguồn rủi ro cần cân nhắc.
 
 ```mermaid
 flowchart TD
@@ -39,21 +41,30 @@ flowchart TD
 
 ## Cài đặt
 
-1. Thoát game bình thường và tải **VI_PATCH.zip** ở liên kết phía trên.
+1. Thoát game bình thường. Tải **VI_PATCH.zip** để dùng Đầy đủ hoặc chọn bản; tải **VI_LEGACY.zip** nếu muốn gói riêng không chứa DLL.
 2. Giải nén toàn bộ ZIP vào một thư mục riêng.
-3. Chạy **install.bat**, rồi dán đường dẫn thư mục game khi được hỏi. [Hướng dẫn chọn thư mục](docs/getting-started-vi.md).
-4. Mở game qua launcher như thường lệ. Nếu bản dịch yêu cầu mở lại game, thoát rồi mở lại.
+3. Chạy **install.bat**, chọn Đầy đủ hoặc Legacy, rồi dán đường dẫn thư mục game khi được hỏi. [Hướng dẫn chọn thư mục](docs/getting-started-vi.md).
+4. Với bản Đầy đủ, ở bước **Dịch chat**, chọn tắt hoặc chọn Google Translate, DeepL, DeepSeek hay Gemini. Lần cài đầu mặc định tắt; Google Translate không cần key, ba dịch vụ còn lại cần API key riêng. DeepSeek/Gemini cho chọn model. Khi bật, phần chữ cần dịch được gửi tới dịch vụ đã chọn. [So sánh giá, chất lượng thử nghiệm và hướng dẫn](distribution/CHAT_GUIDE.txt).
+5. Mở game qua launcher như thường lệ. Nếu bản dịch yêu cầu mở lại game, thoát rồi mở lại.
 
 Nếu game nằm trong **Program Files** hoặc thư mục bị Windows hạn chế quyền ghi, bạn có thể cần nhấp chuột phải **install.bat → Run as administrator**. Quyền này phụ thuộc nơi cài game và quyền ghi của tài khoản Windows.
 
-Nếu từng dùng bản dịch cũ, chuyển các file bắt đầu bằng `~VI_PATCH` hoặc `~VI_QFONT` ra ngoài thư mục `Content\Paks` trước khi cài. Bản mới chỉ có một gói; không cài kèm LIM/QFONT cũ.
+Nếu từng dùng bản dịch cũ, chuyển các file bắt đầu bằng `~VI_PATCH` hoặc `~VI_QFONT` ra ngoài thư mục `Content\Paks` trước khi cài. Chọn bản Đầy đủ hoặc Legacy trong bộ cài mới; không cài kèm LIM/QFONT cũ.
 
 ## Cập nhật, kiểm tra và gỡ
 
 - **Cập nhật:** thoát game rồi chạy `install.bat` của gói mới.
+- **Đổi Đầy đủ/Legacy:** thoát game, chạy `install.bat` và chọn bản muốn dùng. Bộ cài gỡ hoặc khôi phục DLL do dự án quản lý, giữ thiết lập riêng và lịch sử khôi phục.
 - **Kiểm tra bản đã cài:** chạy `verify.bat`.
 - **Gỡ bản dịch:** thoát game rồi chạy `uninstall.bat`.
 - **Khôi phục một lần cài/gỡ:** chạy `rollback.bat` và nhập mã giao dịch mà bộ cài đã in ra.
+- **Đổi dịch chat — bản Đầy đủ:** thoát game rồi chạy `chat-settings.bat`. Chọn dịch vụ/model mặc định, sau đó đổi riêng từng kênh hoặc tắt kênh không cần. Kênh đông có thể dùng Google hoặc model rẻ hơn để tiết kiệm; bạn tự chọn. Khi cập nhật, bộ cài cho giữ thiết lập hiện tại.
+
+Legacy không có bước chọn dịch chat. Trong bản Đầy đủ, tin hệ thống và Chiêu Mộ được bỏ qua; dịch chat gửi nội dung cần dịch tới dịch vụ bạn chọn.
+
+**Giữ kín API key khi dùng dịch chat.** Người có key có thể dùng hạn mức hoặc phát sinh phí trên tài khoản của bạn. Bộ cài che chỗ nhập, mã hóa key bằng Windows và không ghi key vào log riêng; bạn vẫn cần tránh để key xuất hiện trong chat/log chia sẻ, ảnh chụp, livestream, trang quản lý key hoặc màn hình biến môi trường. Nếu lỡ lộ, thu hồi key cũ tại dịch vụ và tạo key mới; chỉ xóa ảnh/tin nhắn chưa vô hiệu hóa key.
+
+Tên người chơi trong đội/đoàn, tên và tên bang trên đầu được hỗ trợ cách đọc Hán–Việt. Trong chat, thông tin liên kết tên gốc được giữ để thao tác đúng người chơi. Bước chuyển âm chạy tại máy, cả khi tắt dịch chat cloud. [Phạm vi và giới hạn](docs/font-customization-vi.md).
 
 Các thao tác kiểm tra/gỡ/khôi phục cũng cần quyền ghi phù hợp với thư mục game. Bộ cài không tự mở hay đóng game.
 

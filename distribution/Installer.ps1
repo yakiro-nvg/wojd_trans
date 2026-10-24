@@ -2,7 +2,10 @@ param(
     [ValidateSet('Install','Verify','Uninstall','Rollback')][string]$Action='Install',
     [string]$GameRoot,
     [string]$PackageRoot=$PSScriptRoot,
-    [string]$TransactionId
+    [string]$TransactionId,
+    [switch]$ChatSetup,
+    [ValidateSet('runtime','legacy')][string]$Profile='runtime',
+    [switch]$ChooseProfile
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
@@ -15,6 +18,13 @@ $PayloadSources=[ordered]@{
     'pak/zz_WOJD_LOCALIZATION_P.pak'='payload/zz_WOJD_LOCALIZATION_P.pak'
     'pak/zz_WOJD_HUD_S2_1_P.pak'='payload/zz_WOJD_HUD_S2_1_P.pak'
 }
+$ProfilePayloadSources=@{
+    runtime=$PayloadSources
+    legacy=[ordered]@{
+        'pak/zz_WOJD_LOCALIZATION_P.pak'='payload/legacy/zz_WOJD_LOCALIZATION_P.pak'
+        'pak/zz_WOJD_HUD_S2_1_P.pak'='payload/zz_WOJD_HUD_S2_1_P.pak'
+    }
+}
 $ManagedTargets=@($PayloadSources.Keys)+@('bin/wojd_dbghelp_original.dll')
 $JournalTargets=$ManagedTargets+@('data/install-state.json','data/ownership.json')
 $RetiredPakNames=@('~VI_PATCH.pak','~VI_PATCH_LIM.pak','~VI_PATCH_LIM_XF.pak','~VI_PATCH_LIM_MVH.pak','~VI_QFONT.pak','~VI_QFONT_XF.pak','~VI_QFONT_MVH.pak','~EN_PATCH.pak')
@@ -22,6 +32,7 @@ $script:Lock=$null
 $script:ActiveJournal=$null
 $script:ActiveTransaction=$null
 $script:BootstrappedOwner=$false
+$script:ExplicitProfile=$PSBoundParameters.ContainsKey('Profile')
 
 function Require($Condition,[string]$Message) { if(-not $Condition){throw $Message} }
 function Has($Value,[string]$Name) { return $null -ne $Value -and $Name -in @($Value.PSObject.Properties.Name) }
@@ -150,7 +161,7 @@ function Check-Package {
     $script:PackageRoot=Plain-Existing ([IO.Path]::GetFullPath($PackageRoot)) $true
     $manifestPath=Under $script:PackageRoot 'manifest.json'
     $m=Read-Json $manifestPath
-    Require ($m.format_version -eq 2 -and $m.owner -ceq $Owner -and $m.profile -ceq 'runtime') 'Manifest goi runtime khong hop le.'
+    Require ($m.format_version -eq 2 -and $m.owner -ceq $Owner -and $m.profile -in @('runtime','legacy')) 'Manifest goi Viet hoa khong hop le.'
     Require ($m.source_revision -is [string] -and -not [string]::IsNullOrWhiteSpace($m.source_revision)) 'Thieu ma nguon/revision cua goi.'
     Require ($m.release_id -is [string] -and $m.release_id -cmatch '^[A-Za-z0-9][A-Za-z0-9._-]{0,95}$') 'Release ID khong hop le.'
     $script:PackageFiles=@{}
@@ -176,9 +187,23 @@ function Check-Package {
     $actualNames=(@($actual | Sort-Object) -join "`n")
     $manifestNames=(@($script:PackageFiles.Keys | Sort-Object) -join "`n")
     Require ($actualNames -ceq $manifestNames) 'Danh sach file thuc khong khop manifest.'
-    foreach($name in @($PayloadSources.Values)+@('Installer.ps1','install.bat','verify.bat','uninstall.bat','rollback.bat','README.txt','LICENSE','MinHook-LICENSE.txt')){Require ($script:PackageFiles.ContainsKey($name)) "Goi thieu file: $name"}
+    $available=@(if(Has $m 'supported_profiles'){$m.supported_profiles}else{$m.profile})
+    Require ($available.Count -ge 1 -and $m.profile -in $available -and @($available | Where-Object { $_ -notin @('runtime','legacy') }).Count -eq 0 -and @($available | Sort-Object -Unique).Count -eq $available.Count) 'Danh sach phien ban khong hop le.'
+    $required=@('Installer.ps1','install.bat','verify.bat','uninstall.bat','rollback.bat','README.txt','LICENSE')
+    foreach($choice in $available){$required+=@($ProfilePayloadSources[$choice].Values)}
+    if('runtime' -in $available){$required+='MinHook-LICENSE.txt';X64-PE (Under $script:PackageRoot 'payload/dbghelp.dll') $true}
+    else{Require (@($script:PackageFiles.Keys | Where-Object { $_ -match '\.(dll|exe)$' -or $_ -ceq 'payload/catalog.bin' }).Count -eq 0) 'Goi Legacy khong duoc chua DLL, EXE hoac tu dien native.'}
+    foreach($name in $required){Require ($script:PackageFiles.ContainsKey($name)) "Goi thieu file: $name"}
     $null=Expect $PSCommandPath $script:PackageFiles['Installer.ps1']
-    X64-PE (Under $script:PackageRoot 'payload/dbghelp.dll') $true
+    $script:SelectedProfile=if($script:ExplicitProfile){$Profile}else{$m.profile}
+    if($ChooseProfile -and $Action -eq 'Install' -and $available.Count -gt 1){
+        Write-Host '1. Day du - DLL, ban dich game va tuy chon dich chat'
+        Write-Host '2. Legacy - khong nap DLL, it noi dung duoc dich hon'
+        $answer=Read-Host 'Chon 1 hoac 2 (Enter = 1)'
+        Require ($answer -in @('','1','2')) 'Lua chon khong hop le.'
+        $script:SelectedProfile=if($answer -ceq '2'){'legacy'}else{'runtime'}
+    }
+    Require ($script:SelectedProfile -in $available) 'Goi nay khong chua phien ban da chon.'
     $vendor=[pscustomobject]@{exists=$true;bytes=$m.vendor_dbghelp.bytes;sha256=$m.vendor_dbghelp.sha256};Valid-Pin $vendor
     $script:Manifest=$m;$script:VendorPin=$vendor
 }
@@ -209,15 +234,22 @@ function Read-Installation {
     Require ([IO.Path]::GetFullPath($s.game_exe) -ieq $script:Game.exe) 'Trang thai cai dat thuoc client khac.'
     Require ($s.original_bin_dll_existed -is [bool]) 'Thieu trang thai DLL goc.'
     if($s.format_version -eq 2){
-        Require ($s.owner -ceq $Owner -and $s.profile -ceq 'runtime') 'Trang thai runtime khong hop le.'
+        Require ($s.owner -ceq $Owner -and $s.profile -in @('runtime','legacy')) 'Trang thai Viet hoa khong hop le.'
         $seen=@{}
         foreach($row in @($s.files)){
             Require ($row.target -in $ManagedTargets -and -not $seen.ContainsKey($row.target)) 'Trang thai co file la/trung lap.'
-            $wanted=[pscustomobject]@{exists=$true;bytes=$row.bytes;sha256=$row.sha256};Valid-Pin $wanted
+            $exists=if(Has $row 'exists'){$row.exists}else{$true}
+            $wanted=[pscustomobject]@{exists=$exists;bytes=$row.bytes;sha256=$row.sha256};Valid-Pin $wanted $true
+            if($s.profile -ceq 'runtime'){Require $wanted.exists 'Ban day du dang thieu file bat buoc.'}
+            elseif($row.target -in @('data/catalog.bin','data/Archive-Session.ps1','bin/wojd_dbghelp_original.dll')){Require (-not $wanted.exists) 'Ban Legacy con file runtime dang hoat dong.'}
+            elseif($row.target -ceq 'bin/dbghelp.dll'){
+                Require ([bool]$wanted.exists -eq $s.original_bin_dll_existed) 'Trang thai DLL goc cua Legacy khong khop.'
+                if($wanted.exists){Require (Same-Pin $wanted $script:VendorPin) 'Legacy khong duoc nap DLL Viet hoa.'}
+            }else{Require $wanted.exists 'Ban Legacy dang thieu PAK.'}
             $null=Expect (Target $row.target) $wanted;$seen[$row.target]=$true
         }
         Require ($seen.Count -eq $ManagedTargets.Count) 'Trang thai khong du 6 file duoc quan ly.'
-        Require ((Pin (Target 'bin/wojd_dbghelp_original.dll')).sha256 -ceq $script:VendorPin.sha256) 'DLL mirror khong tuong thich voi goi nay.'
+        if($s.profile -ceq 'runtime'){Require ((Pin (Target 'bin/wojd_dbghelp_original.dll')).sha256 -ceq $script:VendorPin.sha256) 'DLL mirror khong tuong thich voi goi nay.'}
         return [pscustomobject]@{kind='MANAGED_V2';original_bin_dll_existed=$s.original_bin_dll_existed;state=$s}
     }
     Require ($s.format_version -eq 1) 'Khong ho tro trang thai cai dat nay.'
@@ -327,6 +359,12 @@ function Restore-Journal($Journal,[string]$Directory) {
     foreach($row in $rows){if(-not $row.retain_created_owner){$null=Expect (Target $row.target) $row.before}}
     $Journal.status='ROLLED_BACK';Write-Journal $Journal $Directory
 }
+function Original-DllSource {
+    $mirror=Target 'bin/wojd_dbghelp_original.dll'
+    $source=if(Test-Path -LiteralPath $mirror){$mirror}else{Target 'bin/dbghelp.dll'}
+    $null=Expect $source $script:VendorPin
+    return $source
+}
 function Run-Transaction($Installation,[hashtable]$BeforePins) {
     $id=[Guid]::NewGuid().ToString('N')
     $transactions=Under $script:Game.data 'transactions'
@@ -341,13 +379,21 @@ function Run-Transaction($Installation,[hashtable]$BeforePins) {
     $sources=@{};$afterPins=@{}
     if($Action -eq 'Install'){
         $files=@()
-        foreach($targetName in $ManagedTargets){
-            if($targetName -ceq 'bin/wojd_dbghelp_original.dll'){$source=$script:Game.vendor;$pin=$script:VendorPin}
-            else{$relative=$PayloadSources[$targetName];$source=Under $script:PackageRoot $relative;$pin=$script:PackageFiles[$relative]}
-            $sources[$targetName]=$source;$afterPins[$targetName]=$pin
-            $files+=[ordered]@{target=$targetName;bytes=$pin.bytes;sha256=$pin.sha256}
+        foreach($name in $ManagedTargets){$afterPins[$name]=[pscustomobject]@{exists=$false;bytes=0;sha256=$null}}
+        foreach($targetName in $ProfilePayloadSources[$script:SelectedProfile].Keys){
+            $relative=$ProfilePayloadSources[$script:SelectedProfile][$targetName]
+            $sources[$targetName]=Under $script:PackageRoot $relative;$afterPins[$targetName]=$script:PackageFiles[$relative]
         }
-        $next=[ordered]@{format_version=2;owner=$Owner;game_exe=$script:Game.exe;profile='runtime';release_id=$script:Manifest.release_id;
+        if($script:SelectedProfile -ceq 'runtime'){
+            $sources['bin/wojd_dbghelp_original.dll']=$script:Game.vendor;$afterPins['bin/wojd_dbghelp_original.dll']=$script:VendorPin
+        }elseif($Installation.original_bin_dll_existed){
+            $sources['bin/dbghelp.dll']=Original-DllSource;$afterPins['bin/dbghelp.dll']=$script:VendorPin
+        }
+        foreach($targetName in $ManagedTargets){
+            $pin=$afterPins[$targetName]
+            $files+=[ordered]@{target=$targetName;exists=$pin.exists;bytes=$pin.bytes;sha256=$pin.sha256}
+        }
+        $next=[ordered]@{format_version=2;owner=$Owner;game_exe=$script:Game.exe;profile=$script:SelectedProfile;release_id=$script:Manifest.release_id;
             source_revision=$script:Manifest.source_revision;original_bin_dll_existed=$Installation.original_bin_dll_existed;
             migration_from=$Installation.kind;installed_at=[DateTime]::UtcNow.ToString('o');files=$files;transaction_id=$id}
         $stateSource=Under $directory 'new-install-state.json';Write-New $stateSource (Json-Bytes $next)
@@ -355,7 +401,7 @@ function Run-Transaction($Installation,[hashtable]$BeforePins) {
         $sources['data/ownership.json']=$ownerSource;$afterPins['data/ownership.json']=Pin $ownerSource
     }else{
         foreach($name in $ManagedTargets+@('data/install-state.json')){$afterPins[$name]=[pscustomobject]@{exists=$false;bytes=0;sha256=$null}}
-        if($Installation.original_bin_dll_existed){$sources['bin/dbghelp.dll']=Target 'bin/wojd_dbghelp_original.dll';$afterPins['bin/dbghelp.dll']=Pin $sources['bin/dbghelp.dll']}
+        if($Installation.original_bin_dll_existed){$sources['bin/dbghelp.dll']=Original-DllSource;$afterPins['bin/dbghelp.dll']=$script:VendorPin}
         # Ownership marker and transaction history intentionally survive uninstall.
         $sources['data/ownership.json']=Target 'data/ownership.json';$afterPins['data/ownership.json']=$BeforePins['data/ownership.json']
     }
@@ -412,7 +458,7 @@ try{
         }else{
             Require ($Action -eq 'Install' -or $installation.kind -cne 'FRESH') 'Chua co ban Viet hoa de go.'
             if($Action -eq 'Install'){
-                X64-PE $script:Game.vendor $true;$null=Expect $script:Game.vendor $script:VendorPin
+                if($script:SelectedProfile -ceq 'runtime'){X64-PE $script:Game.vendor $true;$null=Expect $script:Game.vendor $script:VendorPin}
                 foreach($name in $RetiredPakNames){Require (-not (Test-Path -LiteralPath (Under $script:Game.pak $name))) "Con PAK Viet hoa cu: $name. Hay go bang bo cai cu truoc."}
             }
             $before=@{};foreach($name in $JournalTargets){$before[$name]=Maybe-Pin (Target $name)}
@@ -430,8 +476,17 @@ try{
             foreach($name in $JournalTargets){$null=Expect (Target $name) $before[$name]}
             Run-Transaction $installation $before
             if($Action -eq 'Install'){
-                Write-Output 'Mo game bang launcher. Neu game bao da cap nhat dia chi, thoat game roi mo lai.'
+                if($script:SelectedProfile -ceq 'legacy'){Write-Output 'Da cai Legacy: chi PAK, khong nap DLL Viet hoa; dich chat khong hoat dong.'}
+                else{Write-Output 'Da cai ban day du. Neu game bao da cap nhat dia chi, thoat game roi mo lai.'}
+                Write-Output 'Mo game bang launcher nhu thuong le.'
                 Write-Output 'Ban tam van con cac cau chua review nghia; xem README va known issues.'
+                if($ChatSetup -and $script:SelectedProfile -ceq 'runtime'){
+                    $setup=Under $script:PackageRoot 'ChatSettings.ps1'
+                    Require ($script:PackageFiles.ContainsKey('ChatSettings.ps1')) 'Goi thieu thiet lap chat.'
+                    $null=Expect $setup $script:PackageFiles['ChatSettings.ps1']
+                    try{& $setup -GameRoot $script:Game.client}
+                    catch{Write-Warning 'Ban Viet hoa da cai thanh cong. Thiet lap chat chua hoan tat; chay chat-settings.bat de chon lai.'}
+                }
             }else{Write-Output 'Da go file Viet hoa. Cache, cai dat, log va lich su giao dich duoc giu lai.'}
         }
     }

@@ -1,0 +1,218 @@
+DỊCH CHAT TRUNG → VIỆT — BẢN ĐẦY ĐỦ DÙNG DLL
+
+Legacy không có dịch chat tự động. Muốn dùng tính năng này, thoát game
+rồi chạy install.bat của VI_PATCH.zip và chọn bản Đầy đủ.
+
+Tính năng tùy chọn: lần cài đầu mặc định TẮT. Tắt dịch chat vẫn dùng
+được bản Việt hóa giao diện, kỹ năng và nhiệm vụ.
+
+CHỌN DỊCH VỤ NÀO?
+
+- Google Translate web: miễn phí, không cần key. Dễ bắt đầu; có thể sai
+  tiếng lóng. Là giao diện web không chính thức, có thể thay đổi/giới hạn.
+- DeepL API: cần key DeepL API. Hợp câu thường; chưa có lợi thế rõ với
+  tiếng lóng tuyển đội trong các tin đã thử. Hạn mức miễn phí và phí
+  trả tiền phụ thuộc gói/tài khoản/khu vực; xem trực tiếp trang tài khoản.
+- DeepSeek API: cần key DeepSeek. Gợi ý khi ưu tiên nhanh và tiết kiệm.
+  Flash đạt khoảng 0,8 giây trong bộ thử nhỏ; có thể sót viết tắt tuyển đội.
+- Gemini API: cần key Google AI Studio. Một số mẫu tiếng lóng dễ hiểu
+  hơn trong bộ thử; có thể chọn model để tự đánh giá trong game. Đây là
+  dịch vụ khác với Google Translate web ở lựa chọn đầu tiên.
+
+Nhận xét chỉ dựa trên bộ câu nhỏ, không bảo đảm đúng mọi tin. Tên riêng,
+tiếng lóng và câu thiếu ngữ cảnh đều có thể dịch sai. Tốc độ thử API
+không phải cam kết tốc độ hiển thị trong game. Chat đông có thể tạo hàng
+đợi; tin quá hạn giữ bản gốc. Có thể chọn dịch vụ/model mặc định rồi đổi
+riêng từng kênh. Tin hệ thống và hai kênh Chiêu Mộ luôn được bỏ qua vì
+các mẫu Chiêu Mộ đã được phần Việt hóa game xử lý.
+
+CHỌN THEO KÊNH ĐỂ PHÙ HỢP NHU CẦU VÀ CHI PHÍ
+
+Kênh đông như Thế Giới, Khu vực hoặc Truyền âm có thể dùng Google miễn
+phí, model LLM rẻ hơn hoặc tắt dịch nếu bạn muốn tiết kiệm. Kênh Đội,
+Đoàn hoặc trò chuyện riêng có thể dùng LLM để hỗ trợ giao tiếp. Đây là
+gợi ý; bộ cài không tự áp các lựa chọn này cho bạn.
+
+Ví dụ tự chọn: mặc định Google, riêng Đội dùng Gemini 3.6 Flash và Đoàn
+dùng DeepSeek Flash. Hoặc chọn chỉ bật Đội, các kênh khác tắt. Có thể
+dùng hai model Gemini khác nhau ở hai kênh với cùng một key Google.
+Lựa chọn gắn với kênh của tin gốc, không phải tab đang xem: mở tab Tổng
+hợp không làm mọi tin dùng cùng một dịch vụ.
+
+MODEL VÀ GIÁ THAM KHẢO — KIỂM TRA 24/10/2026
+
+Đơn vị: USD cho 1 triệu token đầu vào / 1 triệu token đầu ra.
+Token là đơn vị tính lượng chữ của dịch vụ; đầu vào gồm cả hướng dẫn
+dịch và tin nhắn. Sau đây là giá API trả tiền, chưa gồm thuế.
+
+  deepseek-flash          0,15–0,30 / 0,60–1,20
+  gemini-3.6-flash        0,75      / 3,75
+  gemini-3.1-flash-lite   0,25      / 1,50
+  gemini-3-flash-preview  0,50      / 3,00
+
+DeepSeek có giá thấp/cao điểm; chưa tính giảm giá cache. Giá Gemini 3.6
+Flash trên là ưu đãi đến 31/12/2026; Google hiện niêm yết 1,50 / 7,50
+từ 01/01/2027. Giá/model có thể đổi; kiểm tra trước khi bật trả tiền.
+Gemini có thể có hạn mức miễn phí tùy model/project/tài khoản. Có key
+không đồng nghĩa với hạn mức vô hạn hay luôn được dùng miễn phí.
+
+Ví dụ: nếu mỗi tin dùng 500 token vào và 100 token ra, 10.000 tin chưa
+cache có phí khoảng 1,35–2,70 USD với DeepSeek Flash; 7,50 USD với Gemini
+3.6 Flash theo giá ưu đãi; 2,75 USD với Flash-Lite; 5,50 USD với 3 Flash
+Preview. Đây là minh họa; độ dài tin và cache làm chi phí thực tế khác đi.
+
+Gợi ý model Gemini:
+- 3.6 Flash: mặc định; câu thường dễ đọc, khoảng 1,5 giây trong bộ đối
+  chiếu 10 câu. Chưa cho thấy hơn rõ rệt với mọi tiếng lóng.
+- 3.1 Flash-Lite: tiết kiệm; dễ sót ngữ cảnh hơn; trung vị khoảng 1 giây.
+- 3 Flash Preview: vài mẫu tuyển đội khá, trung vị khoảng 1,1 giây; bản
+  preview có thể thay đổi hoặc ngừng cung cấp.
+Hai model sau từng có lượt khoảng 21 giây dù API trả thành công; chưa
+xác định nguyên nhân. Bộ thử nhỏ không chứng minh độ ổn định lâu dài.
+
+Có thể nhập tên model khác ở mục nâng cao. Gemini cần model Flash hỗ
+trợ thinking MINIMAL và structured JSON output; DeepSeek cần chat JSON
+output và chế độ không suy luận. Model không tương thích sẽ báo trong
+chat; không tự chuyển model/dịch vụ. Mỗi yêu cầu giới hạn đầu ra 1.024
+token. Đây không phải giới hạn chi tiêu của tài khoản dịch vụ.
+
+Nguồn giá và hạn mức hiện hành:
+https://ai.google.dev/gemini-api/docs/pricing
+https://aistudio.google.com/rate-limit
+https://api-docs.deepseek.com/quick_start/pricing/
+https://www.deepl.com/en/pro-api
+
+BẬT, ĐỔI MODEL HOẶC TẮT
+
+1. Thoát game bình thường.
+2. Khi cài, chọn ở bước Dịch chat; hoặc chạy chat-settings.bat trong thư
+   mục đã giải nén gói Việt hóa để thay đổi sau này.
+3. Chọn dịch vụ mặc định; với LLM, chọn model gợi ý hoặc nhập mã model
+   tương thích. Muốn mặc định tắt, chọn “Chỉ bật các kênh tự chọn”.
+4. Ở bước lựa chọn theo kênh, Enter dùng chung mặc định hoặc chọn tùy
+   chỉnh. Chọn số kênh, rồi chọn Theo mặc định, Tắt hoặc một dịch vụ.
+   Với LLM có thể chọn model riêng. Lặp lại cho các kênh cần đổi, rồi
+   Enter để xong. Khi thiết lập lại, các lựa chọn này thay cấu hình cũ;
+   muốn giữ nguyên tất cả, chọn “Giữ thiết lập hiện tại” ở bước đầu.
+5. Chọn số mục cache (Enter = 1.024), rồi nhập key riêng nếu cần; bộ cài
+   hỏi một key cho mỗi dịch vụ được dùng. Sau đó mở game qua launcher.
+
+Enter mặc định Tắt ở lần cài đầu; khi cập nhật, Enter giữ thiết lập cũ.
+Nếu game nằm trong Program Files hoặc Windows báo không có quyền ghi,
+dùng Run as administrator. Thiết lập bằng cùng tài khoản Windows mà bạn
+dùng mở game. Không cần chạy thêm dịch vụ dịch riêng.
+
+Khi bật, phần chữ của tin người chơi cần dịch được gửi tới dịch vụ đã
+chọn. Tên người gửi ở đầu dòng và mã link vật phẩm/emoji được giữ ở máy;
+tên hoặc thông tin riêng có trong nội dung tin vẫn có thể được gửi đi.
+Tin hệ thống, Chiêu Mộ và tin không rõ nguồn người chơi được bỏ qua.
+
+Tin gốc hiện trước; bản Việt nối bên dưới sau dòng ----- [VI] -----.
+Cả hai nằm cùng một mục, giữ thứ tự khi đổi tab. Lịch sử gốc của game
+không bị ghi đè. Khi đang ở cuối khung, cập nhật sẽ cuộn theo; nếu bạn
+đang đọc phía trên, làm mới chờ đến khi quay lại cuối khung.
+Mục đã ghép bản Việt chỉ để đọc; nút gửi lại không gửi cả hai bản vào chat.
+
+LẤY KEY VÀ GIỮ KÍN KEY
+
+- DeepL: tài khoản DeepL API > Account > API Keys & Limits.
+  Tài khoản ứng dụng/web DeepL hoặc DeepL Pro không thay cho DeepL API.
+- DeepSeek: https://platform.deepseek.com/api_keys; kiểm tra số dư.
+- Gemini: https://aistudio.google.com/apikey; chọn đúng project và kiểm
+  tra billing/hạn mức của project đó.
+
+API KEY LÀ THÔNG TIN BÍ MẬT. Người có key có thể dùng hạn mức hoặc phát
+sinh phí trên tài khoản của bạn. Không gửi key vào chat, bài báo lỗi,
+chat log, ảnh chụp, livestream hay file chia sẻ. Đặc biệt chú ý màn hình
+trang quản lý key, biến môi trường và nội dung đã sao chép khi chia sẻ
+màn hình. Kiểm tra và che/xóa thông tin riêng trước khi gửi log hoặc ảnh.
+
+Chỗ nhập của bộ cài được che. Key được mã hóa bằng Windows cho tài khoản
+hiện tại; bản dịch không ghi key vào log riêng, không đưa key vào Lua
+hay gửi tới người chơi khác. Chỉ gửi key để xác thực với đúng dịch vụ
+bạn chọn. Che ô nhập không bảo vệ những màn hình khác đang hiển thị key.
+Chuyển máy hoặc tài khoản Windows thì cần nhập lại.
+
+NẾU LỠ LỘ KEY: vào dịch vụ thu hồi/xóa key cũ ngay, kiểm tra mức sử dụng
+và phí, tạo key mới rồi chạy chat-settings.bat để cập nhật. Chỉ xóa tin
+hoặc ảnh đã gửi không vô hiệu hóa key bị lộ.
+
+Nếu đã đặt biến môi trường Windows, bộ cài cho chọn dùng key đó và đọc
+lại giá trị mới, kể cả khi ứng dụng đã mở từ trước:
+  DeepL:    DEEPL_KEY
+  DeepSeek: DEEPSEEK_API_KEY
+  Gemini:   GEMINI_API_KEY
+Không cần gửi nội dung biến cho người hỗ trợ. Để trống ô nhập để giữ key
+đã lưu của CÙNG dịch vụ. Đổi dịch vụ cần key mới; đổi model cùng dịch vụ
+có thể giữ key. Mỗi dịch vụ lưu key riêng đã mã hóa. Thiết lập mới chỉ
+giữ key của những dịch vụ còn được dùng; chọn Tắt xóa tất cả key đã lưu
+của tính năng. Chỉ dùng Google cũng không giữ key. Không xóa biến môi
+trường Windows. Mỗi người dùng nên dùng key của mình và đặt giới hạn
+chi tiêu/hạn mức tại dịch vụ nếu có hỗ trợ.
+
+KHI DỊCH CHAT GẶP LỖI
+
+Nếu một tin không dịch được, phần ----- [WOJD] ----- cùng lý do được
+ghép ngay dưới tin gốc, tại vị trí của phần [VI]. Mỗi tin có lỗi riêng;
+không chèn thêm tin thông báo rời khiến bạn phải đoán tin nào bị lỗi.
+Phần này chỉ hiện trên máy bạn, không gửi vào kênh chat thật.
+- Hết hạn mức/số dư: kiểm tra tài khoản dịch vụ, rồi mở lại game sau khi
+  xử lý; hoặc chọn dịch vụ khác bằng chat-settings.bat.
+- Giới hạn yêu cầu/hạn mức: thử tin tiếp theo sau khoảng một phút.
+  Nếu lặp lại, kiểm tra quota. Gemini áp dụng theo project/model;
+  thêm key trong cùng project không tạo thêm hạn mức.
+- Key không dùng được: nhập lại key đúng dịch vụ và tài khoản Windows.
+- Model/thiết lập không được chấp nhận: chọn lại model trong menu.
+- Mất kết nối: kiểm tra mạng; thử tin tiếp theo khi hết thời gian chờ.
+- Một bản dịch chưa ghép được: tin đó giữ bản gốc kèm lý do; tin khác
+  vẫn được xử lý. Nếu bạn đang cuộn lên, phần cập nhật chờ tới khi quay
+  lại cuối khung như với bản dịch bình thường.
+
+Không tự đổi dịch vụ/model khi lỗi, không tự gửi lại liên tục một tin.
+Chữ model sinh không được dùng làm mã thực thi; link/emoji và mốc định
+dạng được ghép từ nội dung gốc tại máy. Bảo vệ cách ghép hiển thị không
+chứng nhận bản dịch đúng ý nghĩa.
+
+LLM có thể đổi cách viết giờ hoặc số tiền, chẳng hạn 7:40 tối thành
+19:40 hay 41万 thành 410k. Bản dịch không bị loại chỉ vì số viết khác
+chuỗi gốc; hãy đối chiếu bản gốc ngay phía trên khi cần chắc chắn.
+
+TÊN NGƯỜI CHƠI
+
+Tên trong danh sách đội/đoàn và tên, tên bang trên đầu có thể đọc bằng
+âm Hán–Việt. Đây là chuyển cách đọc từng chữ, không phải dịch ý nghĩa
+hay xác minh cách đọc đúng của chủ nhân tên đó. Chữ chưa có trong bảng
+giữ nguyên. Tên vốn đã là tiếng Việt giữ nguyên nội dung.
+
+Trong chat, tên và kiểu chữ PC_Name ở dòng gốc giữ nguyên để bấm đúng
+người chơi. Tên Hán–Việt bọc bằng 【…】 ở đầu phần [VI], cùng bản dịch; không thêm
+phiên âm cạnh tên gốc. Tên người được nhắc bằng liên kết trong nội dung
+cũng có cách đọc 【…】 đặt cạnh liên kết trong phần [VI], giữ nguyên thuộc tính
+liên kết. Khi không có phần [VI], không thêm một dòng phiên âm rời.
+Bước chuyển âm tên chạy tại máy, không gửi tên tới API để chuyển âm.
+
+Font tên chỉ ghép nét chữ từ font chính League Spartan hiện hành.
+MVH cung cấp bảng đọc, bổ sung bằng từ điển Hán–Việt và sửa các mục dịch
+nghĩa lọt vào bảng cũ; không nhập nét glyph MVH hay XF. Mỗi chữ dùng một
+âm mặc định thông dụng, không đoán theo tên riêng. Chữ ngoài bảng dùng
+font dự phòng gốc của game nếu có. Ô tên trong đội/đoàn, trên đầu và tên
+người tạo hiệu ứng ở dòng Nguồn đều dùng font tên này.
+
+Tên trên đầu hỗ trợ cả bộ dựng XingMingBan hiện hành và widget UMG.
+
+Ô tên trên đầu dùng chung cho người chơi và NPC: NPC còn tên chữ Trung
+cũng có thể được phiên âm. Tên NPC đã Việt hóa vẫn giữ nguyên nội dung.
+
+CACHE VÀ RIÊNG TƯ
+
+Cache mặc định tối đa 1.024 bản dịch, có thể chọn 16–8.192 mục trong menu.
+Nội dung cache có trần 64 MiB; chạm số mục hoặc trần bộ nhớ thì bỏ mục
+lâu không dùng nhất. Mục không dùng trong 10 phút sẽ bị dọn; mỗi lần
+dùng lại gia hạn thời gian. Chỉ cấp phát bộ nhớ theo nội dung thực tế.
+Cache phân biệt dịch vụ và model; cùng lựa chọn có thể dùng chung kết
+quả tin trùng giữa các kênh. Thoát game xóa cache, không lưu cache dịch
+ra đĩa. Không ghi nội dung chat hoặc lịch sử dịch vào log riêng.
+Việc xử lý dữ liệu tại dịch vụ tuân theo chính sách của họ; kiểm tra
+điều khoản của gói miễn phí/trả tiền trước khi bật.
+
+Các rủi ro can thiệp DLL và tài khoản game vẫn áp dụng như README.txt.

@@ -12,11 +12,23 @@ set "WOJD_PROFILE=%~1"
 if not defined WOJD_PROFILE set "WOJD_PROFILE=runtime"
 set "WOJD_CAPTURE=0"
 set "WOJD_SELFTEST=0"
+set "WOJD_CHAT_OBSERVER=0"
+set "WOJD_CHAT_RUNTIME=0"
+set "WOJD_CHAT_LIBS="
+if "%WOJD_PROFILE%"=="chat-observer" set "WOJD_CHAT_OBSERVER=1"
+if "%WOJD_PROFILE%"=="chat-runtime" set "WOJD_CHAT_OBSERVER=1"
+if "%WOJD_PROFILE%"=="chat-runtime" set "WOJD_CHAT_RUNTIME=1"
+if "%WOJD_PROFILE%"=="chat-runtime" set "WOJD_CHAT_LIBS=winhttp.lib bcrypt.lib"
+if "%WOJD_PROFILE%"=="runtime" set "WOJD_CHAT_OBSERVER=1"
+if "%WOJD_PROFILE%"=="runtime" set "WOJD_CHAT_RUNTIME=1"
+if "%WOJD_PROFILE%"=="runtime-test" set "WOJD_CHAT_OBSERVER=1"
+if "%WOJD_PROFILE%"=="runtime-test" set "WOJD_CHAT_RUNTIME=1"
+if "%WOJD_CHAT_RUNTIME%"=="1" set "WOJD_CHAT_LIBS=winhttp.lib bcrypt.lib crypt32.lib"
 if "%WOJD_PROFILE%"=="dump" set "WOJD_CAPTURE=1"
 if "%WOJD_PROFILE%"=="dump-test" set "WOJD_CAPTURE=1"
 if "%WOJD_PROFILE%"=="dump-test" set "WOJD_SELFTEST=1"
 if "%WOJD_PROFILE%"=="runtime-test" set "WOJD_SELFTEST=1"
-if not "%WOJD_PROFILE%"=="runtime" if not "%WOJD_PROFILE%"=="dump" if not "%WOJD_PROFILE%"=="runtime-test" if not "%WOJD_PROFILE%"=="dump-test" exit /b 2
+if not "%WOJD_PROFILE%"=="runtime" if not "%WOJD_PROFILE%"=="dump" if not "%WOJD_PROFILE%"=="runtime-test" if not "%WOJD_PROFILE%"=="dump-test" if not "%WOJD_PROFILE%"=="chat-observer" if not "%WOJD_PROFILE%"=="chat-runtime" exit /b 2
 set "WOJD_OUT=%WOJD_REPO%\native\build\%WOJD_PROFILE%"
 if not exist "%WOJD_OUT%" mkdir "%WOJD_OUT%"
 if not exist "%WOJD_OUT%\tmp" mkdir "%WOJD_OUT%\tmp"
@@ -25,13 +37,39 @@ set "TMP=%TEMP%"
 cd /d "%WOJD_OUT%"
 cl /nologo /c /TC /MT /O2 /W3 /I"%WOJD_REPO%\native\vendor\minhook\include" "%WOJD_REPO%\native\vendor\minhook\src\buffer.c" "%WOJD_REPO%\native\vendor\minhook\src\hook.c" "%WOJD_REPO%\native\vendor\minhook\src\trampoline.c" "%WOJD_REPO%\native\vendor\minhook\src\hde\hde64.c"
 if errorlevel 1 exit /b 1
-cl /nologo /c /TC /utf-8 /MT /O2 /Ob0 /W4 /WX /wd4505 /DWOJD_CAPTURE=%WOJD_CAPTURE% /DWOJD_SELFTEST=%WOJD_SELFTEST% /Fo"localization.obj" "%WOJD_REPO%\native\src\localization.c"
+cl /nologo /c /TC /utf-8 /MT /O2 /Ob0 /W4 /WX /wd4505 /DWOJD_CAPTURE=%WOJD_CAPTURE% /DWOJD_SELFTEST=%WOJD_SELFTEST% /DWOJD_CHAT_OBSERVER=%WOJD_CHAT_OBSERVER% /DWOJD_CHAT_RUNTIME=%WOJD_CHAT_RUNTIME% /Fo"localization.obj" "%WOJD_REPO%\native\src\localization.c"
 if errorlevel 1 exit /b 1
 lib /nologo /DEF:"%WOJD_REPO%\native\original.def" /OUT:"wojd_dbghelp_original.lib" /MACHINE:X64
 if errorlevel 1 exit /b 1
-link /nologo /DLL /Brepro /OUT:"dbghelp.dll" /DEF:"%WOJD_REPO%\native\exports.def" /IMPLIB:"dbghelp.lib" /MACHINE:X64 /DYNAMICBASE /NXCOMPAT localization.obj buffer.obj hook.obj trampoline.obj hde64.obj kernel32.lib wojd_dbghelp_original.lib
+link /nologo /DLL /Brepro /OUT:"dbghelp.dll" /DEF:"%WOJD_REPO%\native\exports.def" /IMPLIB:"dbghelp.lib" /MACHINE:X64 /DYNAMICBASE /NXCOMPAT localization.obj buffer.obj hook.obj trampoline.obj hde64.obj kernel32.lib wojd_dbghelp_original.lib %WOJD_CHAT_LIBS%
 if errorlevel 1 exit /b 1
 >build-profile.json echo {"profile":"%WOJD_PROFILE%","capture":%WOJD_CAPTURE%,"selftest":%WOJD_SELFTEST%,"optimization":"O2","static_crt":true}
+if "%WOJD_PROFILE%"=="chat-runtime" goto chat_fixture
+if not "%WOJD_PROFILE%"=="runtime-test" goto after_chat_fixture
+:chat_fixture
+cl /nologo /TC /utf-8 /MT /O2 /W4 /WX /wd4505 /Fe"chat_google_text_fixture.exe" /Fo"chat_google_text_fixture.obj" "%WOJD_REPO%\native\tests\chat_google_text_fixture.c"
+if errorlevel 1 exit /b 1
+chat_google_text_fixture.exe
+if errorlevel 1 exit /b 1
+cl /nologo /TC /utf-8 /MT /O2 /W4 /WX /wd4505 /Fe"chat_llm_text_fixture.exe" /Fo"chat_llm_text_fixture.obj" "%WOJD_REPO%\native\tests\chat_llm_text_fixture.c"
+if errorlevel 1 exit /b 1
+chat_llm_text_fixture.exe
+if errorlevel 1 exit /b 1
+cl /nologo /TC /utf-8 /MT /O2 /W4 /WX /wd4505 /Fe"player_name_fixture.exe" /Fo"player_name_fixture.obj" "%WOJD_REPO%\native\tests\player_name_fixture.c"
+if errorlevel 1 exit /b 1
+player_name_fixture.exe
+if errorlevel 1 exit /b 1
+cl /nologo /TC /utf-8 /MT /O2 /W4 /WX /wd4505 /Fe"chat_cloud_fixture.exe" /Fo"chat_cloud_fixture.obj" "%WOJD_REPO%\native\tests\chat_cloud_fixture.c" /link winhttp.lib crypt32.lib
+if errorlevel 1 exit /b 1
+chat_cloud_fixture.exe
+if errorlevel 1 exit /b 1
+if not "%WOJD_PROFILE%"=="runtime-test" goto after_receive_fixture
+rem Optional public-Lua integration: native/test_chat_receive.py --lua PATH.
+rem The fixture exports never enter the production runtime DLL.
+cl /nologo /LD /TC /utf-8 /MT /O2 /Ob0 /W4 /WX /wd4505 /Fe"chat_receive_fixture.dll" /Fo"chat_receive_fixture.obj" "%WOJD_REPO%\native\tests\chat_receive_fixture.c" /link buffer.obj hook.obj trampoline.obj hde64.obj kernel32.lib winhttp.lib bcrypt.lib crypt32.lib /IMPLIB:"chat_receive_fixture.lib" /INCREMENTAL:NO /MACHINE:X64 /DYNAMICBASE /NXCOMPAT
+if errorlevel 1 exit /b 1
+:after_receive_fixture
+:after_chat_fixture
 if "%WOJD_SELFTEST%"=="0" exit /b 0
 ml64 /nologo /c /Fo"assignment_origin_frame.obj" "%WOJD_REPO%\native\tests\assignment_gate_fixture.asm"
 if errorlevel 1 exit /b 1

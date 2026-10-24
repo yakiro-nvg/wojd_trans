@@ -121,7 +121,7 @@ python native/check_artifacts.py
 python scripts/build_package.py --language vi --repak work/tools/repak/repak.exe
 ~~~
 
-The packer fully extracts and verifies both PAKs and creates one complete production runtime ZIP. It includes the verified DLL/dictionary, dual exact locres, current FormatString and common UI/HUD layers. Dump/test binaries are excluded from player ZIPs. See [release process](release-process.md).
+The packer fully extracts and verifies both PAKs and creates a full runtime ZIP with a Legacy choice and a separate DLL-free Legacy ZIP. The full variant includes the verified DLL/dictionary; both variants retain their pinned dual locres, current FormatString and UI/HUD layers. Legacy extends observed bindings without filtering native-source overlap and reuses translations only. Dump/test binaries are excluded from player ZIPs. See [release process](release-process.md).
 
 English legacy catalogs remain reuse inputs. An EN fork must create its own current catalogs, exact runtime bindings, package matrix and matching checks; this release intentionally builds Vietnamese only.
 

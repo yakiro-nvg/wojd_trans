@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "input": "overrides.ndjson",
+  "entries": 577433,
+  "sha256": "77d097f2a6c6f875d846d6a3bcc2ad0b6e21074140700492a6e2dd847723735d",
+  "crc_refresh_namespaces": [
+    "ZCMailTemplateDoc",
+    "ZCTooltipBuffDoc",
+    "ZCTooltipSkillDoc",
+    "buff_struct"
+  ],
+  "policy": "Exact namespace/key/source from DLL-free UE logs. Existing translations only; no .data-source exclusion or inferred IDs. Conflicting source variants are quarantined.",
+  "collection_log_sha256": "55e65d5015f3d0c0e9c5ccfb09d59ca2ad581a769f79025680ec2e51cc597655",
+  "collection_proof_sha256": "4d1aba1a38511a9fe0308bb9e3fcca478fbfe88fe14556b978ae68f900a349a5",
+  "translation_catalogs": [
+    {
+      "name": "vi.native.ndjson",
+      "sha256": "909c1463a9a196f2c21009596a0347295cd444f49fccd0f22abda644cd960759"
+    },
+    {
+      "name": "vi.residual.ndjson",
+      "sha256": "4a79e130df31879fde0dc855ae28220b79b6460ffc3c49eb445ea9cde9097332"
+    },
+    {
+      "name": "vi.fmtstring.ndjson",
+      "sha256": "102f4c60b5bfaefeb35c192e31a7855c283d8177b8ed9da5fd804b9aafcd95b3"
+    }
+  ],
+  "missing_entries": 74,
+  "conflicting_source_variants": 108,
+  "native_source_filter": false,
+  "provider_requests": 0
+}

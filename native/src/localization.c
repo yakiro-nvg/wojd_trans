@@ -13,6 +13,12 @@
 #ifndef WOJD_SELFTEST
 #define WOJD_SELFTEST 0
 #endif
+#ifndef WOJD_CHAT_OBSERVER
+#define WOJD_CHAT_OBSERVER 0
+#endif
+#ifndef WOJD_CHAT_RUNTIME
+#define WOJD_CHAT_RUNTIME 0
+#endif
 #include "portable_paths.h"
 #define GAME_EXE g_host_path
 #define MARKER g_bootstrap_path
@@ -70,6 +76,9 @@ static void (*g_discovery_pump)(void);
 #include "native_data_cache.inc"
 #include "native_data_origin_gate.inc"
 #include "native_data_executing_origin.inc"
+#if WOJD_CHAT_OBSERVER
+#include "chat_loader_observer.inc"
+#endif
 
 enum { DECISION_TRANSLATED=1,DECISION_IGNORE=2 };
 typedef struct WideRule { WCHAR *source,*target;int source_length;DWORD decision;const TextRule *rule; } WideRule;
@@ -346,6 +355,9 @@ static DWORD WINAPI probe_worker(void *parameter){
     g_image_base=(BYTE *)GetModuleHandleW(NULL);g_prefer_far=TRUE;
     /* Pin before either independent hook can become visible to game threads. */
     if(!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_PIN,(LPCWSTR)g_module,&held)){error=GetLastError();tooltip_report_failure("PIN",error);return error;}
+#if WOJD_CHAT_OBSERVER
+    lco_start();
+#endif
     error=runtime_initialize();
     if(error){logf_n4("CAPTURE_INITIALIZE_FAILED","status=%lu",error);tooltip_report_failure("RUNTIME_INITIALIZE",error);return error;}
     g_discovery_pump=tooltip_probe_once;

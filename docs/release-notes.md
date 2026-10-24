@@ -1,21 +1,20 @@
-Bản này thay thế **v20261023-192952**, bản có lỗi chỉ dịch được một phần. **Không nên dùng bản đó:** kiểm tra hook đã từ chối nhầm một kiểu nhảy qua trạm trung gian, trả mã 13 và tắt nhánh đọc dữ liệu gốc.
+Bản phát hành này có **Đầy đủ dùng DLL** và **Legacy không DLL**, cùng bộ cài cho phép đổi qua lại khi game đã đóng.
 
-Đã sửa kiểm tra đường nhảy và thêm ca tái hiện lỗi trên cả hai kiểu hook thực tế. Hook đọc dữ liệu vẫn được bật sớm để không bỏ lỡ thoại nhiệm vụ lúc game khởi động.
+- **VI_PATCH.zip:** chọn Đầy đủ để dịch các đường dữ liệu riêng của game và dùng dịch chat; cũng có sẵn lựa chọn Legacy.
+- **VI_LEGACY.zip:** gói riêng không chứa DLL. Giữ bản dịch locres/FormatString, các sửa bố cục và font Hán–Việt, nhưng phạm vi dịch hạn chế hơn và không có dịch chat tự động.
 
-Giữ các bản dịch kỹ năng/boss, font tiếng Việt và sửa giao diện của bản trước. Chat translator và cách dàn chữ trong thư vẫn đang được phát triển, chưa có trong bản này; phần soát nghĩa còn lại tiếp tục sau.
+Legacy bổ sung 565.250 ID locres từ lượt log không DLL, tái dùng bản dịch đã có. Các binding widget từ đợt quét tài nguyên trước được giữ lại. Những mục chưa có bản dịch hoặc xung đột nguồn chưa được áp dụng; vẫn có thể hiện chữ Trung hay cách đọc Hán–Việt.
 
-**Tải VI_PATCH.zip**. Chỉ có một gói cài đặt; không cài kèm LIM/QFONT cũ.
+**Dịch chat tùy chọn trong bản Đầy đủ:** Google Translate web, DeepL, DeepSeek và Gemini; có thể chọn dịch vụ/model chung hoặc riêng từng kênh. Tin gốc và phần Việt hiện cùng một mục, giữ liên kết tên và vật phẩm. Tên đọc đặt dưới phần VI, bọc bằng 【…】. Lỗi dịch hiện tại đúng tin để dễ nhận biết. Tin hệ thống và Chiêu Mộ được bỏ qua. Lần cài đầu mặc định tắt; khi cập nhật có thể giữ thiết lập và key đã lưu. Xem CHAT_GUIDE.txt trong VI_PATCH.zip để chọn dịch vụ, model và hiểu chi phí, hạn mức, việc gửi nội dung chat tới dịch vụ.
 
-DLL được CI tạo tự động từ mã nguồn công khai. Người có kiến thức kỹ thuật có thể kiểm tra code, lượt build và chứng thực bản phát hành. **Chỉ tải ZIP từ GitHub Releases của dự án.** Không dùng DLL gửi riêng hoặc bản sửa, bản chia sẻ lại không rõ nguồn; một DLL bị sửa với dụng ý xấu có thể gây hại cho máy hoặc đánh cắp thông tin.
+Font tên trên đầu, đội/đoàn và nguồn hiệu ứng dùng bảng đọc Hán–Việt từ MVH cùng từ điển bổ sung, ghép bằng nét font chính. Bảng hỗ trợ 26.972 chữ, không phân biệt ngữ cảnh đa âm và không thay thế bản dịch nghĩa.
 
-> **Rủi ro từ game và Perfect World:** bản dịch nạp thêm DLL để thay chữ khi game chạy, nên có thể gây lỗi/văng game hoặc bị hệ thống chống gian lận cảnh báo/chặn. Dù dùng đúng bản phát hành của dự án, **Perfect World vẫn có thể hạn chế, đình chỉ hoặc khóa tài khoản**. Dự án chưa có xác nhận chấp thuận từ họ, không cam kết an toàn tài khoản và không chịu trách nhiệm nếu họ xử lý tài khoản vì việc sử dụng bản dịch. **Sử dụng là lựa chọn của bạn và đồng nghĩa với việc chấp nhận các rủi ro này.**
+**Cài hoặc đổi bản:** thoát game, giải nén toàn bộ ZIP vào một thư mục riêng và chạy install.bat. Chọn Đầy đủ hoặc Legacy nếu được hỏi, rồi dán đường dẫn Game, ZhuxianClient hoặc Binaries\Win64. Khi chuyển sang Legacy, bộ cài gỡ DLL Việt hóa đang được quản lý; thiết lập riêng, key và lịch sử khôi phục được giữ lại. Không cài chồng LIM/QFONT cũ. Nếu còn ~VI_PATCH/~VI_QFONT trong Content\Paks, chuyển các gói cũ đó ra ngoài trước. Với thư mục bị Windows hạn chế quyền ghi, có thể cần Run as administrator.
 
-Game dùng đường nạp chữ riêng, nhiều phần không đi qua hệ thống ngôn ngữ chuẩn của Unreal. Cách cũ chỉ thay tệp ngôn ngữ không dịch được những phần đó, trong khi dữ liệu gốc được game kiểm tra chữ ký. Vì vậy, bản hiện tại giữ nguyên các tệp dữ liệu gốc và thay chuỗi sau khi game đọc lên. Giới hạn này là lý do phải dùng cách can thiệp trên; nó không loại bỏ rủi ro.
+verify.bat kiểm tra file đã cài; uninstall.bat gỡ; rollback.bat khôi phục bằng mã giao dịch. chat-settings.bat chỉ có trong gói Đầy đủ và dùng khi đã cài bản DLL. Các công cụ không tự mở hoặc đóng game.
 
-Thoát game, giải nén và chạy **install.bat** rồi dán đường dẫn thư mục game. Nếu từng dùng bản cũ, chuyển file bắt đầu bằng `~VI_PATCH`/`~VI_QFONT` ra ngoài Content\Paks. Nếu game nằm trong Program Files hoặc Windows không cho ghi vào thư mục cài, có thể cần **Run as administrator**. Khi bản dịch yêu cầu mở lại game, thoát rồi mở lại qua launcher.
+**Chỉ tải ZIP từ GitHub Releases của dự án.** DLL bản Đầy đủ được CI tạo từ mã nguồn công khai; gói kèm checksum, bản kê file và chứng thực CI. Không dùng DLL gửi riêng hoặc bản sửa không rõ nguồn. Không gửi API key qua chat, log, ảnh hoặc livestream; nếu lộ, thu hồi tại dịch vụ rồi tạo key mới.
 
-`verify.bat` kiểm tra bản đã cài; `uninstall.bat` gỡ; `rollback.bat` khôi phục một lần cài/gỡ bằng mã giao dịch được bộ cài in ra. Xem README trong ZIP để biết chi tiết.
+**Rủi ro từ game và Perfect World:** bản Đầy đủ nạp DLL khi game chạy, có thể gây lỗi hoặc bị hệ thống chống gian lận cảnh báo/chặn. Legacy chỉ sửa tài nguyên nhưng vẫn là bản sửa game. Dự án chưa có xác nhận chấp thuận từ Perfect World, không cam kết an toàn tài khoản và không chịu trách nhiệm nếu tài khoản bị hạn chế, đình chỉ hoặc khóa vì sử dụng bản dịch. Người dùng tự quyết định và chấp nhận rủi ro.
 
-Còn nội dung chưa dịch, câu cũ chưa soát hết và bố cục chưa kiểm tra ở mọi tỉ lệ giao diện. Khi báo lỗi, gửi tên bản phát hành, ảnh và cách tái hiện; kiểm tra thông tin riêng tư trước khi chia sẻ log.
-
-DLL production được build từ source trong CI, tắt thu thập chuỗi và chức năng kiểm thử. Gói có checksum, bản kê file và chứng thực CI; không kèm DLL/EXE gốc của game.
+Còn câu chưa dịch hoặc chưa soát nghĩa và bố cục chưa được kiểm tra ở mọi tỉ lệ UI. Khi báo lỗi, gửi phiên bản, ảnh và thao tác tái hiện; kiểm tra thông tin riêng tư trước khi chia sẻ log.
