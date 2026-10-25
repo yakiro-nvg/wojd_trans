@@ -20,8 +20,8 @@
     "sha256": "5e5a091b42ab1ecb1542511580fe2acbdfda10918805726f87ce76c3d564d697"
   },
   "ZhuxianClient/Content/Localization/Game/zh-Hans/Game.locres": {
-    "bytes": 30385247,
-    "sha256": "e1d925c7c6a7d6e1f12608d3d454ea5208f764a4bb37d0418fea81416b438b8d"
+    "bytes": 30385281,
+    "sha256": "66329fdb92a53cd3307b5d734d32c632d0f0ce3790e8da6033ce0d2dbded77fb"
   },
   "ZhuxianClient/Content/UI/MainUI_Layout.uasset": {
     "bytes": 243077,
@@ -869,7 +869,7 @@
   },
   "ZhuxianClient/Content/UI/UI_LiaoTian/WB_LiaoTianMain.uexp": {
     "bytes": 169216,
-    "sha256": "0feeee3204393c21ef2b4828d319776760a7763b2547d0ea164a95a7ef43f792"
+    "sha256": "66408f8dc9a5a7aee6dcde0941a063650839a5d9afcd98996cf1af2e11de08f7"
   },
   "ZhuxianClient/Content/UI/UI_LiaoTian/WB_LiaoTian_Channel.uasset": {
     "bytes": 3926,
@@ -893,7 +893,7 @@
   },
   "ZhuxianClient/Content/UI/UI_LiaoTian/WB_LiaoTian_Channel_YeQian.uexp": {
     "bytes": 7876,
-    "sha256": "3caca5633010a53e6043ed8ba2ac6fdb751b5443e649ff7bc03cc1c4ee34b2df"
+    "sha256": "699878eb8c89aed019dee9d172b3fbd7e701eee77ea7cb172f3f5257daf28222"
   },
   "ZhuxianClient/Content/UI/UI_MainMenu/WB_LimitedTimeEventMenu.uasset": {
     "bytes": 2807,
@@ -1544,8 +1544,8 @@
     "sha256": "d40222ec3f5de6ea2f967887c642b1a0a5cdd5838de6797351fc5e4a0b871661"
   },
   "ZhuxianClient/gamedata/client/FormatString/Chat.txt": {
-    "bytes": 2939,
-    "sha256": "159df4b650f5ecc2ad9e0fb318a6f24142a22f2f31dba5d33a230008e0bc5c21"
+    "bytes": 2901,
+    "sha256": "45a68fc57af78ab3f5345433e9466df15a160587e29bc37fbfe17be8e0b6de61"
   },
   "ZhuxianClient/gamedata/client/FormatString/CollectionManufactureManager.txt": {
     "bytes": 5071,
@@ -2656,7 +2656,7 @@
     "sha256": "1bd70a6868d73e5024e8ac4ae5c808e1530cc066be64d0a67588ea003f52f038"
   },
   "ZhuxianClient/gamedata/client/ZCTranslateData/Game/zh-Hans/Game.locres": {
-    "bytes": 30643675,
-    "sha256": "c15b31eea69b212a6714df4bd8346556ebdb3e51d8a5342bcd0e1cab3b9f6a18"
+    "bytes": 30643709,
+    "sha256": "79bbf670331f307ab730024f5c699f42cab16eaa66b7c9c30024d13c32d698b9"
   }
 }

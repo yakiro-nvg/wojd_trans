@@ -88,16 +88,17 @@ def overlay_legacy(stage,source):
         result[route]=dict(overrides=len(overrides),changes=counts,bytes=target.stat().st_size,sha256=digest(target))
     return result
 
-def overlay_font(stage,base_source):
-    """Use the already built main-outline conversion font in every UI face."""
+def overlay_font(stage,base_source,conversion_font=None):
+    """Apply one Legacy conversion font globally, including scoped name faces."""
     folder=pathlib.Path('ZhuxianClient/Content/UI/UI_Texture/UI_ziti')
     root=pathlib.Path(stage)/folder;source=pathlib.Path(base_source)/folder
-    plain=(source/'FZShengSKSJW_Zhong.ufont').read_bytes();font=(source/'WOJD_HV_PlayerName.ufont').read_bytes()
+    plain=(source/'FZShengSKSJW_Zhong.ufont').read_bytes();names=(source/'WOJD_HV_PlayerName.ufont').read_bytes()
+    font=pathlib.Path(conversion_font or ROOT/'assets/vi-legacy/WOJD_Legacy_Convert.ufont').read_bytes()
     changed=[]
     for path in sorted(root.glob('*.ufont')):
-        if path.read_bytes()==plain:path.write_bytes(font);changed.append((folder/path.name).as_posix())
+        if path.read_bytes() in (plain,names):path.write_bytes(font);changed.append((folder/path.name).as_posix())
     if not changed:raise ValueError('No main UI font faces found for Legacy')
-    return dict(files=changed,font_sha256=hashlib.sha256(font).hexdigest(),main_outlines_only=True)
+    return dict(files=changed,font_sha256=hashlib.sha256(font).hexdigest(),main_outlines_only=True,legacy_semantic_substitutions=True)
 
 def collection_proof(log):
     """Authenticate a closed Legacy session archive; raw logs are not proof."""

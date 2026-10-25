@@ -4,7 +4,9 @@ Bản Việt hóa cộng đồng, gồm bản dịch, font tiếng Việt và c�
 
 **[Đầy đủ / chọn bản — VI_PATCH.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_PATCH.zip)** · **[Legacy không DLL — VI_LEGACY.zip](https://github.com/yakiro-nvg/wojd_trans/releases/latest/download/VI_LEGACY.zip)** · [Xem bản phát hành](https://github.com/yakiro-nvg/wojd_trans/releases/latest)
 
-Bộ cài có hai lựa chọn: **Đầy đủ** dùng DLL để dịch các đường dữ liệu riêng và hỗ trợ dịch chat; **Legacy** chỉ dùng PAK chứa locres, FormatString, bố cục và font Hán–Việt. `VI_LEGACY.zip` là ZIP riêng không chứa DLL. Legacy dịch được ít nội dung hơn và phần chuyển âm chỉ giúp đọc chữ, không thay cho bản dịch câu. [Chi tiết Legacy và cách thu log](docs/legacy-vi.md).
+Bộ cài có hai lựa chọn: **Đầy đủ** dùng DLL để dịch các đường dữ liệu riêng và hỗ trợ dịch chat; **Legacy** chỉ dùng PAK chứa locres, FormatString, bố cục và font convert riêng. `VI_LEGACY.zip` là ZIP riêng không chứa DLL. Legacy dịch được ít nội dung hơn; font lấy lại 45 cách thay chữ theo nghĩa từ MVH như “Ngươi / Ăn / Kéo”, áp dụng chung cả tên riêng, còn lại giữ bảng đọc Hán–Việt. Đây là thay từng chữ, không dịch cả câu chat. Bản Đầy đủ giữ font tên Hán–Việt. [Chi tiết Legacy và cách thu log](docs/legacy-vi.md).
+
+Khung chat giữ chiều rộng gốc, mỗi nhãn tab tối đa hai ký tự; danh sách chọn kênh vẫn hiển thị tên đầy đủ.
 
 ## Nguồn tải và rủi ro cần biết
 

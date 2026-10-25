@@ -20,8 +20,8 @@
     "sha256": "5e5a091b42ab1ecb1542511580fe2acbdfda10918805726f87ce76c3d564d697"
   },
   "ZhuxianClient/Content/Localization/Game/zh-Hans/Game.locres": {
-    "bytes": 63213479,
-    "sha256": "11cf569cf430dbb2c4463f6bddaadbd7689b7d593bda982741911c937d20f0ec"
+    "bytes": 63213513,
+    "sha256": "3d29f7a51ef9c6e4f6c7431232474f71f46cbb54417f97ded6f4a27d6d1e51a1"
   },
   "ZhuxianClient/Content/UI/MainUI_Layout.uasset": {
     "bytes": 243077,
@@ -869,7 +869,7 @@
   },
   "ZhuxianClient/Content/UI/UI_LiaoTian/WB_LiaoTianMain.uexp": {
     "bytes": 169216,
-    "sha256": "0feeee3204393c21ef2b4828d319776760a7763b2547d0ea164a95a7ef43f792"
+    "sha256": "66408f8dc9a5a7aee6dcde0941a063650839a5d9afcd98996cf1af2e11de08f7"
   },
   "ZhuxianClient/Content/UI/UI_LiaoTian/WB_LiaoTian_Channel.uasset": {
     "bytes": 3926,
@@ -893,7 +893,7 @@
   },
   "ZhuxianClient/Content/UI/UI_LiaoTian/WB_LiaoTian_Channel_YeQian.uexp": {
     "bytes": 7876,
-    "sha256": "3caca5633010a53e6043ed8ba2ac6fdb751b5443e649ff7bc03cc1c4ee34b2df"
+    "sha256": "699878eb8c89aed019dee9d172b3fbd7e701eee77ea7cb172f3f5257daf28222"
   },
   "ZhuxianClient/Content/UI/UI_MainMenu/WB_LimitedTimeEventMenu.uasset": {
     "bytes": 2807,
@@ -1088,88 +1088,88 @@
     "sha256": "c31596f6fe393b02264434ea3dbf4818330e973bbd4e267f9c32536ba6f691e5"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZBWKSK_GBK.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZDBSJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZDBSK_GBK.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZFWZhuZiMinchoE.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZHCJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZKTK.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZL2JW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZLBK.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZLTHK.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZLanTYJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZLanTYJW_Xian.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZQTJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZSJSJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZShengSKSJW_0.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZShengSKSJW_Zhong.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZXKJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZXKK_GBK.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZZJ-DNXSJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/HYKaiTiJ.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/HYZhongKaiJ.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/STXINGKA.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/WOJD_HV_PlayerName.uasset": {
     "bytes": 769,
@@ -1180,8 +1180,8 @@
     "sha256": "e2b38ed21e9f83093f8c091b2a48a1ed860ffd5c3b22bd689f997beff29267f3"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/WOJD_HV_PlayerName.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/WOJD_HV_PlayerName_Font.uasset": {
     "bytes": 2034,
@@ -1192,16 +1192,16 @@
     "sha256": "9c664129394f4eeeef44aeabc5b27bb8dda029e0270cdee984ce9e290985d8eb"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/ZKTQingKJW.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/ZKTQingKJW_Stream.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_Texture/UI_ziti/方正兰亭黑.ufont": {
-    "bytes": 1734364,
-    "sha256": "a1812a63fdbaeb6dd360440d808c83fd9651e0ef0feca6d4d8f6ebeca079f3cc"
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
   },
   "ZhuxianClient/Content/UI/UI_TiShi/UI_Tips_Append/WB_Tips_Append_SourceItem.uasset": {
     "bytes": 11171,
@@ -1544,8 +1544,8 @@
     "sha256": "d40222ec3f5de6ea2f967887c642b1a0a5cdd5838de6797351fc5e4a0b871661"
   },
   "ZhuxianClient/gamedata/client/FormatString/Chat.txt": {
-    "bytes": 2939,
-    "sha256": "159df4b650f5ecc2ad9e0fb318a6f24142a22f2f31dba5d33a230008e0bc5c21"
+    "bytes": 2901,
+    "sha256": "45a68fc57af78ab3f5345433e9466df15a160587e29bc37fbfe17be8e0b6de61"
   },
   "ZhuxianClient/gamedata/client/FormatString/CollectionManufactureManager.txt": {
     "bytes": 5071,
@@ -2656,7 +2656,7 @@
     "sha256": "1bd70a6868d73e5024e8ac4ae5c808e1530cc066be64d0a67588ea003f52f038"
   },
   "ZhuxianClient/gamedata/client/ZCTranslateData/Game/zh-Hans/Game.locres": {
-    "bytes": 63463045,
-    "sha256": "96f492cfb9ff1d99b16bc22e11e2a0ac90883f1e6f0fddbf4eefec057d7ac4ff"
+    "bytes": 63463079,
+    "sha256": "f87f46fa1b1562ebd7e58ed907498919e4efbf85dc670b3cea0d8194a0a25f61"
   }
 }

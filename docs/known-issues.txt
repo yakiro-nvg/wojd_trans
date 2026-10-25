@@ -1,7 +1,7 @@
 Bản phát hành tạm
 
-- Còn nhiều câu kế thừa chưa được review nghĩa. Đợt này ưu tiên 230 sửa lỗi
-  hiển nhiên đã đối chiếu; bộ lọc từ chỉ tạo danh sách cần review.
+- Còn nhiều câu kế thừa chưa được review nghĩa; phạm vi dịch chưa đầy đủ.
+  Các kiểm tra cấu trúc không chứng minh mọi câu đã đúng nghĩa.
 - Một số nội dung và đường nạp chưa có bản dịch. Chữ Trung có thể còn lại.
 - Bố cục chưa được kiểm tra trên mọi màn hình, độ phân giải và tỉ lệ UI.
 - Sau update client, lần hiệu chỉnh địa chỉ có thể cần mở lại game. Làm theo
@@ -12,6 +12,8 @@ Bản phát hành tạm
   Content/Paks trước khi cài. Bộ cài giữ nguyên mod không rõ nguồn gốc.
 
 - Legacy không nạp DLL và không có dịch chat tự động. Nội dung đi ngoài
-  locres/FormatString có thể chỉ hiện phiên âm Hán–Việt hoặc còn CN.
+  locres/FormatString có thể chỉ hiện phiên âm/thay nghĩa từng chữ hoặc còn CN.
 - Font đọc từng chữ không phân biệt ngữ cảnh hay đa âm; không thay thế
-  một bản dịch nghĩa. Coverage 26.972 chữ, không phải toàn bộ Unicode.
+  dịch cả câu. Legacy dùng một số cách thay nghĩa (Kéo, Ngươi, Ăn), kể cả
+  trong tên riêng; bản Đầy đủ giữ âm Hán–Việt của tên. Coverage 26.972 chữ,
+  không phải toàn bộ Unicode.

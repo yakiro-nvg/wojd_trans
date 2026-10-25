@@ -5,9 +5,22 @@ VI_LEGACY.zip là gói riêng hoàn toàn không chứa DLL. Cả hai giữ bả
 locres/FormatString, font và sửa giao diện; Legacy dịch được ít nội dung
 hơn, không có dịch chat tự động. Không cài kèm LIM/QFONT của bản cũ.
 
-Bản Legacy dùng font Hán–Việt từ nét font chính cho chữ Trung chưa được
-dịch. Đây là chuyển âm từng chữ, không phải dịch nghĩa cả câu; tên và
-thông tin gốc vẫn giữ nguyên. Một số chữ ngoài bảng vẫn hiện chữ Trung.
+Bản Legacy dùng font convert riêng từ nét font chính cho chữ Trung chưa
+được dịch. Một số chữ được thay theo nghĩa để dễ đọc, các chữ còn lại
+giữ bảng đọc Hán–Việt. Đây là thay từng chữ, không phải dịch cả câu;
+chữ ngoài bảng vẫn có thể hiện chữ Trung. Nội dung tên gốc và ID giữ nguyên.
+
+Khung chat giữ chiều rộng và kích thước tab gốc, mỗi tab tối đa hai ký tự:
+TH Tổng hợp, TG Thế giới, GĐ Gần đây, CM Chiêu mộ, Đ Đội, ĐN Đoàn,
+MP Môn phái, BP Bang phái, CT Chiến trường, TD Trận doanh, BB Bạn bè,
+KV Khu vực, HT Hệ thống, P Phòng, QS Quan sát. Danh sách chọn kênh vẫn
+ghi tên đầy đủ. Nếu từng tự kéo rộng khung chat, có thể cần thu lại trong
+game vì vị trí/kích thước đã được game lưu riêng.
+
+Legacy dùng 45 cách thay nghĩa từ MVH, như 拉 Kéo, 你 Ngươi, 吃 Ăn,
+饭 Cơm; tên riêng cũng chịu cách thay chữ này. Không tách theo từng widget.
+Bản Đầy đủ giữ font tên Hán–Việt với Lạp, Nhĩ, Cật. Cả hai giữ cỡ chữ
+và nét font chính, không dùng nét MVH/XF.
 
 NGUỒN TẢI VÀ AN TOÀN MÁY TÍNH
 

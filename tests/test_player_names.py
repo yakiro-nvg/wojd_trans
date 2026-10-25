@@ -73,6 +73,26 @@ class PlayerNamesTests(unittest.TestCase):
         self.assertEqual(len(rows),proof['readings'])
         self.assertGreater(proof['expanded_dictionary']['readings'],proof['mvh_readings'])
         self.assertEqual(module('compile_player_name_dictionary').build()[0],(ROOT/'resources/player-name-readings.ndjson').read_bytes())
+    def test_legacy_semantic_font_is_separate_from_runtime_name_readings(self):
+        build=module('build_player_name_font');overrides=json.loads(build.LEGACY_OVERRIDES.read_bytes())
+        mvh={chr(r['codepoint']):r['reading'] for r in (json.loads(l) for l in (ROOT/'resources/player-name-mvh-readings.ndjson').read_text(encoding='utf-8').splitlines())}
+        self.assertTrue(all(mvh[ch]==word for ch,word in overrides.items()))
+        self.assertEqual([overrides[ch] for ch in '拉你吃'],['Kéo','Ngươi','Ăn'])
+        with tempfile.TemporaryDirectory() as temp:
+            output=pathlib.Path(temp)/'legacy.ttf'
+            build.build(build.BASE/'FZShengSKSJW_Zhong.ufont',build.READINGS,output,overrides,'WOJD Legacy Convert')
+            self.assertEqual(output.read_bytes(),build.LEGACY_FONT.read_bytes())
+            with TTFont(build.BASE/'FZShengSKSJW_Zhong.ufont') as plain,TTFont(output) as legacy,TTFont(build.BASE/'WOJD_HV_PlayerName.ufont') as names:
+                a=plain.getBestCmap();b=legacy.getBestCmap();c=names.getBestCmap()
+                self.assertEqual(set(b),set(c))
+                for cp,glyph in a.items():
+                    self.assertEqual(b[cp],glyph)
+                    self.assertEqual(plain['hmtx'][glyph],legacy['hmtx'][glyph])
+                    self.assertEqual(plain['glyf'][glyph].compile(plain['glyf']),legacy['glyf'][glyph].compile(legacy['glyf']))
+                readings={chr(r['codepoint']):r['reading'] for r in (json.loads(l) for l in build.READINGS.read_text(encoding='utf-8').splitlines())}
+                for ch,word in overrides.items():
+                    self.assertEqual([g.glyphName for g in legacy['glyf'][b[ord(ch)]].components],[a[ord(letter)] for letter in word])
+                    self.assertEqual([g.glyphName for g in names['glyf'][c[ord(ch)]].components],[a[ord(letter)] for letter in readings[ch]])
     def test_buff_source_changes_only_its_name_field_and_retains_original_text(self):
         proof=json.loads((ROOT/'resources/player-name-buff-ui.source.json').read_bytes())
         path=ROOT/'assets/vi-base'/proof['path']

@@ -4,17 +4,17 @@
   "routes": {
     "content": {
       "input": "content.ndjson",
-      "entries": 349372,
-      "source_sha256": "1e0131274796734af4ecbdc044a68589617f3fd6fa335c72436e8f8cefacaaf3",
+      "entries": 349373,
+      "source_sha256": "751f9e8a7b67b0ef74cde7dd4771f9c64770be3c95d69dd3d25c3cb2c9db16e5",
       "output": "ZhuxianClient/Content/Localization/Game/zh-Hans/Game.locres",
-      "output_sha256": "e1d925c7c6a7d6e1f12608d3d454ea5208f764a4bb37d0418fea81416b438b8d"
+      "output_sha256": "66329fdb92a53cd3307b5d734d32c632d0f0ce3790e8da6033ce0d2dbded77fb"
     },
     "gamedata": {
       "input": "gamedata.ndjson",
-      "entries": 353235,
-      "source_sha256": "6a8f0926cd5aaf105a31522b2da59e06bb1bae9c81ee01bb433184d6772cde80",
+      "entries": 353236,
+      "source_sha256": "486ca5f199da4b4994983d287090c07290c0aaa67e9e89cd3f2ca562f2803ccd",
       "output": "ZhuxianClient/gamedata/client/ZCTranslateData/Game/zh-Hans/Game.locres",
-      "output_sha256": "c15b31eea69b212a6714df4bd8346556ebdb3e51d8a5342bcd0e1cab3b9f6a18"
+      "output_sha256": "79bbf670331f307ab730024f5c699f42cab16eaa66b7c9c30024d13c32d698b9"
     }
   }
 }

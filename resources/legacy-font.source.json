@@ -1,0 +1,39 @@
+{
+  "format_version": 1,
+  "family": "WOJD Legacy Convert",
+  "profile": "legacy",
+  "coverage": 26972,
+  "semantic_substitutions": 45,
+  "method": "Compose from main UI outlines; restore selected semantic substitutions from the MVH reading snapshot. Keep all other corrected readings. Apply globally in Legacy, including names; no widget-specific changes.",
+  "inputs": [
+    {
+      "path": "assets/vi-base/ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZShengSKSJW_Zhong.ufont",
+      "bytes": 57536,
+      "sha256": "9f9e6308a70b609b3744fd72ce5ca310fc0ff1fd0e6d6606b31be3e6b56d777e"
+    },
+    {
+      "path": "resources/player-name-readings.ndjson",
+      "bytes": 1029311,
+      "sha256": "0f5f802307d4c52b3bf0f969bce92a4fc9fc1ff5de6ffdc4fa616863440c9d7d"
+    },
+    {
+      "path": "resources/player-name-mvh-readings.ndjson",
+      "bytes": 487390,
+      "sha256": "6668cee02125f9b004974fbbaf43444decb17947991883d6dd8ed4ff84a729bf"
+    },
+    {
+      "path": "resources/legacy-font-readings.json",
+      "bytes": 805,
+      "sha256": "06c3a08740917906c17e238f42ee0a579ec19ee21e09a7ab07456d528e1402cf"
+    }
+  ],
+  "output": {
+    "path": "assets/vi-legacy/WOJD_Legacy_Convert.ufont",
+    "bytes": 1734408,
+    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
+  },
+  "main_outlines_only": true,
+  "mvh_xf_outlines": false,
+  "latin_vietnamese_glyphs_and_metrics_preserved": true,
+  "runtime_name_font_unchanged": true
+}

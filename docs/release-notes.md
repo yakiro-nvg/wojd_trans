@@ -1,7 +1,11 @@
 Bản phát hành này có **Đầy đủ dùng DLL** và **Legacy không DLL**, cùng bộ cài cho phép đổi qua lại khi game đã đóng.
 
+Sửa khung chat về chiều rộng gốc và ô tab 24 × 24, giữ cỡ chữ. Mỗi nhãn tab chỉ còn tối đa hai ký tự (TH, TG, GĐ, CM, Đ, ĐN, MP, BP, CT, TD, BB, KV, HT, P, QS), áp dụng cho cả Đầy đủ và Legacy. Danh sách chọn kênh vẫn dùng tên đầy đủ. Nếu từng tự kéo rộng khung chat, có thể cần thu lại trong game vì kích thước đã được lưu riêng.
+
+Legacy có font convert riêng áp dụng chung, lấy lại 45 cách thay chữ theo nghĩa từ bảng MVH như Kéo, Ngươi, Ăn. Tên riêng có các chữ này cũng đổi theo nghĩa; đây vẫn là thay từng chữ, không phải dịch cả câu. Bản Đầy đủ giữ font tên Hán–Việt với Lạp, Nhĩ, Cật. Cả hai dùng nét font chính, không nhập nét MVH/XF.
+
 - **VI_PATCH.zip:** chọn Đầy đủ để dịch các đường dữ liệu riêng của game và dùng dịch chat; cũng có sẵn lựa chọn Legacy.
-- **VI_LEGACY.zip:** gói riêng không chứa DLL. Giữ bản dịch locres/FormatString, các sửa bố cục và font Hán–Việt, nhưng phạm vi dịch hạn chế hơn và không có dịch chat tự động.
+- **VI_LEGACY.zip:** gói riêng không chứa DLL. Giữ bản dịch locres/FormatString, các sửa bố cục và font convert riêng, nhưng phạm vi dịch hạn chế hơn và không có dịch chat tự động.
 
 Legacy bổ sung 565.250 ID locres từ lượt log không DLL, tái dùng bản dịch đã có. Các binding widget từ đợt quét tài nguyên trước được giữ lại. Những mục chưa có bản dịch hoặc xung đột nguồn chưa được áp dụng; vẫn có thể hiện chữ Trung hay cách đọc Hán–Việt.
 

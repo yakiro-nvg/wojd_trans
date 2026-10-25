@@ -16,7 +16,7 @@
       "supported_profiles": [
         "legacy"
       ],
-      "description": "Legacy không chứa DLL: locres, FormatString, bố cục và font Hán–Việt. Phạm vi dịch hạn chế; không có dịch chat tự động."
+      "description": "Legacy không chứa DLL: locres, FormatString, bố cục và font convert riêng. Một số chữ thay theo nghĩa, các chữ còn lại giữ âm Hán–Việt; không dịch cả câu chat."
     }
   }
 }

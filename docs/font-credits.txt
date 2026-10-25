@@ -11,6 +11,12 @@ No MVH or XF outlines or separate source font files are in this payload.
 Reproduce it with scripts/build_player_name_font.py using the main UI
 font and resources/player-name-readings.ndjson.
 
+WOJD Legacy Convert is a separate, globally applied Legacy-only font.
+It restores selected semantic substitutions from the MVH reading snapshot,
+listed in resources/legacy-font-readings.json. It uses the same main UI
+outlines; no MVH/XF glyphs are embedded. Reproduce it with the same script
+and --legacy. The full runtime name font keeps its Han-Viet readings.
+
 The reading table starts with readings recovered from the project's legacy
 MVH conversion font (LangNhan aka LyMocQuan, metadata dated 4.12.2019).
 The source hash and reading snapshot are recorded in

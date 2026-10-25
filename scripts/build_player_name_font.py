@@ -1,7 +1,8 @@
-"""Compose Han-Viet name glyphs entirely from the main UI font's outlines.
+"""Compose conversion glyphs entirely from the main UI font's outlines.
 
-The reading table supplies pronunciation only. No legacy font file is opened
-or embedded. Requires fonttools for development, not for player ZIPs.
+Local tables supply text only, with optional Legacy semantic substitutions.
+No MVH/XF font is opened or embedded. Requires fonttools for development,
+not for player ZIPs.
 """
 import argparse,json,pathlib
 from fontTools.ttLib import TTFont
@@ -10,12 +11,17 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BASE=ROOT/'assets/vi-base/ZhuxianClient/Content/UI/UI_Texture/UI_ziti'
 READINGS=ROOT/'resources/player-name-readings.ndjson'
-def build(base,readings,output):
+LEGACY_OVERRIDES=ROOT/'resources/legacy-font-readings.json'
+LEGACY_FONT=ROOT/'assets/vi-legacy/WOJD_Legacy_Convert.ufont'
+def build(base,readings,output,overrides=None,family='WOJD HV Player Name'):
     font=TTFont(base,recalcTimestamp=False);cmap=font.getBestCmap();wide=dict(cmap)
     rows=[json.loads(line) for line in pathlib.Path(readings).read_text(encoding='utf-8').splitlines()]
+    overrides=overrides or {};supported={row['codepoint'] for row in rows}
+    if any(len(ch)!=1 or ord(ch) not in supported for ch in overrides):
+        raise ValueError('Legacy override must name a supported character')
     base_order=list(font.getGlyphOrder());glyphset=font.getGlyphSet()
     for row in rows:
-        cp,word=row['codepoint'],row['reading']
+        cp=row['codepoint'];word=overrides.get(chr(cp),row['reading'])
         if cp in cmap:raise ValueError('Reading would replace an existing UI glyph')
         missing=[c for c in word if ord(c) not in cmap]
         if missing:raise ValueError('Reading contains letters absent from main UI font: '+repr(missing))
@@ -35,12 +41,16 @@ def build(base,readings,output):
         font['cmap'].tables=[x for x in font['cmap'].tables if (x.platformID,x.platEncID)!=(platform,encoding)]+[table]
     for record in font['name'].names:
         if record.nameID in (1,3,4,6,16,17):
-            value='WOJD HV Player Name' if record.nameID!=6 else 'WOJDHVPlayerName'
+            value=family if record.nameID!=6 else family.replace(' ','')
             if record.nameID==17:value='Regular'
             record.string=value.encode(record.getEncoding(),errors='strict')
     font.save(output);font.close()
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=pathlib.Path,required=True);args=p.parse_args()
-    build(BASE/'FZShengSKSJW_Zhong.ufont',READINGS,args.output)
-    print('Built isolated name font using only main UI glyphs and the local reading table')
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=pathlib.Path,required=True)
+    p.add_argument('--legacy',action='store_true',help='Use Legacy-only semantic substitutions; leave the runtime name font unchanged')
+    args=p.parse_args()
+    overrides=json.loads(LEGACY_OVERRIDES.read_bytes()) if args.legacy else None
+    build(BASE/'FZShengSKSJW_Zhong.ufont',READINGS,args.output,overrides,
+        'WOJD Legacy Convert' if args.legacy else 'WOJD HV Player Name')
+    print('Built conversion font using only main UI glyphs and local reading tables')
 if __name__=='__main__':main()
