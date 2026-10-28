@@ -1,6 +1,10 @@
 Bản phát hành này có **Đầy đủ dùng DLL** và **Legacy không DLL**, cùng bộ cài cho phép đổi qua lại khi game đã đóng.
 
-Sửa khung chat về chiều rộng gốc và ô tab 24 × 24, giữ cỡ chữ. Mỗi nhãn tab chỉ còn tối đa hai ký tự (TH, TG, GĐ, CM, Đ, ĐN, MP, BP, CT, TD, BB, KV, HT, P, QS), áp dụng cho cả Đầy đủ và Legacy. Danh sách chọn kênh vẫn dùng tên đầy đủ. Nếu từng tự kéo rộng khung chat, có thể cần thu lại trong game vì kích thước đã được lưu riêng.
+Giảm cỡ font Việt hóa chung khoảng **12,5%**, gồm chữ Việt, tên Hán–Việt và font convert Legacy. Giữ nét League Spartan và bảng phiên âm. Settings trở về nhóm lựa chọn gốc, bỏ các khoảng rộng từng làm mỗi tùy chọn chiếm một hàng; 98 nhãn dài được viết gọn, giữ phần giải thích trong tooltip. Đồng bộ các cách ghi Oản Trung Thiên Địa, Phi Chu Vượt Thương Hải và Quỳ Ngưu.
+
+**Các mục còn theo dõi:** cụm biểu tượng góc phải chưa được sửa bố cục riêng; giảm font chung chưa chứng minh mọi chỗ tràn chữ trên thanh máu, thanh niệm và các UI khác đã hết. Phản ánh tên “Ngưu thành Trâu” chưa được xác định chắc đúng chuỗi để đóng lỗi. Các sửa chung áp dụng cho cả Đầy đủ và Legacy; không coi đây là bản đã giải quyết hết danh sách lỗi giao diện.
+
+Khung chat giữ chiều rộng gốc và ô tab 24 × 24; chữ được giảm chung như trên. Mỗi nhãn tab tối đa hai ký tự (TH, TG, GĐ, CM, Đ, ĐN, MP, BP, CT, TD, BB, KV, HT, P, QS), áp dụng cho cả Đầy đủ và Legacy. Danh sách chọn kênh vẫn dùng tên đầy đủ. Nếu từng tự kéo rộng khung chat, có thể cần thu lại trong game vì kích thước đã được lưu riêng.
 
 Legacy có font convert riêng áp dụng chung, lấy lại 45 cách thay chữ theo nghĩa từ bảng MVH như Kéo, Ngươi, Ăn. Tên riêng có các chữ này cũng đổi theo nghĩa; đây vẫn là thay từng chữ, không phải dịch cả câu. Bản Đầy đủ giữ font tên Hán–Việt với Lạp, Nhĩ, Cật. Cả hai dùng nét font chính, không nhập nét MVH/XF.
 

@@ -3,7 +3,11 @@ Vietnamese font credit
 League Spartan — Copyright 2020 The League Spartan Project Authors
 https://github.com/theleagueof/league-spartan
 SIL Open Font License 1.1: see OFL-League-Spartan.txt included in the ZIP.
-Original base-font Latin/Vietnamese outlines and metrics are retained.
+Original Latin/Vietnamese outlines, advances and kerning are retained.
+WOJD UI Compact renders them at 2000/2286 of the previous size (about 87.5%)
+by increasing the font em scale. No glyph shapes are replaced or condensed.
+Reproduce all UI aliases and both conversion faces with
+scripts/build_compact_ui_font.py from resources/fonts/LeagueSpartan-UI-source.ttf.
 
 WOJD HV Player Name composes all Han-Viet name syllables solely from the
 main UI League Spartan outlines. Original glyphs and metrics are retained.

@@ -4,6 +4,10 @@ Bản phát hành tạm
   Các kiểm tra cấu trúc không chứng minh mọi câu đã đúng nghĩa.
 - Một số nội dung và đường nạp chưa có bản dịch. Chữ Trung có thể còn lại.
 - Bố cục chưa được kiểm tra trên mọi màn hình, độ phân giải và tỉ lệ UI.
+- Font đã giảm chung khoảng 12,5%, nhưng chưa xác nhận mọi chỗ tràn chữ
+  trên thanh máu, thanh niệm và các UI khác đã hết. Cụm biểu tượng góc
+  phải chưa có sửa bố cục riêng. Phản ánh tên "Ngưu thành Trâu" còn chờ
+  xác định đúng chuỗi; các cách thay nghĩa từng chữ trong Legacy vẫn giữ.
 - Sau update client, lần hiệu chỉnh địa chỉ có thể cần mở lại game. Làm theo
   hộp thoại trong game. Cache không bỏ qua bước kiểm tra code hiện tại.
 - Native DLL có rủi ro tương thích và nhà phát hành/anti-cheat; không có

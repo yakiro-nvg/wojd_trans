@@ -5,16 +5,16 @@
     "content": {
       "input": "content.ndjson",
       "entries": 349373,
-      "source_sha256": "751f9e8a7b67b0ef74cde7dd4771f9c64770be3c95d69dd3d25c3cb2c9db16e5",
+      "source_sha256": "404884b09608cc42a68746efa9573d566b0476631718719bf659d29ad1a1c2bd",
       "output": "ZhuxianClient/Content/Localization/Game/zh-Hans/Game.locres",
-      "output_sha256": "66329fdb92a53cd3307b5d734d32c632d0f0ce3790e8da6033ce0d2dbded77fb"
+      "output_sha256": "19ccab7211ee6fc28bdb2ca0be32d54c81818b41a51b79c00f89af800d4828ca"
     },
     "gamedata": {
       "input": "gamedata.ndjson",
       "entries": 353236,
-      "source_sha256": "486ca5f199da4b4994983d287090c07290c0aaa67e9e89cd3f2ca562f2803ccd",
+      "source_sha256": "85388b7627fe9326aaf859a41ef2a0d9df225f5f2e849082f94f5279c212b98f",
       "output": "ZhuxianClient/gamedata/client/ZCTranslateData/Game/zh-Hans/Game.locres",
-      "output_sha256": "79bbf670331f307ab730024f5c699f42cab16eaa66b7c9c30024d13c32d698b9"
+      "output_sha256": "9a89b935a6fbff4ab86c58fc85fe94c900aa833a3cb892b535387c3e32d93363"
     }
   }
 }

@@ -5,6 +5,21 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 def module(name):
     spec=importlib.util.spec_from_file_location(name,ROOT/'scripts'/(name+'.py'));mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);return mod
 class PlayerNamesTests(unittest.TestCase):
+    def test_compact_ui_font_preserves_outlines_and_scales_all_aliases(self):
+        source=ROOT/'resources/fonts/LeagueSpartan-UI-source.ttf'
+        base=ROOT/'assets/vi-base/ZhuxianClient/Content/UI/UI_Texture/UI_ziti'
+        raw=(base/'FZShengSKSJW_Zhong.ufont').read_bytes()
+        with TTFont(source) as before,TTFont(base/'FZShengSKSJW_Zhong.ufont') as after:
+            self.assertEqual((before['head'].unitsPerEm,after['head'].unitsPerEm),(2000,2286))
+            self.assertEqual(before.getBestCmap(),after.getBestCmap())
+            self.assertEqual(before['hmtx'].metrics,after['hmtx'].metrics)
+            self.assertEqual(before['hhea'].ascent,after['hhea'].ascent)
+            for glyph in before.getGlyphOrder():
+                self.assertEqual(before['glyf'][glyph].compile(before['glyf']),after['glyf'][glyph].compile(after['glyf']))
+        for path in base.glob('*.ufont'):
+            if path.name!='WOJD_HV_PlayerName.ufont':self.assertEqual(path.read_bytes(),raw)
+        for path in (base/'WOJD_HV_PlayerName.ufont',ROOT/'assets/vi-legacy/WOJD_Legacy_Convert.ufont'):
+            with TTFont(path) as font:self.assertEqual(font['head'].unitsPerEm,2286)
     def test_current_nameboard_route_changes_only_two_font_values(self):
         proof=json.loads((ROOT/'resources/player-name-ui.sources.json').read_bytes())
         raw=(ROOT/'assets/vi-base'/proof['path']).read_bytes()

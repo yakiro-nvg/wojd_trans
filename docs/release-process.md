@@ -14,4 +14,6 @@ Development builds upload reviewable artifacts without publishing. After a green
 
 Local checks mirror the workflow: install requirements; run unittest discovery; compile `work/catalog.bin` with `scripts/wojd.py compile-runtime`; run `native/build.cmd` for all four profiles, both `native/test_runtime.py` profiles, `native/test_c8_setup.py` and `native/check_artifacts.py`; finally run `scripts/build_package.py --repak <path>`.
 
+The compact UI font is reproduced with `scripts/build_compact_ui_font.py` from the pinned, OFL-licensed `resources/fonts/LeagueSpartan-UI-source.ttf`. It raises the em scale from 2000 to 2286 while retaining outline, advance and kerning units, then rebuilds both conversion derivatives from that same face. The script updates all 24 UI aliases. Keep both payload manifests and `resources/legacy-font.source.json` synchronized if these outputs change. Automated checks preserve glyphs and reading coverage; they do not certify every in-game layout.
+
 The dump DLL remains a developer build target. The public player ZIP uses runtime; no dump ZIP is advertised in this release. Fresh capture runs must omit translated locres from both resource routes. Do not infer translation completeness, every UI layout or anti-cheat acceptance from passing build checks.

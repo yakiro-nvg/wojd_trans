@@ -8,8 +8,8 @@
   "inputs": [
     {
       "path": "assets/vi-base/ZhuxianClient/Content/UI/UI_Texture/UI_ziti/FZShengSKSJW_Zhong.ufont",
-      "bytes": 57536,
-      "sha256": "9f9e6308a70b609b3744fd72ce5ca310fc0ff1fd0e6d6606b31be3e6b56d777e"
+      "bytes": 57456,
+      "sha256": "ad86ed45f2e4a0caa574f8846d10a480c207a08109b169a15bf81e5ccd0ca05c"
     },
     {
       "path": "resources/player-name-readings.ndjson",
@@ -30,10 +30,16 @@
   "output": {
     "path": "assets/vi-legacy/WOJD_Legacy_Convert.ufont",
     "bytes": 1734408,
-    "sha256": "9d835d56e0e67dfb1c5948d5533c381e3aee99a4716fe89cbbd43098aa3a6e9b"
+    "sha256": "44944e7c779b07074331dd6b4a020270cac1458d26ac67d6234cd6fcb2b7fd1b"
   },
   "main_outlines_only": true,
   "mvh_xf_outlines": false,
   "latin_vietnamese_glyphs_and_metrics_preserved": true,
-  "runtime_name_font_unchanged": true
+  "runtime_name_font_unchanged": false,
+  "compact_ui_scale": {
+    "source_units_per_em": 2000,
+    "output_units_per_em": 2286,
+    "scale": 0.8748906386701663
+  },
+  "runtime_name_readings_unchanged": true
 }

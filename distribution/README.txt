@@ -5,6 +5,11 @@ VI_LEGACY.zip là gói riêng hoàn toàn không chứa DLL. Cả hai giữ bả
 locres/FormatString, font và sửa giao diện; Legacy dịch được ít nội dung
 hơn, không có dịch chat tự động. Không cài kèm LIM/QFONT của bản cũ.
 
+Font Việt hóa giảm chung khoảng 12,5% so với bản trước, gồm chữ Việt,
+tên Hán–Việt và font convert Legacy. Giữ nét chữ và bảng phiên âm.
+Settings dùng lại nhóm lựa chọn gốc; 98 nhãn dài được viết gọn, phần
+giải thích trong tooltip được giữ nguyên.
+
 Bản Legacy dùng font convert riêng từ nét font chính cho chữ Trung chưa
 được dịch. Một số chữ được thay theo nghĩa để dễ đọc, các chữ còn lại
 giữ bảng đọc Hán–Việt. Đây là thay từng chữ, không phải dịch cả câu;
@@ -19,8 +24,8 @@ game vì vị trí/kích thước đã được game lưu riêng.
 
 Legacy dùng 45 cách thay nghĩa từ MVH, như 拉 Kéo, 你 Ngươi, 吃 Ăn,
 饭 Cơm; tên riêng cũng chịu cách thay chữ này. Không tách theo từng widget.
-Bản Đầy đủ giữ font tên Hán–Việt với Lạp, Nhĩ, Cật. Cả hai giữ cỡ chữ
-và nét font chính, không dùng nét MVH/XF.
+Bản Đầy đủ giữ font tên Hán–Việt với Lạp, Nhĩ, Cật. Cả hai dùng cỡ chữ
+nhỏ hơn như trên và nét font chính, không dùng nét MVH/XF.
 
 NGUỒN TẢI VÀ AN TOÀN MÁY TÍNH
 

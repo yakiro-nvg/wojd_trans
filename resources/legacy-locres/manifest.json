@@ -2,7 +2,7 @@
   "format_version": 1,
   "input": "overrides.ndjson",
   "entries": 577433,
-  "sha256": "77d097f2a6c6f875d846d6a3bcc2ad0b6e21074140700492a6e2dd847723735d",
+  "sha256": "1c91c67eea1f13cea2558deec63ef79b366b67a0a87564e06c45da9cf682d1e9",
   "crc_refresh_namespaces": [
     "ZCMailTemplateDoc",
     "ZCTooltipBuffDoc",
